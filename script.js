@@ -198,7 +198,7 @@ function updateOutput() {
     }
 
     // Check for special compatibility
-    if (selectedXray && selectedPms && specialCombinations[selectedPms]?.includes(selectedXray)) {
+    if (selectedXray && selectedPms && specialCombinations[pms]?.includes(selectedXray)) {
         // Update compatibility indicator
         const compatibilityIndicator = document.createElement("div");
         compatibilityIndicator.classList.add("compatibility-indicator");
@@ -208,6 +208,10 @@ function updateOutput() {
         outputElement.appendChild(document.createTextNode(
             `Fully compatible gateway with X-ray acquisition and synchronisation of report into ${selectedPms} dental scheme`
         ));
+        
+        // Add installation guide links section
+        addInstallationGuideLinks(outputElement, selectedXray, selectedPms);
+        
         outputElement.style.display = "block";
         addVideoPlaceholdersForPMS(selectedPms); // Add video placeholders for specific PMS
         return;
@@ -217,7 +221,7 @@ function updateOutput() {
     if (selectedPms === "Logosw") {
         const logoswGroup1 = [
             "CS Imaging - Carestream",
-            "Sidexis - Sirona",
+            "Sidexis - Dentsply Sirona",
             "Cliniview - KaVo Instrumentarium",
             "Scanora - Soredex"
         ];
@@ -243,6 +247,8 @@ function updateOutput() {
         if (logoswGroup1.includes(selectedXray)) {
             outputElement.textContent = "Logosw report synchronisation (full watcher) OR X-ray instant acquisition";
             outputElement.style.display = "block";
+            // Add installation guide links
+            addInstallationGuideLinks(outputElement, selectedXray, selectedPms);
             addVideoPlaceholdersForPMS("Logosw"); // Add video placeholders for Logosw and compatible X-ray
             return;
         }
@@ -250,6 +256,8 @@ function updateOutput() {
         if (logoswGroup2.includes(selectedXray)) {
             outputElement.textContent = "Logosw report synchronisation (full watcher dicom) OR X-ray instant acquisition";
             outputElement.style.display = "block";
+            // Add installation guide links
+            addInstallationGuideLinks(outputElement, selectedXray, selectedPms);
             addVideoPlaceholdersForPMS("Logosw");
             return;
         }
@@ -257,6 +265,8 @@ function updateOutput() {
         if (logoswGroup3.includes(selectedXray)) {
             outputElement.textContent = "Logosw report synchronisation (watcher light) OR X-ray instant acquisition";
             outputElement.style.display = "block";
+            // Add installation guide links
+            addInstallationGuideLinks(outputElement, selectedXray, selectedPms);
             addVideoPlaceholdersForPMS("Logosw");
             return;
         }
@@ -283,7 +293,15 @@ function updateOutput() {
             }
             
             outputElement.appendChild(compatibilityIndicator);
-            outputElement.appendChild(document.createTextNode(xrayOutput));
+            
+            // Create text container
+            const textContainer = document.createElement("div");
+            textContainer.textContent = xrayOutput;
+            outputElement.appendChild(textContainer);
+            
+            // Add installation guide links
+            addInstallationGuideLinks(outputElement, selectedXray, selectedPms);
+            
             outputElement.style.display = "block";
             
             if (supportedVersions) {
@@ -293,6 +311,151 @@ function updateOutput() {
     } else {
         outputElement.style.display = "none";
     }
+}
+
+// Function to add installation guide links to the output
+function addInstallationGuideLinks(outputElement, selectedXray, selectedPms) {
+    // Create container for installation guides
+    const guidesContainer = document.createElement("div");
+    guidesContainer.classList.add("installation-guides");
+    guidesContainer.style.marginTop = "15px";
+    guidesContainer.style.padding = "12px 15px";
+    guidesContainer.style.backgroundColor = "rgba(44, 109, 182, 0.05)";
+    guidesContainer.style.borderRadius = "8px";
+    guidesContainer.style.borderLeft = "4px solid var(--primary-color)";
+    
+    // Create header
+    const header = document.createElement("div");
+    header.style.fontWeight = "600";
+    header.style.marginBottom = "10px";
+    header.style.display = "flex";
+    header.style.alignItems = "center";
+    header.innerHTML = '<i class="fas fa-book-open" style="margin-right: 8px; color: var(--primary-color);"></i> Installation Guides';
+    
+    guidesContainer.appendChild(header);
+    
+    // Create list of guides
+    const guidesList = document.createElement("ul");
+    guidesList.style.listStyle = "none";
+    guidesList.style.padding = "0";
+    guidesList.style.margin = "0";
+    
+    let hasGuides = false;
+    
+    // Add X-ray software guide if available
+    if (selectedXray && notionLinks.software[selectedXray]) {
+        const listItem = document.createElement("li");
+        listItem.style.margin = "6px 0";
+        
+        const link = document.createElement("a");
+        link.href = notionLinks.software[selectedXray];
+        link.target = "_blank";
+        link.style.display = "inline-flex";
+        link.style.alignItems = "center";
+        link.style.color = "var(--primary-color)";
+        link.style.textDecoration = "none";
+        link.style.fontWeight = "500";
+        link.style.fontSize = "0.9rem";
+        
+        // Add status dot for guide
+        let statusDot = "";
+        if (selectedXray.includes('Carestream') || 
+            selectedXray.includes('VistaSoft') || 
+            selectedXray.includes('Vixwin') || 
+            selectedXray.includes('Planmeca') || 
+            selectedXray.includes('Sidexis') || 
+            selectedXray.includes('Vatech')) {
+            statusDot = '<span style="display:inline-block; width:8px; height:8px; background-color:#198754; border-radius:50%; margin-right:8px;"></span>';
+        } else if (selectedXray.includes('ExaminePro') || 
+                   selectedXray.includes('iRYS') || 
+                   selectedXray.includes('Visiquick')) {
+            statusDot = '<span style="display:inline-block; width:8px; height:8px; background-color:#0d6efd; border-radius:50%; margin-right:8px;"></span>';
+        } else {
+            statusDot = '<span style="display:inline-block; width:8px; height:8px; background-color:#6c757d; border-radius:50%; margin-right:8px;"></span>';
+        }
+        
+        link.innerHTML = `${statusDot} ${selectedXray} Installation Guide`;
+        listItem.appendChild(link);
+        guidesList.appendChild(listItem);
+        hasGuides = true;
+    }
+    
+    // Add PMS guide if available
+    if (selectedPms && notionLinks.pms[selectedPms]) {
+        const listItem = document.createElement("li");
+        listItem.style.margin = "6px 0";
+        
+        const link = document.createElement("a");
+        link.href = notionLinks.pms[selectedPms];
+        link.target = "_blank";
+        link.style.display = "inline-flex";
+        link.style.alignItems = "center";
+        link.style.color = "var(--primary-color)";
+        link.style.textDecoration = "none";
+        link.style.fontWeight = "500";
+        link.style.fontSize = "0.9rem";
+        
+        link.innerHTML = `<span style="display:inline-block; width:8px; height:8px; background-color:#6c757d; border-radius:50%; margin-right:8px;"></span> ${selectedPms} Setup Guide`;
+        listItem.appendChild(link);
+        guidesList.appendChild(listItem);
+        hasGuides = true;
+    }
+    
+    // Add integration guide if available
+    if (selectedXray && selectedPms && notionLinks.integration[selectedXray]?.[selectedPms]) {
+        const listItem = document.createElement("li");
+        listItem.style.margin = "6px 0";
+        
+        const link = document.createElement("a");
+        link.href = notionLinks.integration[selectedXray][selectedPms];
+        link.target = "_blank";
+        link.style.display = "inline-flex";
+        link.style.alignItems = "center";
+        link.style.color = "var(--primary-color)";
+        link.style.textDecoration = "none";
+        link.style.fontWeight = "500";
+        link.style.fontSize = "0.9rem";
+        
+        link.innerHTML = `<span style="display:inline-block; width:8px; height:8px; background-color:#198754; border-radius:50%; margin-right:8px;"></span> ${selectedXray} + ${selectedPms} Integration Guide`;
+        listItem.appendChild(link);
+        guidesList.appendChild(listItem);
+        hasGuides = true;
+    }
+    
+    // If no guides are available, add a message
+    if (!hasGuides) {
+        const listItem = document.createElement("li");
+        listItem.style.margin = "6px 0";
+        listItem.style.color = "#6c757d";
+        listItem.style.fontStyle = "italic";
+        listItem.textContent = "No specific installation guides available for this combination";
+        guidesList.appendChild(listItem);
+    }
+    
+    guidesContainer.appendChild(guidesList);
+    
+    // Add "View All Guides" link
+    const viewAllContainer = document.createElement("div");
+    viewAllContainer.style.marginTop = "10px";
+    viewAllContainer.style.textAlign = "right";
+    
+    const viewAllLink = document.createElement("a");
+    viewAllLink.href = "#";
+    viewAllLink.style.color = "var(--primary-color)";
+    viewAllLink.style.fontSize = "0.85rem";
+    viewAllLink.style.textDecoration = "none";
+    viewAllLink.innerHTML = "View all installation guides <i class='fas fa-chevron-right' style='font-size: 0.7rem; margin-left: 5px;'></i>";
+    
+    viewAllLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        showAllDocumentation();
+    });
+    
+    viewAllContainer.appendChild(viewAllLink);
+    guidesContainer.appendChild(viewAllContainer);
+    
+    // Add to output
+    outputElement.appendChild(guidesContainer);
 }
 
 // Add secondary message (e.g., supported versions)
