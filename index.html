@@ -864,6 +864,98 @@
             transform: none;
         }
     }
+    
+    /* Full screen mode styles */
+    .fullscreen-mode {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+        z-index: 9999;
+        padding: 20px;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .fullscreen-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .fullscreen-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--dark-text);
+        margin: 0;
+    }
+    
+    .fullscreen-close {
+        background-color: #f8f9fa;
+        border: 1px solid #e2e8f0;
+        color: #6c757d;
+        padding: 8px 15px;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+    
+    .fullscreen-close:hover {
+        background-color: #e9ecef;
+        color: var(--dark-text);
+    }
+    
+    .fullscreen-close i {
+        margin-right: 6px;
+    }
+    
+    .fullscreen-content {
+        flex: 1;
+        overflow: auto;
+    }
+    
+    .fullscreen-mode .matrix-table-container {
+        max-height: none;
+        height: calc(100vh - 150px);
+    }
+    
+    .fullscreen-mode .matrix-controls {
+        margin-bottom: 20px;
+    }
+    
+    /* Ensure the full screen button has the right styling */
+    .fullscreen-btn {
+        display: inline-flex;
+        align-items: center;
+        background-color: var(--light-bg);
+        color: var(--primary-color);
+        border: 1px solid rgba(44, 109, 182, 0.2);
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+    
+    .fullscreen-btn:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    
+    .fullscreen-btn i {
+        margin-right: 5px;
+    }
   </style>
 </head>
 <body>
@@ -1572,6 +1664,180 @@
             li.appendChild(link);
             
             return li;
+        }
+        
+        // Add fullscreen button to matrix controls
+        document.addEventListener('DOMContentLoaded', function() {
+            const matrixSection = document.getElementById('compatibility-matrix');
+            
+            if (!matrixSection) return;
+            
+            // Find the matrix-controls div or create it if it doesn't exist
+            let controlsDiv = matrixSection.querySelector('.matrix-controls');
+            if (!controlsDiv) {
+                // This should not happen since we have the controls in our HTML, but just in case
+                controlsDiv = document.createElement('div');
+                controlsDiv.classList.add('matrix-controls');
+                
+                const matrixBody = matrixSection.querySelector('.card-body');
+                if (matrixBody) {
+                    matrixBody.insertBefore(controlsDiv, matrixBody.firstChild);
+                }
+            }
+            
+            // Create fullscreen button
+            const fullscreenBtn = document.createElement('button');
+            fullscreenBtn.classList.add('fullscreen-btn');
+            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> Full Screen';
+            fullscreenBtn.id = 'fullscreenBtn';
+            
+            // Add the button to controls
+            controlsDiv.appendChild(fullscreenBtn);
+            
+            // Add event listener
+            fullscreenBtn.addEventListener('click', toggleFullscreen);
+        });
+        
+        // Toggle fullscreen mode
+        function toggleFullscreen() {
+            const matrixSection = document.getElementById('compatibility-matrix');
+            const isFullscreen = matrixSection.classList.contains('fullscreen-mode');
+            
+            if (isFullscreen) {
+                // Exit fullscreen
+                exitFullscreen();
+            } else {
+                // Enter fullscreen
+                enterFullscreen();
+            }
+        }
+        
+        // Enter fullscreen mode
+        function enterFullscreen() {
+            const matrixSection = document.getElementById('compatibility-matrix');
+            const matrixContent = matrixSection.querySelector('.card-body').innerHTML;
+            
+            // Store original position to restore later
+            matrixSection.dataset.originalScrollY = window.scrollY;
+            
+            // Prevent body scrolling
+            document.body.style.overflow = 'hidden';
+            
+            // Create fullscreen container
+            matrixSection.classList.add('fullscreen-mode');
+            
+            // Save original content
+            matrixSection.dataset.originalContent = matrixSection.innerHTML;
+            
+            // Create fullscreen structure
+            matrixSection.innerHTML = `
+                <div class="fullscreen-header">
+                    <h2 class="fullscreen-title">Complete Compatibility Matrix</h2>
+                    <button class="fullscreen-close" id="exitFullscreenBtn">
+                        <i class="fas fa-compress"></i> Exit Full Screen
+                    </button>
+                </div>
+                <div class="fullscreen-content">
+                    ${matrixContent}
+                </div>
+            `;
+            
+            // Add event listener to exit button
+            document.getElementById('exitFullscreenBtn').addEventListener('click', exitFullscreen);
+            
+            // Re-initialize matrix if needed
+            const viewType = document.querySelector('.view-option.active')?.dataset.view || 'compact';
+            generateCompatibilityMatrix(viewType);
+            
+            // Re-attach event handlers for view options
+            document.querySelectorAll('.view-option').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.view-option').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const viewType = this.dataset.view;
+                    generateCompatibilityMatrix(viewType);
+                });
+            });
+            
+            // Re-attach search functionality
+            const searchInput = document.getElementById('matrixSearchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchText = this.value.toLowerCase();
+                    const rows = document.querySelectorAll('#matrixTable tbody tr');
+                    
+                    rows.forEach(row => {
+                        if (row.classList.contains('matrix-section-row')) {
+                            row.style.display = '';
+                            return;
+                        }
+                        
+                        const xraySoftwareName = row.querySelector('td:first-child').textContent.toLowerCase();
+                        if (xraySoftwareName.includes(searchText)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            }
+        }
+        
+        // Exit fullscreen mode
+        function exitFullscreen() {
+            const matrixSection = document.getElementById('compatibility-matrix');
+            
+            // Restore original content
+            matrixSection.innerHTML = matrixSection.dataset.originalContent;
+            
+            // Remove fullscreen class
+            matrixSection.classList.remove('fullscreen-mode');
+            
+            // Restore body scrolling
+            document.body.style.overflow = '';
+            
+            // Restore scroll position
+            if (matrixSection.dataset.originalScrollY) {
+                window.scrollTo(0, parseInt(matrixSection.dataset.originalScrollY, 10));
+            }
+            
+            // Re-attach event handlers
+            document.getElementById('fullscreenBtn').addEventListener('click', toggleFullscreen);
+            
+            // Re-attach view option event handlers
+            document.querySelectorAll('.view-option').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.view-option').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const viewType = this.dataset.view;
+                    generateCompatibilityMatrix(viewType);
+                });
+            });
+            
+            // Re-attach search functionality
+            const searchInput = document.getElementById('matrixSearchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchText = this.value.toLowerCase();
+                    const rows = document.querySelectorAll('#matrixTable tbody tr');
+                    
+                    rows.forEach(row => {
+                        if (row.classList.contains('matrix-section-row')) {
+                            row.style.display = '';
+                            return;
+                        }
+                        
+                        const xraySoftwareName = row.querySelector('td:first-child').textContent.toLowerCase();
+                        if (xraySoftwareName.includes(searchText)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            }
         }
     </script>
 </body>

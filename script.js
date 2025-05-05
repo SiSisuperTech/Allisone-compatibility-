@@ -118,6 +118,7 @@ const pmsLogos = {
     "Logosw": "https://www.logosw.net/telechargement/presse/logosw-1000.png",
     "OrisDent - OrisLine": "https://orisdent.com/wp-content/themes/orisdent/img/orisline-logo.png",
     "Powerdent - Kopfwerk": "https://res.cloudinary.com/beleza-na-web/image/upload/f_auto,fl_progressive,q_auto:best/v1/brand/2023_04_11_17_51_41_9/48614d56-6434-40fc-984e-307c8cf1960f-marca-powerdent-carrossel.svg",
+    "SPDentaire": "https://www.sp-formations.eu/wp-content/uploads/2023/11/cropped-sante_rouge.webp",
     "Ulyses": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Vitaldent.svg/2560px-Vitaldent.svg.png",
     "Veasy": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3wfhXKXkJ2yWx4CSXQpO-LXcDTnRV32DbjQ&s",
     "WeClever": "https://weclever-dental.com/wp-content/uploads/2023/04/Weclever_Logo-Dental_Off_PNG.png",
