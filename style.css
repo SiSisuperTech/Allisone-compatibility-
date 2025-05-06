@@ -1,117 +1,183 @@
-/* Styles for Installation Guides section */
+/* External styles for Allisone Compatibility Checker */
+
+/* Installation Guide Styles */
 .installation-guides {
-    margin-top: 15px;
-    padding: 12px 15px;
-    background-color: rgba(44, 109, 182, 0.05); /* Light blue background */
-    border-radius: 8px;
-    border-left: 4px solid var(--primary-color); /* Accent border */
+    margin-top: 25px;
+    background-color: #f8f9fc;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 }
 
-.installation-guides .guide-header { /* Renamed from 'header' to avoid conflict with HTML <header> tag */
-    font-weight: 600;
-    margin-bottom: 10px;
+.guide-header {
     display: flex;
     align-items: center;
-    color: var(--text-color); /* Assuming a CSS variable for text color */
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.installation-guides .guide-header i.fa-book-open {
-    margin-right: 8px;
+.guide-header i {
+    margin-right: 10px;
     color: var(--primary-color);
 }
 
 .installation-guides ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 0 15px 0;
 }
 
 .installation-guides li {
-    margin: 6px 0;
+    margin-bottom: 12px;
 }
 
-.installation-guides li.no-guides-message {
-    color: #6c757d; /* Bootstrap's text-muted color */
+.guide-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.guide-link:hover {
+    background-color: rgba(11, 181, 198, 0.05);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.status-dot.green {
+    background-color: #4CAF50;
+}
+
+.status-dot.blue {
+    background-color: var(--primary-color);
+}
+
+.status-dot.grey {
+    background-color: #9E9E9E;
+}
+
+.no-guides-message {
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 6px;
+    color: var(--muted-text);
     font-style: italic;
+    text-align: center;
 }
 
-.installation-guides a.guide-link { /* Added class for guide links */
+.view-all-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.view-all-link {
     display: inline-flex;
     align-items: center;
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: rgba(11, 181, 198, 0.05);
 }
 
-.installation-guides a.guide-link:hover {
-    text-decoration: underline;
+.view-all-link:hover {
+    background-color: rgba(11, 181, 198, 0.1);
+    transform: translateY(-2px);
 }
 
-.installation-guides .status-dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-right: 8px;
+.view-all-link i {
+    margin-left: 6px;
+    font-size: 0.8rem;
+    transition: transform 0.2s ease;
 }
 
-.installation-guides .status-dot.green {
-    background-color: #198754; /* Bootstrap's success green */
+.view-all-link:hover i {
+    transform: translateX(3px);
 }
 
-.installation-guides .status-dot.blue {
-    background-color: #0d6efd; /* Bootstrap's primary blue */
+/* Video placeholders */
+.video-placeholders-container {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
 }
 
-.installation-guides .status-dot.grey {
-    background-color: #6c757d; /* Bootstrap's secondary grey */
+@media (min-width: 768px) {
+    .video-placeholders-container {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
 }
 
-.installation-guides .view-all-container {
-    margin-top: 10px;
-    text-align: right;
-}
-
-.installation-guides a.view-all-link { /* Added class for view all link */
-    color: var(--primary-color);
-    font-size: 0.85rem;
-    text-decoration: none;
-}
-
-.installation-guides a.view-all-link:hover {
-    text-decoration: underline;
-}
-
-.installation-guides a.view-all-link i.fa-chevron-right {
-    font-size: 0.7rem;
-    margin-left: 5px;
+/* Mobile responsiveness */
+@media (max-width: 576px) {
+    .installation-guides {
+        padding: 15px;
+    }
+    
+    .guide-link {
+        padding: 8px 12px;
+    }
 }
 
 /* Assuming you have these variables defined, e.g., in :root */
-/*
+
 :root {
-    --primary-color: #2c6db6; 
-    --text-color: #333;    
+    --page-background-color: #0b0b19;
+    --text-color: #e0e0e0;
+    --primary-color: #0bb5c6;
+    --secondary-accent-color: #cc8edb;
+    --card-background-color: #202a46;
+    --border-color: #334373;
 }
-*/
+
+body {
+    background-color: var(--page-background-color);
+    color: var(--text-color);
+    font-family: sans-serif; /* Added a default sans-serif font */
+    line-height: 1.6; /* Improved readability */
+    margin: 0; /* Remove default margin */
+    padding: 20px; /* Add some padding around the content */
+}
 
 /* Styles for video placeholders */
 .video-placeholder {
     width: 100%;
     height: auto;
-    background-color: #f0f0f0;
-    border: 1px dashed #ccc;
+    background-color: var(--card-background-color);
+    border: 1px dashed var(--border-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px; /* Add some space between multiple videos/placeholders */
-    min-height: 150px; /* Ensure placeholder has some height */
-    color: #777;
+    margin-bottom: 10px;
+    min-height: 150px;
+    color: var(--text-color);
     font-style: italic;
 }
 
 video.video-placeholder {
-    border: 1px solid #ddd; /* Slightly different border for actual video elements */
-    background-color: #000; /* Black background for videos */
+    border: 1px solid var(--border-color);
+    background-color: #000;
 } 
