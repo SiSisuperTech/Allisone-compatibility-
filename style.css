@@ -1,0 +1,117 @@
+/* Styles for Installation Guides section */
+.installation-guides {
+    margin-top: 15px;
+    padding: 12px 15px;
+    background-color: rgba(44, 109, 182, 0.05); /* Light blue background */
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color); /* Accent border */
+}
+
+.installation-guides .guide-header { /* Renamed from 'header' to avoid conflict with HTML <header> tag */
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    color: var(--text-color); /* Assuming a CSS variable for text color */
+}
+
+.installation-guides .guide-header i.fa-book-open {
+    margin-right: 8px;
+    color: var(--primary-color);
+}
+
+.installation-guides ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.installation-guides li {
+    margin: 6px 0;
+}
+
+.installation-guides li.no-guides-message {
+    color: #6c757d; /* Bootstrap's text-muted color */
+    font-style: italic;
+}
+
+.installation-guides a.guide-link { /* Added class for guide links */
+    display: inline-flex;
+    align-items: center;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.installation-guides a.guide-link:hover {
+    text-decoration: underline;
+}
+
+.installation-guides .status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.installation-guides .status-dot.green {
+    background-color: #198754; /* Bootstrap's success green */
+}
+
+.installation-guides .status-dot.blue {
+    background-color: #0d6efd; /* Bootstrap's primary blue */
+}
+
+.installation-guides .status-dot.grey {
+    background-color: #6c757d; /* Bootstrap's secondary grey */
+}
+
+.installation-guides .view-all-container {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.installation-guides a.view-all-link { /* Added class for view all link */
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.installation-guides a.view-all-link:hover {
+    text-decoration: underline;
+}
+
+.installation-guides a.view-all-link i.fa-chevron-right {
+    font-size: 0.7rem;
+    margin-left: 5px;
+}
+
+/* Assuming you have these variables defined, e.g., in :root */
+/*
+:root {
+    --primary-color: #2c6db6; 
+    --text-color: #333;    
+}
+*/
+
+/* Styles for video placeholders */
+.video-placeholder {
+    width: 100%;
+    height: auto;
+    background-color: #f0f0f0;
+    border: 1px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px; /* Add some space between multiple videos/placeholders */
+    min-height: 150px; /* Ensure placeholder has some height */
+    color: #777;
+    font-style: italic;
+}
+
+video.video-placeholder {
+    border: 1px solid #ddd; /* Slightly different border for actual video elements */
+    background-color: #000; /* Black background for videos */
+} 

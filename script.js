@@ -39,49 +39,21 @@ const pmsData = [
 ];
 
 // Special compatibility combinations
+const commonXraySoftwareForPms = [
+    "VistaSoft - Durr Dental",
+    "Romexis - Planmeca",
+    "Sidexis - Dentsply Sirona",
+    "CS Imaging - Carestream",
+    "Ezdent-i - Vatech",
+];
+
 const specialCombinations = {
-    Desmos: [
-        "VistaSoft - Durr Dental",
-        "Romexis - Planmeca",
-        "Sidexis - Dentsply Sirona",
-        "CS Imaging - Carestream",
-        "Ezdent-i - Vatech",
-    ],
-    Julie: [
-        "VistaSoft - Durr Dental",
-        "Romexis - Planmeca",
-        "Sidexis - Dentsply Sirona",
-        "CS Imaging - Carestream",
-        "Ezdent-i - Vatech",
-    ],
-    Logosw: [
-        "VistaSoft - Durr Dental",
-        "Romexis - Planmeca",
-        "Sidexis - Dentsply Sirona",
-        "CS Imaging - Carestream",
-        "Ezdent-i - Vatech",
-    ],
-    SPDentaire: [
-        "VistaSoft - Durr Dental",
-        "Romexis - Planmeca",
-        "Sidexis - Dentsply Sirona",
-        "CS Imaging - Carestream",
-        "Ezdent-i - Vatech",
-    ],
-    Ulyses: [
-        "VistaSoft - Durr Dental",
-        "Romexis - Planmeca",
-        "Sidexis - Dentsply Sirona",
-        "CS Imaging - Carestream",
-        "Ezdent-i - Vatech",
-    ],
-    WeClever: [
-        "VistaSoft - Durr Dental",
-        "Romexis - Planmeca",
-        "Sidexis - Dentsply Sirona",
-        "CS Imaging - Carestream",
-        "Ezdent-i - Vatech",
-    ],
+    Desmos: commonXraySoftwareForPms,
+    Julie: commonXraySoftwareForPms,
+    Logosw: commonXraySoftwareForPms,
+    SPDentaire: commonXraySoftwareForPms,
+    Ulyses: commonXraySoftwareForPms,
+    WeClever: commonXraySoftwareForPms,
 };
 
 // Logo URLs for X-ray software
@@ -167,7 +139,12 @@ function updateOutput() {
     if (selectedXray || selectedPms) {
         if (selectedXray) {
             const softwareName = selectedXray.split(" - ")[0];
-            xrayLogo.src = xraySoftwareLogos[selectedXray] || "placeholder-xray.png";
+            let xrayLogoSrc = xraySoftwareLogos[selectedXray];
+            // Check for problematic or placeholder URLs
+            if (!xrayLogoSrc || xrayLogoSrc.startsWith("https://example.com") || xrayLogoSrc.includes("google.com/url")) {
+                xrayLogoSrc = "placeholder-xray.png";
+            }
+            xrayLogo.src = xrayLogoSrc;
             xrayLogoLabel.textContent = softwareName;
             document.getElementById("xrayLogo").style.display = "block";
         } else {
@@ -176,7 +153,12 @@ function updateOutput() {
         
         if (selectedPms) {
             const pmsName = selectedPms.split(" - ")[0];
-            pmsLogo.src = pmsLogos[selectedPms] || "placeholder-pms.png";
+            let pmsLogoSrc = pmsLogos[selectedPms];
+            // Check for problematic or placeholder URLs
+            if (!pmsLogoSrc || pmsLogoSrc.startsWith("https://example.com") || pmsLogoSrc.includes("google.com/url")) {
+                pmsLogoSrc = "placeholder-pms.png";
+            }
+            pmsLogo.src = pmsLogoSrc;
             pmsLogoLabel.textContent = pmsName;
             document.getElementById("pmsLogo").style.display = "block";
         } else {
@@ -319,63 +301,44 @@ function addInstallationGuideLinks(outputElement, selectedXray, selectedPms) {
     // Create container for installation guides
     const guidesContainer = document.createElement("div");
     guidesContainer.classList.add("installation-guides");
-    guidesContainer.style.marginTop = "15px";
-    guidesContainer.style.padding = "12px 15px";
-    guidesContainer.style.backgroundColor = "rgba(44, 109, 182, 0.05)";
-    guidesContainer.style.borderRadius = "8px";
-    guidesContainer.style.borderLeft = "4px solid var(--primary-color)";
     
     // Create header
     const header = document.createElement("div");
-    header.style.fontWeight = "600";
-    header.style.marginBottom = "10px";
-    header.style.display = "flex";
-    header.style.alignItems = "center";
-    header.innerHTML = '<i class="fas fa-book-open" style="margin-right: 8px; color: var(--primary-color);"></i> Installation Guides';
+    header.classList.add("guide-header");
+    header.innerHTML = '<i class="fas fa-book-open"></i> Installation Guides';
     
     guidesContainer.appendChild(header);
     
     // Create list of guides
     const guidesList = document.createElement("ul");
-    guidesList.style.listStyle = "none";
-    guidesList.style.padding = "0";
-    guidesList.style.margin = "0";
     
     let hasGuides = false;
     
     // Add X-ray software guide if available
     if (selectedXray && notionLinks.software[selectedXray]) {
         const listItem = document.createElement("li");
-        listItem.style.margin = "6px 0";
         
         const link = document.createElement("a");
         link.href = notionLinks.software[selectedXray];
         link.target = "_blank";
-        link.style.display = "inline-flex";
-        link.style.alignItems = "center";
-        link.style.color = "var(--primary-color)";
-        link.style.textDecoration = "none";
-        link.style.fontWeight = "500";
-        link.style.fontSize = "0.9rem";
+        link.classList.add("guide-link");
         
         // Add status dot for guide
-        let statusDot = "";
+        let statusDotClass = "grey";
         if (selectedXray.includes('Carestream') || 
             selectedXray.includes('VistaSoft') || 
             selectedXray.includes('Vixwin') || 
             selectedXray.includes('Planmeca') || 
             selectedXray.includes('Sidexis') || 
             selectedXray.includes('Vatech')) {
-            statusDot = '<span style="display:inline-block; width:8px; height:8px; background-color:#198754; border-radius:50%; margin-right:8px;"></span>';
+            statusDotClass = "green";
         } else if (selectedXray.includes('ExaminePro') || 
                    selectedXray.includes('iRYS') || 
                    selectedXray.includes('Visiquick')) {
-            statusDot = '<span style="display:inline-block; width:8px; height:8px; background-color:#0d6efd; border-radius:50%; margin-right:8px;"></span>';
-        } else {
-            statusDot = '<span style="display:inline-block; width:8px; height:8px; background-color:#6c757d; border-radius:50%; margin-right:8px;"></span>';
+            statusDotClass = "blue";
         }
         
-        link.innerHTML = `${statusDot} ${selectedXray} Installation Guide`;
+        link.innerHTML = `<span class="status-dot ${statusDotClass}"></span> ${selectedXray} Installation Guide`;
         listItem.appendChild(link);
         guidesList.appendChild(listItem);
         hasGuides = true;
@@ -384,19 +347,13 @@ function addInstallationGuideLinks(outputElement, selectedXray, selectedPms) {
     // Add PMS guide if available
     if (selectedPms && notionLinks.pms[selectedPms]) {
         const listItem = document.createElement("li");
-        listItem.style.margin = "6px 0";
         
         const link = document.createElement("a");
         link.href = notionLinks.pms[selectedPms];
         link.target = "_blank";
-        link.style.display = "inline-flex";
-        link.style.alignItems = "center";
-        link.style.color = "var(--primary-color)";
-        link.style.textDecoration = "none";
-        link.style.fontWeight = "500";
-        link.style.fontSize = "0.9rem";
+        link.classList.add("guide-link");
         
-        link.innerHTML = `<span style="display:inline-block; width:8px; height:8px; background-color:#6c757d; border-radius:50%; margin-right:8px;"></span> ${selectedPms} Setup Guide`;
+        link.innerHTML = '<span class="status-dot grey"></span> ' + `${selectedPms} Setup Guide`;
         listItem.appendChild(link);
         guidesList.appendChild(listItem);
         hasGuides = true;
@@ -405,19 +362,13 @@ function addInstallationGuideLinks(outputElement, selectedXray, selectedPms) {
     // Add integration guide if available
     if (selectedXray && selectedPms && notionLinks.integration[selectedXray]?.[selectedPms]) {
         const listItem = document.createElement("li");
-        listItem.style.margin = "6px 0";
         
         const link = document.createElement("a");
         link.href = notionLinks.integration[selectedXray][selectedPms];
         link.target = "_blank";
-        link.style.display = "inline-flex";
-        link.style.alignItems = "center";
-        link.style.color = "var(--primary-color)";
-        link.style.textDecoration = "none";
-        link.style.fontWeight = "500";
-        link.style.fontSize = "0.9rem";
+        link.classList.add("guide-link");
         
-        link.innerHTML = `<span style="display:inline-block; width:8px; height:8px; background-color:#198754; border-radius:50%; margin-right:8px;"></span> ${selectedXray} + ${selectedPms} Integration Guide`;
+        link.innerHTML = '<span class="status-dot green"></span> ' + `${selectedXray} + ${selectedPms} Integration Guide`;
         listItem.appendChild(link);
         guidesList.appendChild(listItem);
         hasGuides = true;
@@ -426,9 +377,7 @@ function addInstallationGuideLinks(outputElement, selectedXray, selectedPms) {
     // If no guides are available, add a message
     if (!hasGuides) {
         const listItem = document.createElement("li");
-        listItem.style.margin = "6px 0";
-        listItem.style.color = "#6c757d";
-        listItem.style.fontStyle = "italic";
+        listItem.classList.add("no-guides-message");
         listItem.textContent = "No specific installation guides available for this combination";
         guidesList.appendChild(listItem);
     }
@@ -437,15 +386,12 @@ function addInstallationGuideLinks(outputElement, selectedXray, selectedPms) {
     
     // Add "View All Guides" link
     const viewAllContainer = document.createElement("div");
-    viewAllContainer.style.marginTop = "10px";
-    viewAllContainer.style.textAlign = "right";
+    viewAllContainer.classList.add("view-all-container");
     
     const viewAllLink = document.createElement("a");
     viewAllLink.href = "#";
-    viewAllLink.style.color = "var(--primary-color)";
-    viewAllLink.style.fontSize = "0.85rem";
-    viewAllLink.style.textDecoration = "none";
-    viewAllLink.innerHTML = "View all installation guides <i class='fas fa-chevron-right' style='font-size: 0.7rem; margin-left: 5px;'></i>";
+    viewAllLink.classList.add("view-all-link");
+    viewAllLink.innerHTML = "View all installation guides <i class='fas fa-chevron-right'></i>";
     
     viewAllLink.addEventListener("click", function(e) {
         e.preventDefault();
@@ -471,11 +417,12 @@ function addSecondaryMessage(supportedVersions) {
 function addVideoPlaceholdersForPMS(pms) {
     const outputElement = document.getElementById("output");
     const videoContainer = document.createElement("div");
-    let videoPlaceholder = "";
+    videoContainer.classList.add("video-placeholders-container");
+    let videoPlaceholderHTML = "";
 
     switch (pms) {
         case "Julie":
-            videoPlaceholder = `
+            videoPlaceholderHTML = `
                 <video controls class="video-placeholder">
                     <source src="Julie_gateway.mp4" type="video/mp4">
                     Your browser does not support the video tag.
@@ -483,7 +430,7 @@ function addVideoPlaceholdersForPMS(pms) {
             `;
             break;
         case "Desmos":
-            videoPlaceholder = `
+            videoPlaceholderHTML = `
                 <video controls class="video-placeholder">
                     <source src="Desmos.mp4" type="video/mp4">
                     Your browser does not support the video tag.
@@ -491,7 +438,7 @@ function addVideoPlaceholdersForPMS(pms) {
             `;
             break;
         case "WeClever":
-            videoPlaceholder = `
+            videoPlaceholderHTML = `
                 <video controls class="video-placeholder">
                     <source src="Weclever.mp4" type="video/mp4">
                     Your browser does not support the video tag.
@@ -499,12 +446,12 @@ function addVideoPlaceholdersForPMS(pms) {
             `;
             break;
         case "SPDentaire":
-            videoPlaceholder = `
+            videoPlaceholderHTML = `
                 <div class="video-placeholder">[Video Placeholder 1 for SPDentaire]</div>
             `;
             break;
         case "Logosw":
-            videoPlaceholder = `
+            videoPlaceholderHTML = `
                 <video controls class="video-placeholder">
                     <source src="Logosw.mp4" type="video/mp4">
                     Your browser does not support the video tag.
@@ -516,21 +463,14 @@ function addVideoPlaceholdersForPMS(pms) {
             `;
             break;
         default:
-            videoPlaceholder = `
+            videoPlaceholderHTML = `
                 <div class="video-placeholder">[General Video Placeholder]</div>
             `;
             break;
     }
 
-    videoContainer.innerHTML = videoPlaceholder;
+    videoContainer.innerHTML = videoPlaceholderHTML;
     outputElement.appendChild(videoContainer);
-
-    // Ensure video elements are responsive
-    const videoElements = videoContainer.querySelectorAll("video");
-    videoElements.forEach(videoElement => {
-        videoElement.style.width = "100%";
-        videoElement.style.height = "auto";
-    });
 }
 
 // Add event listeners for dropdown change
