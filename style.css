@@ -142,21 +142,22 @@
     }
 }
 
-/* Assuming you have these variables defined, e.g., in :root */
-
+/* Light theme variables - these should match the main theme in index.html */
 :root {
-    --page-background-color: #0b0b19;
-    --text-color: #e0e0e0;
-    --primary-color: #0bb5c6;
-    --secondary-accent-color: #cc8edb;
-    --card-background-color: #202a46;
-    --border-color: #334373;
+    --primary-color: #0bb5c6; /* Cyan from logo */
+    --secondary-color: #cc8edb; /* Purple from logo */
+    --accent-color: #4056af; /* Blue from logo */
+    --background-color: #ffffff; /* White background */
+    --card-bg: #f8f9fc; /* Very light blue-gray */
+    --border-color: #e4e7f2; /* Light blue-gray border */
+    --text-color: #2a3252; /* Dark blue-gray text */
+    --muted-text: #6c7693; /* Medium blue-gray for less important text */
 }
 
 body {
-    background-color: var(--page-background-color);
+    background-color: var(--background-color);
     color: var(--text-color);
-    font-family: sans-serif; /* Added a default sans-serif font */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6; /* Improved readability */
     margin: 0; /* Remove default margin */
     padding: 20px; /* Add some padding around the content */
@@ -166,7 +167,7 @@ body {
 .video-placeholder {
     width: 100%;
     height: auto;
-    background-color: var(--card-background-color);
+    background-color: #f8f9fc;
     border: 1px dashed var(--border-color);
     display: flex;
     align-items: center;
@@ -175,9 +176,10 @@ body {
     min-height: 150px;
     color: var(--text-color);
     font-style: italic;
+    border-radius: 8px;
 }
 
 video.video-placeholder {
     border: 1px solid var(--border-color);
-    background-color: #000;
+    background-color: #f0f3fa;
 } 

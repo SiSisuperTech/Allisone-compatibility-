@@ -307,6 +307,19 @@
       margin-top: 40px;
       display: none;
       transition: all 0.3s ease;
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+      padding: 25px;
+    }
+    
+    /* Ensure proper spacing of matrix heading */
+    #compatibility-matrix h2 {
+      margin-top: 0;
+      color: var(--text-color);
+      font-size: 1.4rem;
+      margin-bottom: 20px;
     }
     
     .matrix-controls {
@@ -1067,12 +1080,16 @@
         border-radius: 25px;
         background: linear-gradient(135deg, #ffffff 0%, #f0f3fa 100%);
         box-shadow: 0 4px 15px rgba(11, 181, 198, 0.1);
+        cursor: pointer;
     }
 
     .matrix-toggle-btn:hover {
-        box-shadow: 0 6px 20px rgba(11, 181, 198, 0.25);
+        background: linear-gradient(135deg, var(--primary-color) 0%, rgba(11, 181, 198, 0.8) 100%);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(11, 181, 198, 0.2);
     }
-
+    
     /* Documentation Link Button */
     .doc-link-btn {
         width: 28px;
@@ -1086,7 +1103,7 @@
         border-radius: 50%;
         transition: all 0.25s ease;
     }
-
+    
     .doc-link-btn:hover {
         background: linear-gradient(135deg, var(--secondary-color) 0%, rgba(204, 142, 219, 0.8) 100%);
         color: white;
@@ -1311,34 +1328,43 @@
         });
         
         // Toggle compatibility matrix
-        document.getElementById('matrixToggleBtn').addEventListener('click', function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            const matrixToggleBtn = document.getElementById('matrixToggleBtn');
             const matrixSection = document.getElementById('compatibility-matrix');
-            const isVisible = matrixSection.style.display !== 'none';
             
-            if (isVisible) {
-                matrixSection.style.display = 'none';
-                this.innerHTML = '<i class="fas fa-table"></i> Show Complete Compatibility Matrix';
-            } else {
-                matrixSection.style.display = 'block';
-                this.innerHTML = '<i class="fas fa-chevron-up"></i> Hide Compatibility Matrix';
-                
-                // Generate matrix if it hasn't been generated yet
-                if (!matrixSection.dataset.generated) {
-                    generateCompatibilityMatrix('compact');
-                    matrixSection.dataset.generated = 'true';
-                }
+            if (matrixToggleBtn && matrixSection) {
+                matrixToggleBtn.addEventListener('click', function() {
+                    const isVisible = matrixSection.style.display === 'block';
+                    
+                    if (isVisible) {
+                        matrixSection.style.display = 'none';
+                        this.innerHTML = '<i class="fas fa-table"></i> Show Complete Compatibility Matrix';
+                    } else {
+                        matrixSection.style.display = 'block';
+                        this.innerHTML = '<i class="fas fa-chevron-up"></i> Hide Compatibility Matrix';
+                        
+                        // Generate matrix if it hasn't been generated yet
+                        if (!matrixSection.dataset.generated) {
+                            generateCompatibilityMatrix('compact');
+                            matrixSection.dataset.generated = 'true';
+                        }
+                    }
+                });
             }
-        });
-        
-        // Handle view options
-        document.querySelectorAll('.view-option').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.view-option').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                
-                const viewType = this.dataset.view;
-                generateCompatibilityMatrix(viewType);
-            });
+            
+            // Initial setup of view options
+            const viewOptions = document.querySelectorAll('.view-option');
+            if (viewOptions.length) {
+                viewOptions.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        viewOptions.forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        const viewType = this.dataset.view;
+                        generateCompatibilityMatrix(viewType);
+                    });
+                });
+            }
         });
         
         // Filter matrix with search
