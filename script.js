@@ -86,7 +86,7 @@ const xraySoftwareLogos = {
 const pmsLogos = {
     "Biotech Dental": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/LOGO_BIOTECH_DENTAL-HD.jpg/1280px-LOGO_BIOTECH_DENTAL-HD.jpg", // Replace with actual logo URLs
     "Desmos": "https://astucetierspayant.fr/wp-content/uploads/2023/12/Desmos.jpg",
-    "Julie": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2FJulieSolutions%2F&psig=AOvVaw20u_bTOZbRgIw5dvXiPZdo&ust=1746544768018000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPj4rbXQjI0DFQAAAAAdAAAAABAE",
+    "Julie": "https://www.julie.fr/julie_uploads/2022/10/logo-bleu-115x75-1.png",
     "Logosw": "https://www.logosw.net/telechargement/presse/logosw-1000.png",
     "OrisDent - OrisLine": "https://orisdent.com/wp-content/themes/orisdent/img/orisline-logo.png",
     "Powerdent - Kopfwerk": "https://res.cloudinary.com/beleza-na-web/image/upload/f_auto,fl_progressive,q_auto:best/v1/brand/2023_04_11_17_51_41_9/48614d56-6434-40fc-984e-307c8cf1960f-marca-powerdent-carrossel.svg",
