@@ -1,27 +1,197 @@
-// Data for X-ray software with updated messages
+// Data for X-ray software with updated messages and integration modes
 const xraySoftwareData = [
-    { name: "AIS - Acteon", output: "Watcher Light + Dicom export ✅", supportedVersions: "Supported versions: ≥ 5.3 (paid upgrade)" },
-    { name: "Cliniview - KaVo Instrumentarium", output: "Automatic X-ray Acquisition ✅ (Full Watcher)" },
-    { name: "CS Imaging - Carestream", output: "Automatic X-ray Acquisition ✅ (Full Watcher)", supportedVersions: "Supported versions: ≥ 6.x, 7.x, 8.x" },
-    { name: "DBSWin - Durr Dental", output: "Watcher Light + Dicom export ✅" },
-    { name: "Dentrix Ascend - Henry Schein", output: "Manual X-ray upload ✅" },
-    { name: "DTX Studio - Visualization", output: "Manual X-ray upload ✅" },
-    { name: "Examine Pro - Examine Pro", output: "Automatic X-ray Acquisition ✅ (Full Watcher Dicom)" },
-    { name: "Ezdent-i - Vatech", output: "Automatic X-ray Acquisition ✅ (Full Watcher Dicom)", supportedVersions: "Supported versions: All versions (3.x)" },
-    { name: "i-Dixel - Morita", output: "Watcher Light + Dicom export ✅" },
-    { name: "iRYS - MyRay", output: "Automatic X-ray Acquisition ✅ (Full Watcher Dicom)", supportedVersions: "Supported versions: ≥ 16" },
-    { name: "Mediadent - Mediadent", output: "Watcher Light + Dicom export ✅" },
-    { name: "MiPACS Dental Enterprise Viewer - Medicor Imaging", output: "Manual X-ray upload ✅" },
-    { name: "NNT - Newtom", output: "Manual X-ray upload ✅" },
-    { name: "QuickVision - Owandy", output: "Automatic X-ray Acquisition ✅ (Full Watcher Dicom)" },
-    { name: "RayScan - Ray", output: "Automatic X-ray Acquisition ✅ (Full Watcher Dicom)" },
-    { name: "Romexis - Planmeca", output: "Watcher Light + Dicom export ✅", supportedVersions: "Supported versions: ≥ 5.x" },
-    { name: "Scanora - Soredex", output: "Automatic X-ray Acquisition ✅ (Full Watcher)" },
-    { name: "Sidexis - Dentsply Sirona", output: "Automatic X-ray Acquisition ✅ (Full Watcher)", supportedVersions: "Supported versions: ≥ 4.x (XG not supported yet)" },
-    { name: "VisiQuick - Citodent", output: "Automatic X-ray Acquisition ✅ (Allisone+ v2 Bridge/Server)" },
-    { name: "VistaSoft - Durr Dental", output: "Watcher Light + Dicom export ✅", supportedVersions: "Supported versions: 2.x or 3.x" },
-    { name: "VixWin - Gendex", output: "Watcher Light + Dicom export ✅", supportedVersions: "Supported versions: All versions prior to 4.x" },
-    { name: "XrayVision - Apteryx Imaging", output: "Manual X-ray upload ✅" },
+    { 
+        name: "Romexis - Planmeca", 
+        output: "Watcher Light + Dicom export ✅", 
+        supportedVersions: "All versions ≥ 5.x",
+        repartition: 15,
+        v2ServerMode: true,
+        v2BridgeMode: true,
+        wildGateway: true
+    },
+    { 
+        name: "AIS - Acteon", 
+        output: "Watcher Light + Dicom export ✅", 
+        supportedVersions: "≥ 5.3 (paid upgrade)",
+        repartition: 2,
+        v2ServerMode: true,
+        v2BridgeMode: false,
+        wildGateway: false
+    },
+    { 
+        name: "VixWin - Gendex", 
+        output: "Watcher Light + Dicom export ✅", 
+        supportedVersions: "All versions prior to 4.x",
+        repartition: 1,
+        v2ServerMode: true,
+        v2BridgeMode: true,
+        wildGateway: false
+    },
+    { 
+        name: "VistaSoft - Durr Dental", 
+        output: "Watcher Light + Dicom export ✅", 
+        supportedVersions: "2.x or 3.x",
+        repartition: 0.5,
+        v2ServerMode: true,
+        v2BridgeMode: true,
+        wildGateway: false
+    },
+    { 
+        name: "Mediadent - Mediadent", 
+        output: "Watcher Light + Dicom export ✅",
+        repartition: 0.2,
+        v2ServerMode: true,
+        genericDicom: true,
+        v2BridgeMode: false,
+        wildGateway: false
+    },
+    { 
+        name: "DBSWin - Durr Dental", 
+        output: "Watcher Light + Dicom export ✅",
+        repartition: 0,
+        v2ServerMode: false,
+        v2BridgeMode: false,
+        wildGateway: false
+    },
+    { 
+        name: "i-Dixel - Morita", 
+        output: "Watcher Light + Dicom export ✅",
+        repartition: 1.7,
+        v2ServerMode: false,
+        v2BridgeMode: false,
+        wildGateway: false
+    },
+    { 
+        name: "CS Imaging - Carestream", 
+        output: "Full Watcher ✅", 
+        supportedVersions: "All versions ≥ 6.x, 7.x, 8.x",
+        repartition: 22,
+        v2ServerMode: true,
+        v2BridgeMode: true,
+        wildGateway: true
+    },
+    { 
+        name: "Sidexis - Dentsply Sirona", 
+        output: "Full Watcher ✅", 
+        supportedVersions: "All versions ≥ 4.x (XG not supported yet)",
+        repartition: 12,
+        v2ServerMode: true,
+        v2BridgeMode: true,
+        wildGateway: true
+    },
+    { 
+        name: "Cliniview - KaVo Instrumentarium", 
+        output: "Full Watcher ✅",
+        repartition: 4,
+        v2ServerMode: false,
+        v2BridgeMode: false,
+        wildGateway: false
+    },
+    { 
+        name: "Scanora - Soredex", 
+        output: "Full Watcher ✅",
+        repartition: 1.3,
+        v2ServerMode: false,
+        v2BridgeMode: false,
+        wildGateway: false
+    },
+    { 
+        name: "Ezdent-i - Vatech", 
+        output: "Full Watcher Dicom ✅", 
+        supportedVersions: "All versions (3.x)",
+        repartition: 14,
+        v2ServerMode: true,
+        v2BridgeMode: true,
+        wildGateway: true
+    },
+    { 
+        name: "QuickVision - Owandy", 
+        output: "Full Watcher Dicom ✅",
+        repartition: 5,
+        v2ServerMode: true,
+        genericDicom: true,
+        v2BridgeMode: true,
+        wildGateway: false,
+        bridgeStatus: "R&D"
+    },
+    { 
+        name: "iRYS - MyRay", 
+        output: "Full Watcher Dicom ✅", 
+        supportedVersions: "≥ 16",
+        repartition: 3,
+        v2ServerMode: true,
+        genericDicom: true,
+        v2BridgeMode: true,
+        wildGateway: true,
+        bridgeStatus: "In Development",
+        wildGatewayStatus: "In Development"
+    },
+    { 
+        name: "RayScan - Ray", 
+        output: "Full Watcher Dicom ✅",
+        repartition: 0.2,
+        v2ServerMode: true,
+        genericDicom: true,
+        v2BridgeMode: false,
+        wildGateway: false
+    },
+    { 
+        name: "Examine Pro - Examine Pro", 
+        output: "Full Watcher Dicom ✅",
+        repartition: 0.2,
+        v2ServerMode: true,
+        v2BridgeMode: false,
+        wildGateway: true,
+        wildGatewayStatus: "In Development"
+    },
+    { 
+        name: "VisiQuick - Citodent", 
+        output: "Allisone+ v2 Bridge/Server ✅",
+        repartition: 0,
+        v2ServerMode: true,
+        v2BridgeMode: true,
+        wildGateway: false
+    },
+    { 
+        name: "XrayVision - Apteryx Imaging", 
+        output: "Manual X-ray upload ✅",
+        repartition: 0,
+        v2ServerMode: false,
+        v2BridgeMode: false,
+        wildGateway: false
+    },
+    { 
+        name: "MiPACS Dental Enterprise Viewer - Medicor Imaging", 
+        output: "Manual X-ray upload ✅",
+        repartition: 0,
+        v2ServerMode: false,
+        v2BridgeMode: false,
+        wildGateway: false
+    },
+    { 
+        name: "Dentrix Ascend - Henry Schein", 
+        output: "Manual X-ray upload ✅",
+        repartition: 0,
+        v2ServerMode: false,
+        v2BridgeMode: false,
+        wildGateway: false
+    },
+    { 
+        name: "NNT - Newtom", 
+        output: "Manual X-ray upload ✅",
+        repartition: 0.4,
+        v2ServerMode: false,
+        v2BridgeMode: false,
+        wildGateway: false
+    },
+    { 
+        name: "DTX Studio - Visualization", 
+        output: "Manual X-ray upload ✅",
+        repartition: 0.2,
+        v2ServerMode: false,
+        v2BridgeMode: false,
+        wildGateway: false
+    },
 ];
 
 // Data for PMS
@@ -257,9 +427,10 @@ function updateOutput() {
 
     // Display output for X-ray software only
     if (selectedXray) {
-        const xrayOutput = xraySoftwareData.find((software) => software.name === selectedXray)?.output;
-        const supportedVersions = xraySoftwareData.find((software) => software.name === selectedXray)?.supportedVersions;
-        if (xrayOutput) {
+        const xraySoftware = xraySoftwareData.find((software) => software.name === selectedXray);
+        if (xraySoftware) {
+            const xrayOutput = xraySoftware.output;
+            
             // Update compatibility indicator based on output text
             const isCompatible = xrayOutput.includes("✅");
             const compatibilityIndicator = document.createElement("div");
@@ -267,12 +438,12 @@ function updateOutput() {
             
             if (isCompatible) {
                 compatibilityIndicator.innerHTML = '<i class="fas fa-check-circle"></i> Compatible';
-                compatibilityIndicator.style.color = "#198754";
-                compatibilityIndicator.style.backgroundColor = "rgba(25, 135, 84, 0.1)";
+                compatibilityIndicator.style.color = "#4CAF50";
+                compatibilityIndicator.style.backgroundColor = "rgba(76, 175, 80, 0.1)";
             } else {
                 compatibilityIndicator.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Limited Compatibility';
-                compatibilityIndicator.style.color = "#fd7e14";
-                compatibilityIndicator.style.backgroundColor = "rgba(253, 126, 20, 0.1)";
+                compatibilityIndicator.style.color = "#FF9800";
+                compatibilityIndicator.style.backgroundColor = "rgba(255, 152, 0, 0.1)";
             }
             
             outputElement.appendChild(compatibilityIndicator);
@@ -282,13 +453,60 @@ function updateOutput() {
             textContainer.textContent = xrayOutput;
             outputElement.appendChild(textContainer);
             
+            // Add integration modes information
+            if (xraySoftware.v2ServerMode || xraySoftware.v2BridgeMode || xraySoftware.wildGateway) {
+                const integrationContainer = document.createElement("div");
+                integrationContainer.classList.add("integration-modes");
+                
+                const integrationTitle = document.createElement("h4");
+                integrationTitle.textContent = "Integration Modes";
+                integrationTitle.classList.add("integration-title");
+                integrationContainer.appendChild(integrationTitle);
+                
+                const integrationList = document.createElement("ul");
+                integrationList.classList.add("integration-list");
+                
+                // Add V2 Server Mode
+                if (xraySoftware.v2ServerMode) {
+                    const serverItem = document.createElement("li");
+                    serverItem.innerHTML = '<span class="integration-badge server">A+ v2 Server Mode</span>';
+                    if (xraySoftware.genericDicom) {
+                        serverItem.innerHTML += ' <span class="integration-note">(Generic DICOM)</span>';
+                    }
+                    integrationList.appendChild(serverItem);
+                }
+                
+                // Add V2 Bridge Mode
+                if (xraySoftware.v2BridgeMode) {
+                    const bridgeItem = document.createElement("li");
+                    bridgeItem.innerHTML = '<span class="integration-badge bridge">A+ v2 Bridge Mode</span>';
+                    if (xraySoftware.bridgeStatus) {
+                        bridgeItem.innerHTML += ` <span class="integration-note">(${xraySoftware.bridgeStatus})</span>`;
+                    }
+                    integrationList.appendChild(bridgeItem);
+                }
+                
+                // Add Wild Gateway
+                if (xraySoftware.wildGateway) {
+                    const wildItem = document.createElement("li");
+                    wildItem.innerHTML = '<span class="integration-badge wild">A+ Wild Gateway</span>';
+                    if (xraySoftware.wildGatewayStatus) {
+                        wildItem.innerHTML += ` <span class="integration-note">(${xraySoftware.wildGatewayStatus})</span>`;
+                    }
+                    integrationList.appendChild(wildItem);
+                }
+                
+                integrationContainer.appendChild(integrationList);
+                outputElement.appendChild(integrationContainer);
+            }
+            
             // Add installation guide links
             addInstallationGuideLinks(outputElement, selectedXray, selectedPms);
             
             outputElement.style.display = "block";
             
-            if (supportedVersions) {
-                addSecondaryMessage(supportedVersions); // Always show supported versions when X-ray is selected
+            if (xraySoftware.supportedVersions) {
+                addSecondaryMessage(xraySoftware.supportedVersions); // Always show supported versions when X-ray is selected
             }
         }
     } else {
@@ -534,3 +752,196 @@ const notionLinks = {
         }
     }
 };
+
+// Enhanced compatibility matrix generation
+function generateCompatibilityMatrix(viewType) {
+    const table = document.getElementById('matrixTable');
+    const thead = table.querySelector('thead tr');
+    const tbody = table.querySelector('tbody');
+    
+    // Clear existing content
+    while (thead.children.length > 1) {
+        thead.removeChild(thead.lastChild);
+    }
+    tbody.innerHTML = '';
+    
+    // Add column headers based on view type
+    if (viewType === 'detailed') {
+        // In detailed view, add integration modes columns
+        const headers = [
+            "PMS",
+            "A+ v2 (server mode)",
+            "A+ v2 (bridge mode)",
+            "A+ Wild Gateway"
+        ];
+        
+        headers.forEach(headerText => {
+            if (headerText === 'PMS') {
+                // Skip the first column as it's already there
+                return;
+            }
+            
+            const th = document.createElement('th');
+            th.textContent = headerText;
+            thead.appendChild(th);
+        });
+        
+        // Add X-ray software rows
+        xraySoftwareData.forEach(software => {
+            const tr = document.createElement('tr');
+            
+            // X-ray software name
+            const tdName = document.createElement('td');
+            tdName.textContent = software.name;
+            
+            // Add documentation link if available
+            if (notionLinks.software[software.name]) {
+                const docLink = document.createElement('button');
+                docLink.classList.add('doc-link-btn');
+                docLink.innerHTML = '<i class="fas fa-book"></i>';
+                docLink.title = 'View documentation';
+                docLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const docUrl = notionLinks.software[software.name];
+                    window.open(docUrl, '_blank');
+                });
+                tdName.appendChild(docLink);
+            }
+            
+            tr.appendChild(tdName);
+            
+            // Add V2 Server Mode cell
+            const tdServer = document.createElement('td');
+            if (software.v2ServerMode) {
+                const icon = document.createElement('i');
+                icon.className = software.genericDicom ? 
+                    'fas fa-check-circle compatibility-partial' : 
+                    'fas fa-check compatibility-check';
+                
+                tdServer.appendChild(icon);
+                if (software.genericDicom) {
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'compatibility-tooltip';
+                    tooltip.textContent = 'Generic DICOM';
+                    tdServer.appendChild(tooltip);
+                    tdServer.classList.add('compatibility-cell');
+                }
+            } else {
+                tdServer.innerHTML = '<i class="fas fa-times compatibility-cross"></i>';
+            }
+            tr.appendChild(tdServer);
+            
+            // Add V2 Bridge Mode cell
+            const tdBridge = document.createElement('td');
+            if (software.v2BridgeMode) {
+                const icon = document.createElement('i');
+                icon.className = software.bridgeStatus ? 
+                    'fas fa-check-circle compatibility-partial' : 
+                    'fas fa-check compatibility-check';
+                
+                tdBridge.appendChild(icon);
+                if (software.bridgeStatus) {
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'compatibility-tooltip';
+                    tooltip.textContent = software.bridgeStatus;
+                    tdBridge.appendChild(tooltip);
+                    tdBridge.classList.add('compatibility-cell');
+                }
+            } else {
+                tdBridge.innerHTML = '<i class="fas fa-times compatibility-cross"></i>';
+            }
+            tr.appendChild(tdBridge);
+            
+            // Add Wild Gateway cell
+            const tdWild = document.createElement('td');
+            if (software.wildGateway) {
+                const icon = document.createElement('i');
+                icon.className = software.wildGatewayStatus ? 
+                    'fas fa-check-circle compatibility-partial' : 
+                    'fas fa-check compatibility-check';
+                
+                tdWild.appendChild(icon);
+                if (software.wildGatewayStatus) {
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'compatibility-tooltip';
+                    tooltip.textContent = software.wildGatewayStatus;
+                    tdWild.appendChild(tooltip);
+                    tdWild.classList.add('compatibility-cell');
+                }
+            } else {
+                tdWild.innerHTML = '<i class="fas fa-times compatibility-cross"></i>';
+            }
+            tr.appendChild(tdWild);
+            
+            tbody.appendChild(tr);
+        });
+    } else {
+        // Default PMS columns for compact or grouped view
+        pmsData.forEach(pms => {
+            const th = document.createElement('th');
+            th.textContent = pms.split(' - ')[0]; // Just show the name part
+            th.setAttribute('title', pms); // Add full name as tooltip
+            thead.appendChild(th);
+        });
+        
+        if (viewType === 'grouped') {
+            // Group software by type
+            const groups = {
+                'Full Watcher Dicom': [],
+                'Full Watcher': [],
+                'Watcher Light': [],
+                'Other': []
+            };
+            
+            xraySoftwareData.forEach(software => {
+                if (software.output.includes('Full Watcher Dicom')) {
+                    groups['Full Watcher Dicom'].push(software);
+                } else if (software.output.includes('Full Watcher') && !software.output.includes('Dicom')) {
+                    groups['Full Watcher'].push(software);
+                } else if (software.output.includes('Watcher Light')) {
+                    groups['Watcher Light'].push(software);
+                } else {
+                    groups['Other'].push(software);
+                }
+            });
+            
+            // Add groups to table
+            Object.entries(groups).forEach(([groupName, softwares]) => {
+                if (softwares.length === 0) return;
+                
+                // Add group header
+                const headerRow = document.createElement('tr');
+                const headerCell = document.createElement('td');
+                headerCell.textContent = groupName;
+                headerCell.colSpan = pmsData.length + 1;
+                headerCell.classList.add('matrix-section-header');
+                headerRow.appendChild(headerCell);
+                headerRow.classList.add('matrix-section-row');
+                tbody.appendChild(headerRow);
+                
+                // Add softwares in group
+                softwares.forEach(software => {
+                    addSoftwareRow(software, tbody, viewType);
+                });
+            });
+        } else {
+            // Regular sorting (alphabetical)
+            xraySoftwareData.forEach(software => {
+                addSoftwareRow(software, tbody, viewType);
+            });
+        }
+    }
+    
+    // Add column highlighting
+    addColumnHighlighting();
+    
+    // Ensure proper display
+    setTimeout(() => {
+        const container = document.querySelector('.matrix-table-container');
+        if (container) {
+            container.style.display = 'block';
+            container.style.width = '100%';
+        }
+    }, 100);
+}
