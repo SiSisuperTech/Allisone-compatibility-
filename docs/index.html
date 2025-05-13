@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Allisone PMS-X-Ray Compatibility Tracker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Link to the new external CSS file -->
+  <link rel="icon" href="/Allisone-Compatibily-Checker/images/allisone_logo.png" type="image/png"> 
+  <script type="module" crossorigin src="/Allisone-Compatibily-Checker/assets/index-CS0EYIgz.js"></script>
+  <link rel="stylesheet" crossorigin href="/Allisone-Compatibily-Checker/assets/index-DV-3loMG.css">
+</head>
+<body>
+    <header>
+        <img src="/Allisone-Compatibily-Checker/images/allisone_logo.png" alt="Allisone Logo" class="logo">
+        <h2 class="header-title">✨ Compatibility Checker</h2>
+        <div class="header-controls">
+            <!-- Language Selector with Emojis -->
+            <div class="language-selector">
+                <button class="language-btn active" data-lang="en">🇬🇧 EN</button>
+                <button class="language-btn" data-lang="fr">🇫🇷 FR</button>
+                <button class="language-btn" data-lang="es">🇪🇸 ES</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="main-container">
+        <div class="card" id="form-card">
+            <span class="version-badge">v2.1</span>
+            <div class="card-body">
+                <h1>🔍 Allisone Compatibility Checker</h1>
+                
+                <!-- Form with reordered inputs - PMS first, then X-ray software -->
+                <form id="compatibilityForm">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label for="pms" class="form-label">
+                                <i class="fas fa-laptop-medical"></i> PMS: 💻
+                            </label>
+                            <select id="pms" class="form-select">
+                                <option value="" selected disabled>Select practice management system...</option>
+                                <!-- Options dynamically populated, now including Dentally -->
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="xraySoftware" class="form-label">
+                                <i class="fas fa-x-ray"></i> X-ray Software: 📷
+                            </label>
+                            <select id="xraySoftware" class="form-select">
+                                <option value="" selected disabled>Select X-ray software...</option>
+                                <!-- Options dynamically populated -->
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Logo display area -->
+                    <div class="logo-container" id="logoDisplay" style="display: none;">
+                        <div class="software-logo" id="pmsLogo">
+                            <img src="" alt="PMS Logo">
+                            <div class="software-logo-label" id="pmsLogoLabel"></div>
+                        </div>
+                        <div class="logo-divider">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="software-logo" id="xrayLogo">
+                            <img src="" alt="X-ray Software Logo">
+                            <div class="software-logo-label" id="xrayLogoLabel"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="button" id="resetButton" class="btn btn-reset">
+                            <i class="fas fa-redo-alt"></i> Reset 🔄
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Updated filter buttons without Allisone+ -->
+                <div class="filter-btns">
+                    <button type="button" class="filter-btn" data-filter="all">
+                        <i class="fas fa-th-list"></i> All Software 📋
+                    </button>
+                    <button type="button" class="filter-btn" data-filter="gateway">
+                        <i class="fas fa-network-wired"></i> Gateway 🌉
+                    </button>
+                    <button type="button" class="filter-btn" data-filter="wildgateway">
+                        <i class="fas fa-mountain"></i> Wild Gateway 🏞️
+                    </button>
+                    <button type="button" class="filter-btn" data-filter="v1light">
+                        <i class="fas fa-feather"></i> V1 Light 💡
+                    </button>
+                    <button type="button" class="filter-btn" data-filter="v1full">
+                        <i class="fas fa-eye"></i> V1 Full (Watcher) 👁️
+                    </button>
+                    <button type="button" class="filter-btn" data-filter="v2">
+                        <i class="fas fa-bolt"></i> V2 ⚡
+                    </button>
+                </div>
+
+                <!-- Redesigned compatibility results section with multiple options -->
+                <div id="output" class="result-card" style="display:none;">
+                  <div class="result-status-bar">
+                    <div class="status-icon">
+                      <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="status-text">COMPATIBLE VIA MULTIPLE PATHS</div>
+                  </div>
+                  
+                  <div class="result-content">
+                    <div class="software-combination">
+                      <div class="software-item">
+                        <div class="item-icon"><i class="fas fa-laptop-medical"></i></div>
+                        <div class="item-details">
+                          <div class="item-label">Practice Management:</div>
+                          <div class="item-value" id="result-pms-name">Logosw</div>
+                        </div>
+                      </div>
+                      <div class="combination-plus">+</div>
+                      <div class="software-item">
+                        <div class="item-icon"><i class="fas fa-x-ray"></i></div>
+                        <div class="item-details">
+                          <div class="item-label">X-ray Software:</div>
+                          <div class="item-value" id="result-xray-name">Carestream</div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="compatibility-info">
+                      <div class="compatibility-message">These systems can be connected in multiple ways with different features</div>
+                    </div>
+                    
+                    <div class="options-container">
+                      <!-- Option 1 -->
+                      <div class="option-card">
+                        <div class="option-header">
+                          <div class="option-badge">OPTION 1</div>
+                          <div class="option-title">Report Synchronisation</div>
+                        </div>
+                        <div class="option-body">
+                          <div class="option-description">
+                            <p>Full report synchronisation with patient matching</p>
+                            <div class="option-tech-detail">(through v1)</div>
+                          </div>
+                          <div class="option-features">
+                            <div class="option-feature">
+                              <i class="fas fa-sync-alt feature-icon"></i>
+                              <span>Bidirectional data sync</span>
+                            </div>
+                            <div class="option-feature">
+                              <i class="fas fa-file-medical feature-icon"></i>
+                              <span>Complete report transfer</span>
+                            </div>
+                            <div class="option-feature">
+                              <i class="fas fa-user feature-icon"></i>
+                              <span>Automatic patient matching</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="option-footer">
+                          <a href="#" class="option-link">View Setup Guide</a>
+                        </div>
+                      </div>
+                      
+                      <!-- Option 2 -->
+                      <div class="option-card">
+                        <div class="option-header">
+                          <div class="option-badge">OPTION 2</div>
+                          <div class="option-title">Instant X-ray Acquisition</div>
+                        </div>
+                        <div class="option-body">
+                          <div class="option-description">
+                            <p>Direct X-ray acquisition without report synchronisation</p>
+                            <div class="option-tech-detail">(through v2 connector)</div>
+                          </div>
+                          <div class="option-features">
+                            <div class="option-feature">
+                              <i class="fas fa-bolt feature-icon"></i>
+                              <span>Instant image capture</span>
+                            </div>
+                            <div class="option-feature">
+                              <i class="fas fa-image feature-icon"></i>
+                              <span>High-quality images</span>
+                            </div>
+                            <div class="option-feature">
+                              <i class="fas fa-arrows-alt feature-icon"></i>
+                              <span>Direct integration</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="option-footer">
+                          <a href="#" class="option-link">View Setup Guide</a>
+                        </div>
+                      </div>
+                      
+                      <!-- Option 3 -->
+                      <div class="option-card">
+                        <div class="option-header">
+                          <div class="option-badge">OPTION 3</div>
+                          <div class="option-title">Allisone as X-ray Software</div>
+                        </div>
+                        <div class="option-body">
+                          <div class="option-description">
+                            <p>Using Allisone as an X-ray software without report synchronisation</p>
+                            <div class="option-tech-detail">(through wild gateway)</div>
+                          </div>
+                          <div class="option-features">
+                            <div class="option-feature">
+                              <i class="fas fa-mountain feature-icon"></i>
+                              <span>Wild Gateway integration</span>
+                            </div>
+                            <div class="option-feature">
+                              <i class="fas fa-database feature-icon"></i>
+                              <span>Common database</span>
+                            </div>
+                            <div class="option-feature">
+                              <i class="fas fa-cogs feature-icon"></i>
+                              <span>Customizable workflow</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="option-footer">
+                          <a href="#" class="option-link">View Setup Guide</a>
+                          <div class="creation-info">Created by Jordan | 7 Nov 2022</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="result-actions">
+                    <a href="#" class="action-button primary">
+                      <i class="fas fa-download"></i> Download All Guides
+                    </a>
+                    <a href="#" class="action-button secondary">
+                      <i class="fas fa-headset"></i> Get Support
+                    </a>
+                  </div>
+                </div>
+                
+                <!-- Toggle button for compatibility matrix -->
+                <div class="text-center">
+                    <button type="button" id="matrixToggleBtn" class="matrix-toggle-btn">
+                        <i class="fas fa-table"></i> Show Complete Compatibility Matrix 📊
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Compatibility Matrix Section -->
+        <div class="card mt-4" id="compatibility-matrix">
+            <div class="card-body">
+                <h2 class="h4 mb-3">📊 Complete Compatibility Matrix</h2>
+                
+                <div class="matrix-controls">
+                    <div class="matrix-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="matrixSearchInput" placeholder="Search software... 🔍">
+                    </div>
+                    
+                    <div class="matrix-view-options">
+                        <button class="view-option active" data-view="compact">Compact 📏</button>
+                        <button class="view-option" data-view="detailed">Detailed 📋</button>
+                        <button class="view-option" data-view="grouped">Grouped 📂</button>
+                    </div>
+                    
+                    <button class="export-btn" id="exportMatrix">
+                        <i class="fas fa-download"></i> Export 📩
+                    </button>
+                </div>
+                
+                <div class="matrix-legend">
+                    <div class="legend-item">
+                        <i class="fas fa-check compatibility-check"></i>
+                        <span>Full Gateway Compatibility ✅</span>
+                    </div>
+                    <div class="legend-item">
+                        <i class="fas fa-star compatibility-check"></i>
+                        <span>Gateway + V2 Compatibility ⭐</span>
+                    </div>
+                    <div class="legend-item">
+                        <i class="fas fa-check-circle compatibility-partial"></i>
+                        <span>Compatible with Full Watcher 👁️</span>
+                    </div>
+                    <div class="legend-item">
+                        <i class="fas fa-exclamation-triangle compatibility-partial"></i>
+                        <span>Limited Compatibility ⚠️</span>
+                    </div>
+                    <div class="legend-item">
+                        <i class="fas fa-times compatibility-cross"></i>
+                        <span>Not Compatible ❌</span>
+                    </div>
+                </div>
+                
+                <div class="matrix-table-container">
+                    <table class="matrix-table" id="matrixTable">
+                        <thead>
+                            <tr>
+                                <th>X-ray Software / PMS</th>
+                                <!-- PMS headers will be dynamically inserted here -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table content will be dynamically generated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Documentation Panel -->
+    <div id="docOverlay" class="doc-overlay"></div>
+    <div id="docPanel" class="doc-panel">
+        <button id="docPanelClose" class="doc-panel-close"><i class="fas fa-times"></i></button>
+        <h3 id="docPanelTitle">Installation Documentation</h3>
+        <ul id="docList">
+            <!-- Documentation items will be populated here -->
+        </ul>
+    </div>
+
+</body>
+</html>
