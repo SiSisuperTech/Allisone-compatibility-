@@ -139,23 +139,17 @@ const realData = {
             description: 'Partial integration between Logosw and Planmeca using gateway connection or file export/import.',
             features: ['One-way data sync', 'Manual patient matching', 'External launching']
         },
-        'logosw-dexis': { 
+        'logosw-sirona': { 
             level: 'full', 
             options: ['V2', 'API Integration'],
-            description: 'Full modern integration between Logosw and Dexis using the Allisone V2 connector and direct API.',
-            features: ['Instant acquisition', 'Real-time synchronization', 'Patient auto-detection']
+            description: 'Full integration between Logosw and Sidexis (Sirona) using Allisone V2 connector.',
+            features: ['Direct connectivity', 'Patient auto-matching', 'Real-time image sync']
         },
-        'logosw-vatech': { 
+        'logosw-kavo': { 
             level: 'partial', 
-            options: ['Manual Import', 'V1 Light'],
-            description: 'Basic compatibility between Logosw and Vatech X-ray systems with manual import workflow.',
-            features: ['Manual file transfer', 'Patient mapping assistant']
-        },
-        'logosw-allisone': { 
-            level: 'full', 
-            options: ['Wild Gateway', 'V2'],
-            description: 'Full native integration between Logosw and Allisone X-ray using wild gateway technology.',
-            features: ['Seamless workflow', 'Instant image acquisition', 'Custom configuration']
+            options: ['V1 Light', 'Manual Import'],
+            description: 'Basic integration between Logosw and Cliniview (KaVo) with limited functionality.',
+            features: ['Manual image transfer', 'Basic image linking']
         },
         'julie-carestream': { 
             level: 'full', 
@@ -163,17 +157,11 @@ const realData = {
             description: 'Comprehensive integration between Julie and Carestream with direct connectivity.',
             features: ['Automated workflow', 'One-click acquisition', 'Full data exchange']
         },
-        'julie-planmeca': { 
-            level: 'none', 
-            options: [],
-            description: 'Currently no supported integration method between Julie and Planmeca.',
-            features: []
-        },
-        'julie-dexis': { 
-            level: 'partial', 
-            options: ['File Export/Import', 'V1 Light'],
-            description: 'Basic integration between Julie and Dexis using file-based workflows.',
-            features: ['Manual image import', 'Basic patient linking']
+        'julie-sirona': { 
+            level: 'full', 
+            options: ['Gateway', 'V2'],
+            description: 'Full integration between Julie and Sidexis using gateway technology.',
+            features: ['Complete workflow integration', 'Automatic synchronization', 'Patient matching']
         },
         'julie-vatech': { 
             level: 'full', 
@@ -181,101 +169,173 @@ const realData = {
             description: 'Complete integration between Julie and Vatech using Allisone V2 connector.',
             features: ['Seamless imaging workflow', 'Automated patient matching', 'Quick image acquisition']
         },
-        'julie-allisone': { 
-            level: 'full', 
-            options: ['Gateway', 'Cloud Sync'],
-            description: 'Enhanced native integration between Julie and Allisone X-ray.',
-            features: ['Cloud synchronization', 'Real-time updates', 'Zero configuration']
-        },
-        'dentally-carestream': { 
+        'julie-planmeca': { 
             level: 'partial', 
-            options: ['V1 Light', 'File Export/Import'],
-            description: 'Limited integration between Dentally and Carestream.',
-            features: ['Basic image linking', 'Manual patient matching']
-        },
-        'dentally-planmeca': { 
-            level: 'full', 
-            options: ['Cloud Sync', 'API Integration'],
-            description: 'Modern cloud-based integration between Dentally and Planmeca.',
-            features: ['Cloud synchronization', 'Automatic updates', 'Cross-platform support']
-        },
-        'dentally-dexis': { 
-            level: 'partial', 
-            options: ['Manual Import', 'V1 Full'],
-            description: 'Integration between Dentally and Dexis using Allisone V1 watcher module.',
-            features: ['Automatic image detection', 'Background synchronization']
-        },
-        'dentally-vatech': { 
-            level: 'none', 
-            options: [],
-            description: 'No current integration method between Dentally and Vatech.',
-            features: []
-        },
-        'dentally-allisone': { 
-            level: 'full', 
-            options: ['V2', 'Direct Integration'],
-            description: 'Full integration between Dentally and Allisone X-ray.',
-            features: ['Direct connection', 'Real-time image acquisition', 'Automated workflow']
-        },
-        'weclever-carestream': { 
-            level: 'partial', 
-            options: ['V1 Light', 'Manual Import'],
-            description: 'Basic integration between WeClever and Carestream.',
-            features: ['Manual image transfer', 'Basic linking']
-        },
-        'weclever-planmeca': { 
-            level: 'full', 
-            options: ['API Integration', 'Gateway'],
-            description: 'Full featured integration between WeClever and Planmeca.',
-            features: ['Bidirectional data flow', 'Complete workflow integration']
-        },
-        'weclever-dexis': { 
-            level: 'full', 
-            options: ['Gateway', 'V2'],
-            description: 'Enhanced integration between WeClever and Dexis using latest connector.',
-            features: ['Fast image acquisition', 'Intelligent patient matching']
-        },
-        'weclever-vatech': { 
-            level: 'partial', 
-            options: ['File Export/Import'],
-            description: 'Limited file-based integration between WeClever and Vatech.',
-            features: ['Manual workflow', 'Image export/import']
-        },
-        'weclever-allisone': { 
-            level: 'full', 
-            options: ['Wild Gateway', 'V2'],
-            description: 'Native integration between WeClever and Allisone X-ray.',
-            features: ['Seamless workflow', 'One-click acquisition', 'Automated synchronization']
+            options: ['Gateway', 'File Export/Import'],
+            description: 'Partial integration between Julie and Planmeca using gateway technology.',
+            features: ['Limited automated workflow', 'Manual configuration required']
         },
         'desmos-carestream': { 
-            level: 'none', 
-            options: [],
-            description: 'No current integration between Desmos and Carestream.',
-            features: []
+            level: 'full', 
+            options: ['V2', 'Gateway', 'API Integration'],
+            description: 'Complete integration between Desmos and Carestream with multiple connection options.',
+            features: ['Full bidirectional sync', 'Automated workflow', 'Real-time updates']
         },
         'desmos-planmeca': { 
-            level: 'partial', 
-            options: ['V1 Light', 'Manual Import'],
-            description: 'Basic integration between Desmos and Planmeca.',
-            features: ['Manual image transfer', 'Basic patient linking']
+            level: 'full', 
+            options: ['Gateway', 'Cloud Sync'],
+            description: 'Full integration between Desmos and Planmeca using advanced connectivity.',
+            features: ['Cloud-based synchronization', 'Automated patient matching', 'Simple setup']
         },
-        'desmos-dexis': { 
+        'desmos-sirona': { 
+            level: 'full', 
+            options: ['Gateway', 'V2'],
+            description: 'Enhanced integration between Desmos and Sidexis with full feature support.',
+            features: ['Complete workflow integration', 'One-click acquisition', 'Advanced filtering']
+        },
+        'weclever-carestream': { 
+            level: 'full', 
+            options: ['Gateway', 'V2', 'API Integration'],
+            description: 'Complete integration between WeClever and Carestream.',
+            features: ['Automated workflow', 'Real-time synchronization', 'Patient auto-matching']
+        },
+        'weclever-vatech': { 
+            level: 'full', 
+            options: ['Gateway', 'V2'],
+            description: 'Full integration between WeClever and Vatech with all features supported.',
+            features: ['Direct connectivity', 'Seamless workflow', 'Real-time image sync']
+        },
+        'ulyses-carestream': { 
+            level: 'full', 
+            options: ['Gateway', 'V2'],
+            description: 'Complete integration between Ulyses and Carestream.',
+            features: ['Bidirectional sync', 'Automated workflow', 'Easy configuration']
+        },
+        'ulyses-sirona': { 
             level: 'partial', 
             options: ['File Export/Import'],
-            description: 'File-based integration between Desmos and Dexis.',
-            features: ['File transfer workflow', 'Manual patient matching']
+            description: 'Basic integration between Ulyses and Sidexis.',
+            features: ['Manual file transfer', 'Basic patient linking']
         },
-        'desmos-vatech': { 
-            level: 'full', 
-            options: ['API Integration', 'V2'],
-            description: 'Complete integration between Desmos and Vatech.',
-            features: ['Direct connectivity', 'Automated workflow', 'Real-time sync']
+        'ulyses-planmeca': { 
+            level: 'partial', 
+            options: ['Gateway'],
+            description: 'Limited gateway connectivity between Ulyses and Planmeca.',
+            features: ['One-way synchronization', 'Manual configuration']
         },
-        'desmos-allisone': { 
+        'spdentaire-carestream': { 
             level: 'full', 
-            options: ['Gateway', 'V2', 'Cloud Sync'],
-            description: 'Full featured integration between Desmos and Allisone X-ray.',
-            features: ['Multiple connectivity options', 'Cloud synchronization', 'Cross-platform support']
+            options: ['Gateway', 'V2'],
+            description: 'Full integration between SPDentaire and Carestream.',
+            features: ['Complete data exchange', 'Automated workflow', 'Patient matching']
+        },
+        'spdentaire-planmeca': { 
+            level: 'partial', 
+            options: ['File Export/Import', 'V1 Light'],
+            description: 'Basic integration between SPDentaire and Planmeca.',
+            features: ['Limited automation', 'Manual patient matching']
+        },
+        'veasy-carestream': { 
+            level: 'partial', 
+            options: ['V1 Light'],
+            description: 'Limited integration between Veasy and Carestream.',
+            features: ['Basic image linking', 'Manual synchronization']
+        },
+        'veasy-planmeca': { 
+            level: 'none', 
+            options: [],
+            description: 'No current integration between Veasy and Planmeca.',
+            features: []
+        },
+        'powerdent-carestream': { 
+            level: 'partial', 
+            options: ['V1 Light'],
+            description: 'Limited integration between Powerdent and Carestream.',
+            features: ['Basic image viewing', 'Manual patient linking']
+        },
+        'powerdent-sirona': { 
+            level: 'partial', 
+            options: ['V1 Light'],
+            description: 'Limited integration between Powerdent and Sidexis.',
+            features: ['Basic integration', 'Manual workflow']
+        },
+        'orisdent-carestream': { 
+            level: 'partial', 
+            options: ['V1 Light'],
+            description: 'Basic integration between OrisDent and Carestream.',
+            features: ['Manual image linking', 'Basic viewing capabilities']
+        },
+        'orisdent-vatech': { 
+            level: 'none', 
+            options: [],
+            description: 'No current integration between OrisDent and Vatech.',
+            features: []
+        },
+        'biotech-carestream': { 
+            level: 'partial', 
+            options: ['File Export/Import'],
+            description: 'Limited integration between Biotech Dental and Carestream.',
+            features: ['Manual file transfer', 'Basic image viewing']
+        },
+        'dental4windows-carestream': { 
+            level: 'full', 
+            options: ['API Integration', 'Direct Integration'],
+            description: 'Full integration between Dental4Windows and Carestream.',
+            features: ['Bidirectional sync', 'Automated workflow', 'Complete patient matching']
+        },
+        'dental4windows-sirona': { 
+            level: 'full', 
+            options: ['Gateway', 'API Integration'],
+            description: 'Complete integration between Dental4Windows and Sidexis.',
+            features: ['Advanced connectivity', 'Automated workflow', 'Comprehensive features']
+        },
+        'opendental-carestream': { 
+            level: 'full', 
+            options: ['API Integration', 'Direct Integration'],
+            description: 'Full integration between Open Dental and Carestream.',
+            features: ['Complete data exchange', 'Real-time synchronization', 'Easy setup']
+        },
+        'opendental-dexis': { 
+            level: 'full', 
+            options: ['Direct Integration'],
+            description: 'Native integration between Open Dental and Dexis.',
+            features: ['Built-in support', 'Seamless workflow', 'Complete feature set']
+        },
+        'eaglesoft-carestream': { 
+            level: 'full', 
+            options: ['Direct Integration', 'API Integration'],
+            description: 'Complete integration between Eaglesoft and Carestream.',
+            features: ['Native support', 'Automatic synchronization', 'Full feature set']
+        },
+        'eaglesoft-planmeca': { 
+            level: 'partial', 
+            options: ['File Export/Import'],
+            description: 'Limited integration between Eaglesoft and Planmeca.',
+            features: ['Manual file transfer', 'Basic patient linking']
+        },
+        'dentrix-carestream': { 
+            level: 'full', 
+            options: ['Direct Integration', 'API Integration'],
+            description: 'Full native integration between Dentrix and Carestream.',
+            features: ['Built-in support', 'Complete workflow', 'Advanced features']
+        },
+        'dentrix-dexis': { 
+            level: 'full', 
+            options: ['Direct Integration'],
+            description: 'Native integration between Dentrix and Dexis.',
+            features: ['Built-in Bridge', 'Complete workflow integration', 'Automatic synchronization']
+        },
+        'denticon-carestream': { 
+            level: 'partial', 
+            options: ['File Export/Import'],
+            description: 'Basic integration between Denticon and Carestream.',
+            features: ['Manual file transfer', 'Limited automation']
+        },
+        'denticon-sirona': { 
+            level: 'partial', 
+            options: ['Cloud Sync'],
+            description: 'Partial integration between Denticon and Sidexis using cloud technology.',
+            features: ['Cloud-based synchronization', 'Manual configuration required']
         }
     },
     documentation: {
