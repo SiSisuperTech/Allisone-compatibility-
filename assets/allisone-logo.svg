@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="60" viewBox="0 0 200 60">
+  <style>
+    .logo-text { fill: #2563eb; font-family: 'Arial', sans-serif; font-weight: bold; }
+    .dark-mode .logo-text { fill: #3b82f6; }
+    .logo-icon { fill: #2563eb; }
+    .dark-mode .logo-icon { fill: #3b82f6; }
+  </style>
+  <g>
+    <path class="logo-icon" d="M30,10 C18.954,10 10,18.954 10,30 C10,41.046 18.954,50 30,50 C41.046,50 50,41.046 50,30 C50,18.954 41.046,10 30,10 Z M30,15 C38.284,15 45,21.716 45,30 C45,38.284 38.284,45 30,45 C21.716,45 15,38.284 15,30 C15,21.716 21.716,15 30,15 Z"/>
+    <path class="logo-icon" d="M30,20 C24.477,20 20,24.477 20,30 C20,35.523 24.477,40 30,40 C35.523,40 40,35.523 40,30 C40,24.477 35.523,20 30,20 Z M30,25 C32.761,25 35,27.239 35,30 C35,32.761 32.761,35 30,35 C27.239,35 25,32.761 25,30 C25,27.239 27.239,25 30,25 Z"/>
+    <text x="60" y="35" class="logo-text" font-size="24">ALLISONE</text>
+  </g>
+</svg> 
