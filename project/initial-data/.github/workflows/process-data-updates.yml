@@ -1,0 +1,133 @@
+name: Process Data Updates
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  process-data-update:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'data-update')
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+        
+    - name: Extract and Process Data
+      run: |
+        # Extract data from issue body
+        ISSUE_BODY="${{ github.event.issue.body }}"
+        DATA_TYPE=$(echo "$ISSUE_BODY" | grep -oP '**Type**:\s*\K[^\s]+')
+        
+        # Extract JSON data between backticks
+        JSON_DATA=$(echo "$ISSUE_BODY" | awk '/```json/{flag=1;next}/```/{flag=0}flag')
+        
+        # Determine which file to update
+        case "$DATA_TYPE" in
+          "pms-software")
+            FILE_PATH="data/pms-software.json"
+            ;;
+          "xray-software")
+            FILE_PATH="data/xray-software.json"
+            ;;
+          "pms-matrix")
+            FILE_PATH="data/pms-matrix.json"
+            ;;
+          "xray-matrix")
+            FILE_PATH="data/xray-matrix.json"
+            ;;
+          "logo-updates")
+            FILE_PATH="data/logo-updates.json"
+            ;;
+          "compatibility")
+            # Process compatibility updates
+            PMS_ID=$(echo "$JSON_DATA" | jq -r '.pmsId')
+            XRAY_ID=$(echo "$JSON_DATA" | jq -r '.xrayId')
+            
+            # Update PMS matrix
+            PMS_DATA=$(echo "$JSON_DATA" | jq '{
+              compatible: (.pmsStatus != "Not Started" or (.pmsModes | length > 0)),
+              allisoneMode: .pmsModes,
+              status: .pmsStatus,
+              notes: .pmsNotes,
+              supportedVersions: .pmsVersions
+            }')
+            
+            # Update XRAY matrix
+            XRAY_DATA=$(echo "$JSON_DATA" | jq '{
+              compatible: (.xrayStatus != "Not Started" or (.xrayModes | length > 0)),
+              allisoneMode: .xrayModes,
+              status: .xrayStatus,
+              notes: .xrayNotes,
+              supportedVersions: .xrayVersions
+            }')
+            
+            # Add PMS entry to matrix
+            jq --arg id "$PMS_ID" --argjson data "$PMS_DATA" '.[$id] = $data' data/pms-matrix.json > tmp.json
+            mv tmp.json data/pms-matrix.json
+            
+            # Add XRAY entry to matrix
+            jq --arg id "$XRAY_ID" --argjson data "$XRAY_DATA" '.[$id] = $data' data/xray-matrix.json > tmp.json
+            mv tmp.json data/xray-matrix.json
+            
+            git config --global user.name "GitHub Actions Bot"
+            git config --global user.email "actions@github.com"
+            git add data/pms-matrix.json data/xray-matrix.json
+            git commit -m "Update compatibility between PMS $PMS_ID and X-ray $XRAY_ID"
+            git push
+            exit 0
+            ;;
+          *)
+            echo "Unknown data type: $DATA_TYPE"
+            exit 1
+            ;;
+        esac
+        
+        # Process regular updates
+        # For deletions
+        if echo "$JSON_DATA" | jq -e '._action == "delete"' > /dev/null; then
+          ID=$(echo "$JSON_DATA" | jq -r '.id')
+          if [[ "$DATA_TYPE" == "pms-software" || "$DATA_TYPE" == "xray-software" ]]; then
+            jq --arg id "$ID" '[.[] | select(.id != $id)]' $FILE_PATH > tmp.json
+            mv tmp.json $FILE_PATH
+          else
+            jq --arg id "$ID" 'del(.[$id])' $FILE_PATH > tmp.json
+            mv tmp.json $FILE_PATH
+          fi
+        
+        # For updates or additions
+        else
+          if [[ "$DATA_TYPE" == "pms-software" || "$DATA_TYPE" == "xray-software" ]]; then
+            ID=$(echo "$JSON_DATA" | jq -r '.id')
+            # Check if item exists
+            if jq --arg id "$ID" '.[] | select(.id == $id) | .id' $FILE_PATH | grep -q .; then
+              # Update existing item
+              jq --argjson item "$JSON_DATA" --arg id "$ID" 'map(if .id == $id then $item else . end)' $FILE_PATH > tmp.json
+            else
+              # Add new item
+              jq --argjson item "$JSON_DATA" '. += [$item]' $FILE_PATH > tmp.json
+            fi
+            mv tmp.json $FILE_PATH
+          else
+            # For object-based files (matrices, logo updates)
+            jq --slurpfile updates <(echo "$JSON_DATA") '. * $updates[0]' $FILE_PATH > tmp.json
+            mv tmp.json $FILE_PATH
+          fi
+        fi
+        
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "actions@github.com"
+        git add $FILE_PATH
+        git commit -m "Update $DATA_TYPE data"
+        git push
+      
+    - name: Close Issue
+      uses: peter-evans/close-issue@v2
+      with:
+        issue-number: ${{ github.event.issue.number }}
+        comment: "Data has been automatically updated. Thank you for your contribution!"

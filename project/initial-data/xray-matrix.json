@@ -1,0 +1,9 @@
+{
+  "example-xray": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Initial example entry",
+    "supportedVersions": "v2.0+"
+  }
+}

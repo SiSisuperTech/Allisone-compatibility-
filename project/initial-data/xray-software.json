@@ -1,0 +1,10 @@
+[
+  {
+    "id": "example-xray",
+    "name": "Example X-ray",
+    "company": "Example Imaging Solutions",
+    "logo": "https://via.placeholder.com/100?text=XRAY",
+    "type": "xray",
+    "status": "Not Started"
+  }
+]
