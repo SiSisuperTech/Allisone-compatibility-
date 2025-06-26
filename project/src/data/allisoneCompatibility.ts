@@ -58,12 +58,12 @@ export const xraySoftware: XraySoftware[] = [
   { id: 'romexis', name: 'Romexis', company: 'Planmeca', logo: 'https://www.lmdfrance.fr/public/img/big/maxresdefault1jpg_65f06fb46dd691.07855911.jpg' },
   { id: 'sidexis', name: 'Sidexis', company: 'Dentsply Sirona', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRg2FwEARD5XNGrlEuZqACvEvvOSXbRVABu6pSemIcUlNajL90u_LQSHpdtjgoSr_ourHo&usqp=CAU' },
   { id: 'cs-imaging', name: 'CS Imaging', company: 'Carestream', logo: 'https://www.comident.fr/wp-media/uploads/2023/10/CSD_Logo_NEW2020_Shadow.png' },
-  { id: 'vixwin', name: 'VixWin', company: 'Gendex', logo: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.ebay.com%2Fitm%2F304495602501&psig=AOvVaw39xKqFkRvEDO4Qa0KbQATc&ust=1746544703360000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPDP4ZbQjI0DFQAAAAAdAAAAABAE' },
+  { id: 'vixwin', name: 'VixWin', company: 'Gendex', logo: '/Allisone-compatibility-/logos/vixwin.png' },
   { id: 'vistasoft', name: 'VistaSoft', company: 'Durr Dental', logo: 'https://help.vsmonitor.com/dd/graphics/00310898.png' },
   { id: 'ais', name: 'AIS', company: 'Acteon', logo: 'https://sfe-endo.fr/wp-content/uploads/2023/05/ACTEON-logo.png' },
   { id: 'examine-pro', name: 'Examine Pro', company: 'Examine Pro', logo: 'https://img.medicalexpo.fr/images_me/photo-mg/74092-8210123.jpg' },
   { id: 'quickvision', name: 'QuickVision', company: 'Owandy', logo: 'https://www.owandy.fr/wp-content/uploads/2024/12/logo-QuickVision_white.png' },
-  { id: 'irys', name: 'iRYS', company: 'MyRay', logo: 'https://example.com/logos/irys.png' },
+  { id: 'irys', name: 'iRYS', company: 'MyRay', logo: '/Allisone-compatibility-/logos/irys.png' },
   { id: 'ezdent-i', name: 'Ezdent-i', company: 'Vatech', logo: 'https://vatech-france.fr/wp-content/uploads/2019/12/Logo-1.png' },
   { id: 'visiquick', name: 'VisiQuick', company: 'Citodent', logo: 'https://i0.wp.com/www.citodent.com/wp-content/uploads/2016/12/cropped-Logo-VisiQuick.jpg?fit=512%2C512&ssl=1' },
   { id: 'cliniview', name: 'Cliniview', company: 'KaVo Instrumentarium', logo: 'https://cdn.elmed.cz/images/0/1ac8808f6d80b096/2/licence-cliniview-1-pc-network-user-add-on.jpg?hash=1487825817' },
@@ -75,7 +75,7 @@ export const xraySoftware: XraySoftware[] = [
   { id: 'dtx-studio', name: 'DTX Studio', company: 'Visualization', logo: 'https://www.dtxstudio.com/sites/g/files/wdvifx246/files/styles/mobile_375_full_width_x1/public/DTX%20Studio%20Clinic%20icon_pseudoteaser.png.webp?itok=ORa8G9yA' },
   { id: 'nnt', name: 'NNT', company: 'Newtom', logo: 'https://alldent.nl/wp-content/uploads/2020/08/5958-nnt-logo_thumb.jpg' },
   { id: 'dentrix-ascend', name: 'Dentrix Ascend', company: 'Henry Schein', logo: 'https://images.g2crowd.com/uploads/product/image/social_landscape/social_landscape_6cc28c7b4d8e98000efb5fea6a4ebd67/dentrix-ascend.png' },
-  { id: 'mipacs', name: 'MiPACS Dental Enterprise Viewer', company: 'Medicor Imaging', logo: 'https://example.com/logos/mipacs.png' },
+  { id: 'mipacs', name: 'MiPACS Dental Enterprise Viewer', company: 'Medicor Imaging', logo: '/Allisone-compatibility-/logos/mipacs.png' },
   { id: 'xrayvision', name: 'XrayVision', company: 'Apteryx Imaging', logo: 'https://media.dentalcompare.com/m/25/article/517681-134x100.jpg' },
 ];
 
@@ -277,7 +277,7 @@ export const xrayAllisoneMatrix: XrayAllisoneMatrix = {
   'mediadent': {
     compatible: true,
     allisoneMode: ['Watcher Light + Dicom', 'Generic Dicom'],
-    status: 'Not started',
+    status: 'Not Started',
     notes: 'Support DICOM générique disponible'
   },
   'dbswin': {
