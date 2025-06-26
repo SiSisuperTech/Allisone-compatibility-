@@ -1,10 +1,82 @@
 [
   {
-    "id": "example-pms",
-    "name": "Example PMS",
-    "company": "Example Dental Systems",
-    "logo": "https://via.placeholder.com/100?text=PMS",
+    "id": "biotech-dental",
+    "name": "Biotech Dental",
+    "company": "Biotech Dental",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/LOGO_BIOTECH_DENTAL-HD.jpg/1280px-LOGO_BIOTECH_DENTAL-HD.jpg",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
+  },
+  {
+    "id": "logosw",
+    "name": "Logosw",
+    "company": "Logosw",
+    "logo": "https://www.logosw.net/telechargement/presse/logosw-1000.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "spdentaire",
+    "name": "SPDentaire",
+    "company": "SantéPlus",
+    "logo": "https://www.sp-formations.eu/wp-content/uploads/2023/11/cropped-sante_rouge.webp",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "veasy",
+    "name": "Veasy",
+    "company": "Cegedim",
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3wfhXKXkJ2yWx4CSXQpO-LXcDTnRV32DbjQ&s",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "desmos",
+    "name": "Desmos",
+    "company": "Orisha",
+    "logo": "https://astucetierspayant.fr/wp-content/uploads/2023/12/Desmos.jpg",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "julie",
+    "name": "Julie",
+    "company": "Henry Schein",
+    "logo": "https://www.julie.fr/julie_uploads/2022/10/logo-bleu-115x75-1.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "weclever",
+    "name": "WeClever",
+    "company": "Vatech",
+    "logo": "https://weclever-dental.com/wp-content/uploads/2023/04/Weclever_Logo-Dental_Off_PNG.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "orisdent-orisline",
+    "name": "OrisDent - OrisLine",
+    "company": "Henry Schein",
+    "logo": "https://orisdent.com/wp-content/themes/orisdent/img/orisline-logo.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "powerdent-kopfwerk",
+    "name": "Powerdent - Kopfwerk",
+    "company": "Henry Schein",
+    "logo": "https://res.cloudinary.com/beleza-na-web/image/upload/f_auto,fl_progressive,q_auto:best/v1/brand/2023_04_11_17_51_41_9/48614d56-6434-40fc-984e-307c8cf1960f-marca-powerdent-carrossel.svg",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "ulyses",
+    "name": "Ulyses",
+    "company": "Vitaldent",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Vitaldent.svg/2560px-Vitaldent.svg.png",
+    "type": "pms",
+    "status": "In Prod"
   }
 ]

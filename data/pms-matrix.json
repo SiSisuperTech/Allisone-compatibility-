@@ -1,9 +1,72 @@
 {
-  "example-pms": {
+  "biotech-dental": {
+    "compatible": true,
+    "allisoneMode": ["CreateDiagnostic (legacy)"],
+    "status": "In Prod",
+    "notes": "Intégration legacy où le partenaire upload une image directement et reçoit le rapport en JSON",
+    "supportedVersions": "All versions"
+  },
+  "logosw": {
+    "compatible": true,
+    "allisoneMode": ["V1 + Image", "V1 without Image"],
+    "status": "In Prod",
+    "notes": "Logosw v12 : 1/3 utilisateurs l'ont (au 1er Septembre 24), 2/3 l'auront d'ici fin de l'année 24",
+    "supportedVersions": "v12+"
+  },
+  "spdentaire": {
+    "compatible": true,
+    "allisoneMode": ["Gateway", "V1 without Image"],
+    "status": "In Prod",
+    "notes": "Treatment plan disponible depuis 15/11/2024",
+    "supportedVersions": "Latest"
+  },
+  "veasy": {
+    "compatible": true,
+    "allisoneMode": ["V1 without Image"],
+    "status": "In Prod",
+    "notes": "Il semble compliqué de traiter Gateway avec Veasy. Auto-activation retardée beaucoup de temps",
+    "supportedVersions": "All versions"
+  },
+  "desmos": {
+    "compatible": true,
+    "allisoneMode": ["Gateway", "V1 without Image"],
+    "status": "In Prod",
+    "notes": "Amélioration pour treatmentPlan avec Gateway + UX TP dans Desmos trop compliquée",
+    "supportedVersions": "Latest"
+  },
+  "julie": {
     "compatible": true,
     "allisoneMode": ["Gateway"],
     "status": "In Prod",
-    "notes": "Initial example entry",
-    "supportedVersions": "v1.0+"
+    "notes": "Connecteur (passerelle radio allisone) déployé entre octobre 2024 et janvier 2025",
+    "supportedVersions": "Latest"
+  },
+  "weclever": {
+    "compatible": true,
+    "allisoneMode": ["Gateway", "V1 + Image"],
+    "status": "In Prod",
+    "notes": "Gateway compatible avec Vatech, Carestream, Sirona",
+    "supportedVersions": "Latest"
+  },
+  "orisdent-orisline": {
+    "compatible": true,
+    "allisoneMode": ["V1 without Image"],
+    "status": "In Prod",
+    "notes": "Seulement watcher en prod. Ils vont travailler sur Gateway.",
+    "supportedVersions": "Latest"
+  },
+  "powerdent-kopfwerk": {
+    "compatible": true,
+    "allisoneMode": ["V1 without Image"],
+    "status": "In Prod",
+    "notes": "Watcher workflow en prod depuis juillet 2024",
+    "supportedVersions": "Latest"
+  },
+  "ulyses": {
+    "compatible": true,
+    "allisoneMode": ["Gateway"],
+    "status": "In Prod",
+    "notes": "Vitaldent PMS déployé gateway dans +50 cliniques",
+    "supportedVersions": "Latest"
   }
 }

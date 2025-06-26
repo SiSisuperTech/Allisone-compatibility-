@@ -1,9 +1,156 @@
 {
-  "example-xray": {
+  "romexis": {
     "compatible": true,
     "allisoneMode": ["DICOM Bridge"],
     "status": "Done",
-    "notes": "Initial example entry",
-    "supportedVersions": "v2.0+"
+    "notes": "Compatible avec toutes les versions. DICOM standard supporté.",
+    "supportedVersions": "All versions"
+  },
+  "sidexis": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible via DICOM. Intégration stable avec Dentsply Sirona.",
+    "supportedVersions": "All versions"
+  },
+  "cs-imaging": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Carestream. DICOM standard supporté.",
+    "supportedVersions": "All versions"
+  },
+  "vixwin": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Gendex via DICOM standard.",
+    "supportedVersions": "All versions"
+  },
+  "vistasoft": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Durr Dental via DICOM.",
+    "supportedVersions": "All versions"
+  },
+  "ais": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Acteon via DICOM standard.",
+    "supportedVersions": "All versions"
+  },
+  "examine-pro": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible via DICOM standard.",
+    "supportedVersions": "All versions"
+  },
+  "quickvision": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Owandy via DICOM.",
+    "supportedVersions": "All versions"
+  },
+  "irys": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible MyRay via DICOM standard.",
+    "supportedVersions": "All versions"
+  },
+  "ezdent-i": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Vatech via DICOM standard.",
+    "supportedVersions": "All versions"
+  },
+  "visiquick": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Citodent via DICOM.",
+    "supportedVersions": "All versions"
+  },
+  "cliniview": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible KaVo Instrumentarium via DICOM.",
+    "supportedVersions": "All versions"
+  },
+  "mediadent": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible via DICOM standard.",
+    "supportedVersions": "All versions"
+  },
+  "dbswin": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Durr Dental via DICOM.",
+    "supportedVersions": "All versions"
+  },
+  "i-dixel": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Morita via DICOM standard.",
+    "supportedVersions": "All versions"
+  },
+  "rayscan": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Ray via DICOM standard.",
+    "supportedVersions": "All versions"
+  },
+  "scanora": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Soredex via DICOM.",
+    "supportedVersions": "All versions"
+  },
+  "dtx-studio": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible via DICOM standard.",
+    "supportedVersions": "All versions"
+  },
+  "nnt": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Newtom via DICOM standard.",
+    "supportedVersions": "All versions"
+  },
+  "dentrix-ascend": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Henry Schein via DICOM.",
+    "supportedVersions": "All versions"
+  },
+  "mipacs": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Medicor Imaging via DICOM.",
+    "supportedVersions": "All versions"
+  },
+  "xrayvision": {
+    "compatible": true,
+    "allisoneMode": ["DICOM Bridge"],
+    "status": "Done",
+    "notes": "Compatible Apteryx Imaging via DICOM.",
+    "supportedVersions": "All versions"
   }
 }

@@ -1,10 +1,178 @@
 [
   {
-    "id": "example-xray",
-    "name": "Example X-ray",
-    "company": "Example Imaging Solutions",
-    "logo": "https://via.placeholder.com/100?text=XRAY",
+    "id": "romexis",
+    "name": "Romexis",
+    "company": "Planmeca",
+    "logo": "https://www.lmdfrance.fr/public/img/big/maxresdefault1jpg_65f06fb46dd691.07855911.jpg",
     "type": "xray",
-    "status": "Not Started"
+    "status": "In Prod"
+  },
+  {
+    "id": "sidexis",
+    "name": "Sidexis",
+    "company": "Dentsply Sirona",
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRg2FwEARD5XNGrlEuZqACvEvvOSXbRVABu6pSemIcUlNajL90u_LQSHpdtjgoSr_ourHo&usqp=CAU",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "cs-imaging",
+    "name": "CS Imaging",
+    "company": "Carestream",
+    "logo": "https://www.comident.fr/wp-media/uploads/2023/10/CSD_Logo_NEW2020_Shadow.png",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "vixwin",
+    "name": "VixWin",
+    "company": "Gendex",
+    "logo": "/logos/vixwin.png",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "vistasoft",
+    "name": "VistaSoft",
+    "company": "Durr Dental",
+    "logo": "https://help.vsmonitor.com/dd/graphics/00310898.png",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "ais",
+    "name": "AIS",
+    "company": "Acteon",
+    "logo": "https://sfe-endo.fr/wp-content/uploads/2023/05/ACTEON-logo.png",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "examine-pro",
+    "name": "Examine Pro",
+    "company": "Examine Pro",
+    "logo": "https://img.medicalexpo.fr/images_me/photo-mg/74092-8210123.jpg",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "quickvision",
+    "name": "QuickVision",
+    "company": "Owandy",
+    "logo": "https://www.owandy.fr/wp-content/uploads/2024/12/logo-QuickVision_white.png",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "irys",
+    "name": "iRYS",
+    "company": "MyRay",
+    "logo": "/logos/irys.png",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "ezdent-i",
+    "name": "Ezdent-i",
+    "company": "Vatech",
+    "logo": "https://vatech-france.fr/wp-content/uploads/2019/12/Logo-1.png",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "visiquick",
+    "name": "VisiQuick",
+    "company": "Citodent",
+    "logo": "https://i0.wp.com/www.citodent.com/wp-content/uploads/2016/12/cropped-Logo-VisiQuick.jpg?fit=512%2C512&ssl=1",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "cliniview",
+    "name": "Cliniview",
+    "company": "KaVo Instrumentarium",
+    "logo": "https://cdn.elmed.cz/images/0/1ac8808f6d80b096/2/licence-cliniview-1-pc-network-user-add-on.jpg?hash=1487825817",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "mediadent",
+    "name": "Mediadent",
+    "company": "Mediadent",
+    "logo": "https://www.mipacs.com//_next/static/media/mipacs-by-apryse-colour.8b5ddab8.svg",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "dbswin",
+    "name": "DBSWin",
+    "company": "Durr Dental",
+    "logo": "/logos/dbswin.png",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "i-dixel",
+    "name": "i-Dixel",
+    "company": "Morita",
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvfL0hhKiLWqsm2x9VTWK6K60j3N6PbMPXjA&s",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "rayscan",
+    "name": "RayScan",
+    "company": "Ray",
+    "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBkSZoiRkki_lbu932Oxdjo09BygxAG51z5w&s",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "scanora",
+    "name": "Scanora",
+    "company": "Soredex",
+    "logo": "https://www.dentalsky.com/media/amasty/shopby/option_images/Soredex.jpg",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "dtx-studio",
+    "name": "DTX Studio",
+    "company": "Visualization",
+    "logo": "https://www.dtxstudio.com/sites/g/files/wdvifx246/files/styles/mobile_375_full_width_x1/public/DTX%20Studio%20Clinic%20icon_pseudoteaser.png.webp?itok=ORa8G9yA",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "nnt",
+    "name": "NNT",
+    "company": "Newtom",
+    "logo": "https://alldent.nl/wp-content/uploads/2020/08/5958-nnt-logo_thumb.jpg",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "dentrix-ascend",
+    "name": "Dentrix Ascend",
+    "company": "Henry Schein",
+    "logo": "https://images.g2crowd.com/uploads/product/image/social_landscape/social_landscape_6cc28c7b4d8e98000efb5fea6a4ebd67/dentrix-ascend.png",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "mipacs",
+    "name": "MiPACS Dental Enterprise Viewer",
+    "company": "Medicor Imaging",
+    "logo": "/logos/mipacs.png",
+    "type": "xray",
+    "status": "In Prod"
+  },
+  {
+    "id": "xrayvision",
+    "name": "XrayVision",
+    "company": "Apteryx Imaging",
+    "logo": "https://media.dentalcompare.com/m/25/article/517681-134x100.jpg",
+    "type": "xray",
+    "status": "In Prod"
   }
 ]
