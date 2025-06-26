@@ -9,6 +9,7 @@ import Header from './components/Header';
 import SoftwareSelector from './components/SoftwareSelector';
 import EditSoftwareModal from './components/EditSoftwareModal';
 import EditCompatibilityModal from './components/EditCompatibilityModal';
+import LogoImage from './components/LogoImage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
@@ -725,7 +726,12 @@ function App() {
                     <div className="bg-white dark:bg-gray-800 rounded-lg p-5 shadow-sm border border-gray-200 dark:border-gray-700">
                       <div className="flex items-center mb-4">
                         <div className="w-10 h-10 mr-3 bg-gray-50 dark:bg-gray-700 rounded-lg p-1.5 flex items-center justify-center">
-                          <img src={allPmsSoftware.find(p => p.id === selectedPMS)?.logo} alt="" className="max-h-full max-w-full object-contain" />
+                          <LogoImage 
+                            src={allPmsSoftware.find(p => p.id === selectedPMS)?.logo} 
+                            alt="" 
+                            className="h-full w-full object-contain"
+                            fallbackText="PMS"
+                          />
                         </div>
                         <h4 className="font-semibold text-gray-900 dark:text-white text-lg">
                           {allPmsSoftware.find(p => p.id === selectedPMS)?.name} → Allisone+
@@ -781,7 +787,12 @@ function App() {
                     <div className="bg-white dark:bg-gray-800 rounded-lg p-5 shadow-sm border border-gray-200 dark:border-gray-700">
                       <div className="flex items-center mb-4">
                         <div className="w-10 h-10 mr-3 bg-gray-50 dark:bg-gray-700 rounded-lg p-1.5 flex items-center justify-center">
-                          <img src={allXraySoftware.find(x => x.id === selectedXray)?.logo} alt="" className="max-h-full max-w-full object-contain" />
+                          <LogoImage 
+                            src={allXraySoftware.find(x => x.id === selectedXray)?.logo} 
+                            alt="" 
+                            className="h-full w-full object-contain"
+                            fallbackText="X-RAY"
+                          />
                         </div>
                         <h4 className="font-semibold text-gray-900 dark:text-white text-lg">
                           {allXraySoftware.find(x => x.id === selectedXray)?.name} → Allisone+
@@ -912,13 +923,17 @@ function App() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">PMS Software ({allPmsSoftware.length})</h3>
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6">                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">PMS Software ({allPmsSoftware.length})</h3>
                 <ul className="space-y-2 max-h-[60vh] overflow-y-auto">
                   {allPmsSoftware.map(s => (
                     <li key={s.id} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                       <div className="flex items-center truncate space-x-3">
-                        <img src={s.logo} alt="" className="h-8 w-8 object-contain rounded-md flex-shrink-0" />
+                        <LogoImage 
+                          src={s.logo} 
+                          alt="" 
+                          className="h-8 w-8 object-contain rounded-md flex-shrink-0"
+                          fallbackText="PMS"
+                        />
                         <div className="truncate">
                           <p className="font-medium truncate text-gray-800 dark:text-gray-200">{s.name}</p>
                           <p className="text-sm text-gray-500 truncate">{s.company}</p>
@@ -936,13 +951,17 @@ function App() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">X-ray Software ({allXraySoftware.length})</h3>
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6">                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">X-ray Software ({allXraySoftware.length})</h3>
                 <ul className="space-y-2 max-h-[60vh] overflow-y-auto">
                   {allXraySoftware.map(s => (
                     <li key={s.id} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                       <div className="flex items-center truncate space-x-3">
-                        <img src={s.logo} alt="" className="h-8 w-8 object-contain rounded-md flex-shrink-0" />
+                        <LogoImage 
+                          src={s.logo} 
+                          alt="" 
+                          className="h-8 w-8 object-contain rounded-md flex-shrink-0"
+                          fallbackText="X-RAY"
+                        />
                         <div className="truncate">
                           <p className="font-medium truncate text-gray-800 dark:text-gray-200">{s.name}</p>
                           <p className="text-sm text-gray-500 truncate">{s.company}</p>

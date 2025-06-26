@@ -1,9 +1,142 @@
 {
-  "example-xray": {
+  "romexis": {
     "compatible": true,
-    "allisoneMode": ["DICOM Bridge"],
+    "allisoneMode": ["A+ v2 - Server Mode", "A+ v2 - Bridge Mode", "Watcher Light + Dicom"],
     "status": "Done",
-    "notes": "Initial example entry",
-    "supportedVersions": "v2.0+"
+    "supportedVersions": "All versions ≥ 5.x",
+    "notes": "Intégration complète avec toutes les fonctionnalités Allisone+"
+  },
+  "sidexis": {
+    "compatible": true,
+    "allisoneMode": ["A+ v2 - Server Mode", "A+ v2 - Bridge Mode", "Full Watcher"],
+    "status": "Done",
+    "supportedVersions": "All versions ≥ 4.x (XG not supported yet)",
+    "notes": "Intégration complète, XG non supporté"
+  },
+  "cs-imaging": {
+    "compatible": true,
+    "allisoneMode": ["A+ v2 - Server Mode", "A+ v2 - Bridge Mode", "Full Watcher"],
+    "status": "Done",
+    "supportedVersions": "All versions ≥ 6.x, 7.x, 8.x",
+    "notes": "Compatibilité complète toutes versions récentes"
+  },
+  "vixwin": {
+    "compatible": true,
+    "allisoneMode": ["A+ v2 - Server Mode", "A+ v2 - Bridge Mode", "Watcher Light + Dicom"],
+    "status": "Done",
+    "supportedVersions": "All versions prior to 4.x",
+    "notes": "Versions antérieures à 4.x uniquement"
+  },
+  "vistasoft": {
+    "compatible": true,
+    "allisoneMode": ["A+ v2 - Server Mode", "A+ v2 - Bridge Mode", "Watcher Light + Dicom"],
+    "status": "Done",
+    "supportedVersions": "2.x or 3.x",
+    "notes": "Compatible versions 2.x et 3.x"
+  },
+  "ais": {
+    "compatible": true,
+    "allisoneMode": ["A+ v2 - Server Mode", "A+ v2 - Bridge Mode", "Watcher Light + Dicom"],
+    "status": "Done",
+    "supportedVersions": "≥ 5.3 (paid upgrade)",
+    "notes": "Compatible version 5.3+ (mise à jour payante)"
+  },
+  "examine-pro": {
+    "compatible": true,
+    "allisoneMode": ["A+ v2 - Server Mode", "A+ v2 - Bridge Mode", "Full Watcher Dicom"],
+    "status": "Done",
+    "notes": "Intégration complète"
+  },
+  "quickvision": {
+    "compatible": true,
+    "allisoneMode": ["A+ v2 - Server Mode", "A+ v2 - Bridge Mode", "Full Watcher Dicom"],
+    "status": "Done",
+    "notes": "Compatible avec Owandy QuickVision"
+  },
+  "ezdent-i": {
+    "compatible": true,
+    "allisoneMode": ["A+ v2 - Server Mode", "A+ v2 - Bridge Mode", "Full Watcher Dicom"],
+    "status": "Done",
+    "supportedVersions": "All versions (3.x)",
+    "notes": "Compatible toutes versions Vatech"
+  },
+  "visiquick": {
+    "compatible": true,
+    "allisoneMode": ["A+ v2 - Server Mode", "A+ v2 - Bridge Mode"],
+    "status": "Done",
+    "notes": "Intégration Citodent VisiQuick"
+  },
+  "cliniview": {
+    "compatible": true,
+    "allisoneMode": ["Full Watcher"],
+    "status": "Planned",
+    "notes": "A+ v2 Server Mode planifié"
+  },
+  "irys": {
+    "compatible": true,
+    "allisoneMode": ["A+ v2 - Bridge Mode", "Full Watcher Dicom", "Generic Dicom"],
+    "status": "Done",
+    "supportedVersions": "≥ 16",
+    "notes": "Compatible versions 16+"
+  },
+  "mediadent": {
+    "compatible": true,
+    "allisoneMode": ["Watcher Light + Dicom", "Generic Dicom"],
+    "status": "Not Started",
+    "notes": "Support DICOM générique disponible"
+  },
+  "dbswin": {
+    "compatible": true,
+    "allisoneMode": ["Watcher Light + Dicom"],
+    "status": "Not started",
+    "notes": "Watcher Light + export DICOM"
+  },
+  "i-dixel": {
+    "compatible": true,
+    "allisoneMode": ["Watcher Light + Dicom"],
+    "status": "Not started",
+    "notes": "Support Morita i-Dixel"
+  },
+  "rayscan": {
+    "compatible": true,
+    "allisoneMode": ["Full Watcher Dicom", "Generic Dicom"],
+    "status": "Generic Dicom",
+    "notes": "Support DICOM générique"
+  },
+  "scanora": {
+    "compatible": true,
+    "allisoneMode": ["Full Watcher"],
+    "status": "Not started",
+    "notes": "Pas encore démarré"
+  },
+  "dtx-studio": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not started",
+    "notes": "Pas encore d'intégration DTX Studio"
+  },
+  "nnt": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not started",
+    "notes": "Intégration Newtom NNT pas démarrée"
+  },
+  "dentrix-ascend": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not started",
+    "notes": "Pas d'intégration Henry Schein Dentrix Ascend"
+  },
+  "mipacs": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not started",
+    "notes": "Pas d'intégration MiPACS"
+  },
+  "xrayvision": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not started",
+    "notes": "Pas d'intégration XrayVision"
   }
 }

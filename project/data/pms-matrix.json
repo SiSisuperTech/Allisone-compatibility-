@@ -1,9 +1,233 @@
 {
-  "example-pms": {
+  "biotech-dental": {
+    "compatible": true,
+    "allisoneMode": ["CreateDiagnostic (legacy)"],
+    "status": "In Prod",
+    "notes": "Intégration legacy où le partenaire upload une image directement et reçoit le rapport en JSON",
+    "limitations": ["Intégration legacy uniquement"]
+  },
+  "logosw": {
+    "compatible": true,
+    "allisoneMode": ["V1 + Image", "V1 without Image"],
+    "status": "In Prod",
+    "notes": "Logosw v12 : 1/3 utilisateurs l'ont (au 1er Septembre 24), 2/3 l'auront d'ici fin de l'année 24",
+    "limitations": ["Ordre de déploiement aléatoire", "Priorité aux cabinets <3 praticiens puis les plus gros"]
+  },
+  "spdentaire": {
+    "compatible": true,
+    "allisoneMode": ["Gateway", "V1 without Image"],
+    "status": "In Prod",
+    "notes": "SPDentaire v4.7 : 1/3 utilisateurs l'ont (au 1er Septembre 24), 2/3 l'auront d'ici fin de l'année 24",
+    "limitations": ["Ordre de déploiement aléatoire"]
+  },
+  "veasy": {
+    "compatible": true,
+    "allisoneMode": ["Gateway", "V1 without Image"],
+    "status": "In Prod",
+    "notes": "Veasy v4 : 100% déployé",
+    "limitations": []
+  },
+  "desmos": {
+    "compatible": true,
+    "allisoneMode": ["Gateway", "V1 + Image"],
+    "status": "In Prod",
+    "notes": "Intégration Gateway + V1 complète",
+    "limitations": []
+  },
+  "julie": {
     "compatible": true,
     "allisoneMode": ["Gateway"],
     "status": "In Prod",
-    "notes": "Initial example entry",
-    "supportedVersions": "v1.0+"
+    "notes": "Julie : 100% déployé gateway dans +1000 cliniques",
+    "limitations": []
+  },
+  "weclever": {
+    "compatible": true,
+    "allisoneMode": ["Gateway"],
+    "status": "In Prod",
+    "notes": "WeClever : 100% déployé gateway dans +500 cliniques",
+    "limitations": []
+  },
+  "ulyses": {
+    "compatible": true,
+    "allisoneMode": ["Gateway"],
+    "status": "In Test",
+    "notes": "Vitaldent PMS déployé gateway dans +50 cliniques",
+    "limitations": []
+  },
+  "estomed": {
+    "compatible": true,
+    "allisoneMode": ["Gateway"],
+    "status": "In Test",
+    "notes": "Plan de déploiement en janvier",
+    "limitations": []
+  },
+  "evodent": {
+    "compatible": true,
+    "allisoneMode": ["V1 + Image"],
+    "status": "In Test",
+    "notes": "Support du flux SSO, version test prévue 18 décembre 2024",
+    "limitations": []
+  },
+  "imaginasoft": {
+    "compatible": true,
+    "allisoneMode": ["Gateway"],
+    "status": "In Test",
+    "notes": "Phase pilote en cours",
+    "limitations": []
+  },
+  "cloud4dentist": {
+    "compatible": true,
+    "allisoneMode": ["Gateway", "V1 + Image"],
+    "status": "In Progress",
+    "notes": "Développement en cours",
+    "limitations": []
+  },
+  "xdent-italy": {
+    "compatible": true,
+    "allisoneMode": ["Gateway"],
+    "status": "In Progress",
+    "notes": "Doc A+ partagée pour gateway. Pas d'ETA encore",
+    "limitations": []
+  },
+  "abaden": {
+    "compatible": true,
+    "allisoneMode": ["V1 + Image"],
+    "status": "Freeze",
+    "notes": "Développement gelé",
+    "limitations": []
+  },
+  "aerona": {
+    "compatible": true,
+    "allisoneMode": ["Gateway"],
+    "status": "In Progress",
+    "notes": "Développement en cours",
+    "limitations": []
+  },
+  "cc-dentaire": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "trophy-carestream": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "galaxie": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "orisdent-orisline": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "powerdent-kopfwerk": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "mulhacensoft": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "klinikare": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "cliniccloud": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "gesden": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "vevi-clinics": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "carestack": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "r4-carestream": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "systems-for-dentists": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "dentally": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "software-of-excellence": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "solutio-gmbh": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "dampsoft": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
+  },
+  "xdent-germany": {
+    "compatible": false,
+    "allisoneMode": [],
+    "status": "Not Started",
+    "notes": "Pas encore démarré",
+    "limitations": []
   }
 }

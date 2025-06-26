@@ -6,10 +6,13 @@ Your app is now being deployed to GitHub Pages. Here's how to check the deployme
 
 1. Go to your GitHub repository: https://github.com/SiSisuperTech/Allisone-compatibility-
 2. Click on the "Actions" tab at the top
-3. You should see the "Deploy App" workflow running (or completed)
-4. Click on the workflow run to see detailed logs
-5. Once completed successfully, your app will be available at: 
+3. You should now see the workflow runs listed. If you still see "Get started with GitHub Actions", refresh the page as your latest push should have triggered a workflow.
+4. You should see the "Deploy App" workflow running (or completed)
+5. Click on the workflow run to see detailed logs
+6. Once completed successfully, your app will be available at: 
    https://SiSisuperTech.github.io/Allisone-compatibility-/
+
+Note: The first deployment may take a few minutes to complete. If you don't see any workflows running after a few minutes, check that all files were properly pushed to the repository root (not inside the project folder).
 
 ## Enabling GitHub Pages
 
@@ -40,6 +43,7 @@ If the deployment workflow fails:
    - Missing dependencies
    - Build errors
    - Path configuration issues in vite.config.ts
+   - Rollup dependency issues (fixed by removing package-lock.json and node_modules before install)
 
 ### Data Updates Not Processing
 
@@ -57,6 +61,36 @@ If the app deploys but doesn't load correctly:
 1. Check the browser console for errors
 2. Make sure the base URL in vite.config.ts matches your repository name
 3. Verify that all assets are being loaded from the correct paths
+
+### CSS Not Loading / App Looks Broken
+
+If your app deploys but appears without styling (CSS not loading):
+
+1. This is usually caused by incorrect asset paths in vite.config.ts
+2. Make sure your vite.config.ts has the correct base path:
+   ```typescript
+   export default defineConfig({
+     base: '/Allisone-compatibility-/',
+     // ... other config
+   });
+   ```
+3. The base path should match your GitHub repository name exactly
+4. After fixing, commit and push the changes - the app will redeploy automatically
+
+### GitHub Pages Permission Issues
+
+If you see "Permission to [repo] denied to github-actions[bot]" errors:
+
+1. The deployment workflow has been updated to use GitHub's official Pages deployment action
+2. Make sure GitHub Pages is enabled in your repository settings
+3. You may need to manually go to Settings > Pages and select "GitHub Actions" as the source
+
+### Deprecated Actions Error
+
+If you see errors about deprecated actions (like "deprecated version of actions/upload-artifact"):
+
+1. The workflow has been updated to use the latest versions of all GitHub Actions
+2. This should automatically resolve deprecated action warnings
 
 ## Next Steps
 
