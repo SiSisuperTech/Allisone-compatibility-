@@ -1,0 +1,10 @@
+[
+  {
+    "id": "example-pms",
+    "name": "Example PMS",
+    "company": "Example Dental Systems",
+    "logo": "https://via.placeholder.com/100?text=PMS",
+    "type": "pms",
+    "status": "Not Started"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "example-pms": {
+    "compatible": true,
+    "allisoneMode": ["Gateway"],
+    "status": "In Prod",
+    "notes": "Initial example entry",
+    "supportedVersions": "v1.0+"
+  }
+}
