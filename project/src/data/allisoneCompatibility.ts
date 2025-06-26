@@ -170,33 +170,143 @@ export const pmsAllisoneMatrix: PMSAllisoneMatrix = {
     status: 'In Test',
     notes: 'Phase pilote en cours',
     limitations: []
-  },
-  'cloud4dentist': {
+  },  'cloud4dentist': {
     compatible: true,
     allisoneMode: ['Gateway', 'V1 + Image'],
-    status: 'In Progress',
+    status: 'On Dev',
     notes: 'Développement en cours',
     limitations: []
   },
   'xdent-italy': {
     compatible: true,
     allisoneMode: ['Gateway'],
-    status: 'In Progress',
+    status: 'On Dev',
     notes: 'Doc A+ partagée pour gateway. Pas d\'ETA encore',
     limitations: []
   },
   'abaden': {
     compatible: true,
     allisoneMode: ['V1 + Image'],
-    status: 'Freeze',
+    status: 'Not Started',
     notes: 'Développement gelé',
     limitations: []
-  },
-  'aerona': {
+  },'aerona': {
     compatible: true,
     allisoneMode: ['Gateway'],
-    status: 'In Progress',
+    status: 'In Test',
     notes: 'Développement en cours',
+    limitations: []
+  },
+  'cc-dentaire': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'trophy-carestream': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'galaxie': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'mulhacensoft': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'klinikare': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'cliniccloud': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'gesden': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'vevi-clinics': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'carestack': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'r4-carestream': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'systems-for-dentists': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'dentally': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'software-of-excellence': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'solutio-gmbh': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'dampsoft': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
+    limitations: []
+  },
+  'xdent-germany': {
+    compatible: false,
+    allisoneMode: [],
+    status: 'Not Started',
+    notes: 'Pas encore démarré',
     limitations: []
   }
 };
@@ -279,29 +389,28 @@ export const xrayAllisoneMatrix: XrayAllisoneMatrix = {
     allisoneMode: ['Watcher Light + Dicom', 'Generic Dicom'],
     status: 'Not Started',
     notes: 'Support DICOM générique disponible'
-  },
-  'dbswin': {
+  },  'dbswin': {
     compatible: true,
     allisoneMode: ['Watcher Light + Dicom'],
-    status: 'Not started',
+    status: 'Not Started',
     notes: 'Watcher Light + export DICOM'
   },
   'i-dixel': {
     compatible: true,
     allisoneMode: ['Watcher Light + Dicom'],
-    status: 'Not started',
+    status: 'Not Started',
     notes: 'Support Morita i-Dixel'
   },
   'rayscan': {
     compatible: true,
     allisoneMode: ['Full Watcher Dicom', 'Generic Dicom'],
-    status: 'Generic Dicom',
+    status: 'Done',
     notes: 'Support DICOM générique'
   },
   'scanora': {
     compatible: true,
     allisoneMode: ['Full Watcher'],
-    status: 'Not started',
+    status: 'Not Started',
     notes: 'Pas encore démarré'
   },
   'irys': {
@@ -310,35 +419,34 @@ export const xrayAllisoneMatrix: XrayAllisoneMatrix = {
     status: 'Done',
     supportedVersions: '≥ 16',
     notes: 'Compatible versions 16+'
-  },
-  'dtx-studio': {
+  },  'dtx-studio': {
     compatible: false,
     allisoneMode: [],
-    status: 'Not started',
+    status: 'Not Started',
     notes: 'Pas encore d\'intégration DTX Studio'
   },
   'nnt': {
     compatible: false,
     allisoneMode: [],
-    status: 'Not started',
+    status: 'Not Started',
     notes: 'Intégration Newtom NNT pas démarrée'
   },
   'dentrix-ascend': {
     compatible: false,
     allisoneMode: [],
-    status: 'Not started',
+    status: 'Not Started',
     notes: 'Pas d\'intégration Henry Schein Dentrix Ascend'
   },
   'mipacs': {
     compatible: false,
     allisoneMode: [],
-    status: 'Not started',
+    status: 'Not Started',
     notes: 'Pas d\'intégration MiPACS'
   },
   'xrayvision': {
     compatible: false,
     allisoneMode: [],
-    status: 'Not started',
+    status: 'Not Started',
     notes: 'Pas d\'intégration XrayVision'
   }
 };
