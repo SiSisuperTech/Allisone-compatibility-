@@ -1,17 +1,12 @@
-import { defineConfig } from "vite";
-
-// @ts-expect-error process is a nodejs global
-const host = process.env.TAURI_DEV_HOST;
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
-export default defineConfig(async () => ({
-  // clearScreen: false, // Optional: keep if you like this behavior for dev
-  server: {
-    port: 1420,
-    strictPort: true
-    // host: undefined, // Defaults to 'localhost'
-    // watch: { // No longer need to ignore src-tauri
-    //   ignored: ["**/src-tauri/**"],
-    // },
+export default defineConfig({
+  plugins: [react()],
+  optimizeDeps: {
+    exclude: ['lucide-react'],
   },
-}));
+  // Add base URL for GitHub Pages deployment
+  base: '/Allisone-compatibility-/',
+});
