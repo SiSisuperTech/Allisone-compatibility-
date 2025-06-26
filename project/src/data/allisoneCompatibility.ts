@@ -111,11 +111,11 @@ export const pmsAllisoneMatrix: PMSAllisoneMatrix = {
   },
   'desmos': {
     compatible: true,
-    allisoneMode: ['Gateway', 'V1 without Image'],
-    status: 'In Prod',
+    allisoneMode: ['Gateway', 'V1 without Image'],    status: 'In Prod',
     notes: 'Amélioration pour treatmentPlan avec Gateway + UX TP dans Desmos trop compliquée',
     limitations: ['UX Treatment Plan complexe']
-  },  'julie': {
+  },
+  'julie': {
     compatible: true,
     allisoneMode: ['Gateway'],
     status: 'In Prod',
@@ -166,11 +166,11 @@ export const pmsAllisoneMatrix: PMSAllisoneMatrix = {
   },
   'imaginasoft': {
     compatible: true,
-    allisoneMode: ['Gateway'],
-    status: 'In Test',
+    allisoneMode: ['Gateway'],    status: 'In Test',
     notes: 'Phase pilote en cours',
     limitations: []
-  },  'cloud4dentist': {
+  },
+  'cloud4dentist': {
     compatible: true,
     allisoneMode: ['Gateway', 'V1 + Image'],
     status: 'On Dev',
@@ -186,11 +186,11 @@ export const pmsAllisoneMatrix: PMSAllisoneMatrix = {
   },
   'abaden': {
     compatible: true,
-    allisoneMode: ['V1 + Image'],
-    status: 'Not Started',
+    allisoneMode: ['V1 + Image'],    status: 'Not Started',
     notes: 'Développement gelé',
     limitations: []
-  },'aerona': {
+  },
+  'aerona': {
     compatible: true,
     allisoneMode: ['Gateway'],
     status: 'In Test',
@@ -341,13 +341,13 @@ export const xrayAllisoneMatrix: XrayAllisoneMatrix = {
     supportedVersions: 'All versions prior to 4.x',
     notes: 'Versions antérieures à 4.x uniquement'
   },
-  'vistasoft': {
-    compatible: true,
+  'vistasoft': {    compatible: true,
     allisoneMode: ['A+ v2 - Server Mode', 'A+ v2 - Bridge Mode', 'Watcher Light + Dicom'],
     status: 'Done',
     supportedVersions: '2.x or 3.x',
     notes: 'Compatible versions 2.x et 3.x'
-  },  'ais': {
+  },
+  'ais': {
     compatible: true,
     allisoneMode: ['A+ v2 - Server Mode', 'A+ v2 - Bridge Mode', 'Watcher Light + Dicom'],
     status: 'Done',
@@ -361,11 +361,11 @@ export const xrayAllisoneMatrix: XrayAllisoneMatrix = {
     notes: 'Intégration complète'
   },
   'quickvision': {
-    compatible: true,
-    allisoneMode: ['A+ v2 - Server Mode', 'A+ v2 - Bridge Mode', 'Full Watcher Dicom'],
+    compatible: true,    allisoneMode: ['A+ v2 - Server Mode', 'A+ v2 - Bridge Mode', 'Full Watcher Dicom'],
     status: 'Done',
     notes: 'Compatible avec Owandy QuickVision'
-  },  'ezdent-i': {
+  },
+  'ezdent-i': {
     compatible: true,
     allisoneMode: ['A+ v2 - Server Mode', 'A+ v2 - Bridge Mode', 'Full Watcher Dicom'],
     status: 'Done',
@@ -386,10 +386,10 @@ export const xrayAllisoneMatrix: XrayAllisoneMatrix = {
   },
   'mediadent': {
     compatible: true,
-    allisoneMode: ['Watcher Light + Dicom', 'Generic Dicom'],
-    status: 'Not Started',
+    allisoneMode: ['Watcher Light + Dicom', 'Generic Dicom'],    status: 'Not Started',
     notes: 'Support DICOM générique disponible'
-  },  'dbswin': {
+  },
+  'dbswin': {
     compatible: true,
     allisoneMode: ['Watcher Light + Dicom'],
     status: 'Not Started',
@@ -416,10 +416,10 @@ export const xrayAllisoneMatrix: XrayAllisoneMatrix = {
   'irys': {
     compatible: true,
     allisoneMode: ['A+ v2 - Bridge Mode', 'Full Watcher Dicom', 'Generic Dicom'],
-    status: 'Done',
-    supportedVersions: '≥ 16',
+    status: 'Done',    supportedVersions: '≥ 16',
     notes: 'Compatible versions 16+'
-  },  'dtx-studio': {
+  },
+  'dtx-studio': {
     compatible: false,
     allisoneMode: [],
     status: 'Not Started',
