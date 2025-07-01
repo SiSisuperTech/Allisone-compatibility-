@@ -570,19 +570,19 @@ function App() {
       root.classList.add('h-full', 'w-full');
     }
   }, []);  return (
-    <div className="h-screen w-screen bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 font-sans transition-colors duration-300 overflow-y-auto">
+    <div className="min-h-screen w-full bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 font-sans transition-colors duration-300">
       <Header currentView={currentView} onViewChange={setCurrentView} />
       {currentView === 'matrix' ? (
-        <div className="absolute inset-0 top-20 bg-white dark:bg-gray-800 flex flex-col overflow-hidden">
-          <div className="px-6 py-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+        <div className="flex flex-col min-h-[calc(100vh-5rem)] bg-white dark:bg-gray-800">
+          <div className="px-3 sm:px-6 py-3 sm:py-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
-                Compatibility Matrix
-                <span className="ml-3 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 text-xs font-medium px-2.5 py-0.5 rounded-full">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-0">
+                <span>Compatibility Matrix</span>
+                <span className="sm:ml-3 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 text-xs font-medium px-2.5 py-0.5 rounded-full w-fit">
                   {allPmsSoftware.length} PMS × {allXraySoftware.length} X-ray
                 </span>
               </h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">
                 Showing all {allXraySoftware.length} X-ray systems. Scroll horizontally to view more.
               </p>
             </div>            <div className="flex items-center space-x-4">
@@ -617,24 +617,29 @@ function App() {
               </div>
             </div>
           </div>
-            <div className="flex-1 overflow-auto" ref={tableContainerRef}>
-            <table className="min-w-full border-collapse">              <thead className="bg-gray-100 dark:bg-gray-900/80 backdrop-blur-sm sticky top-0 z-20">
-                <tr>
-                  <th scope="col" className="sticky left-0 z-30 bg-gray-100 dark:bg-gray-900/80 p-4 text-left text-sm font-semibold text-gray-900 dark:text-white min-w-[250px] shadow-sm">
-                    PMS Software
-                  </th>
-                  {tableHeaders}
-                </tr>
-              </thead>              <tbody className="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">                {tableRows}
-              </tbody>
-            </table>
+          <div className="flex-1 overflow-auto px-2 sm:px-0" ref={tableContainerRef}>
+            <div className="min-w-full">
+              <table className="w-full border-collapse">
+                <thead className="bg-gray-100 dark:bg-gray-900/80 backdrop-blur-sm sticky top-0 z-20">
+                  <tr>
+                    <th scope="col" className="sticky left-0 z-30 bg-gray-100 dark:bg-gray-900/80 p-2 sm:p-4 text-left text-xs sm:text-sm font-semibold text-gray-900 dark:text-white min-w-[180px] sm:min-w-[250px] shadow-sm">
+                      PMS Software
+                    </th>
+                    {tableHeaders}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">
+                  {tableRows}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       ) : (
-        <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 min-h-[calc(100vh-4rem)]">
+        <main className="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-6 sm:py-10 min-h-[calc(100vh-4rem)]">
         
         {currentView === 'checker' && (
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             <SoftwareSelector
               pmsSoftware={allPmsSoftware}
               xraySoftware={allXraySoftware}
@@ -646,7 +651,7 @@ function App() {
               }}
               onXrayChange={setSelectedXray}
             />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               {selectedPMS && hasGatewayIntegration && (
                 <div className="bg-gradient-to-r from-blue-50 to-blue-100/70 dark:from-blue-900/30 dark:to-blue-800/10 p-4 rounded-lg shadow-sm border border-blue-200 dark:border-blue-700 flex items-center space-x-4">
                   <div className="h-10 w-10 rounded-full bg-blue-100 dark:bg-blue-800/30 flex items-center justify-center shadow-sm flex-shrink-0">

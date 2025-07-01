@@ -26,17 +26,17 @@ const Header = ({ currentView = 'checker', onViewChange }: HeaderProps) => {
 
   return (
     <header className="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-30 transition-colors duration-300">
-      <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <div className="flex items-center">
-            <img src="/Allisone-compatibility-/logo.png" alt="Allisone AI Logo" className="h-12 w-auto mr-4"/>
+      <div className="w-full px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20">
+          <div className="flex items-center min-w-0">
+            <img src="/Allisone-compatibility-/logo.png" alt="Allisone AI Logo" className="h-8 sm:h-12 w-auto mr-2 sm:mr-4 flex-shrink-0"/>
             <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
+              <div className="ml-6 lg:ml-10 flex items-baseline space-x-3 lg:space-x-4">
                 {navItems.map((item) => (
                   <button
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
-                    className={`transition-colors ${
+                    className={`transition-colors text-sm lg:text-base ${
                       currentView === item.id 
                         ? 'text-blue-600 dark:text-blue-400 font-medium' 
                         : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
@@ -52,25 +52,25 @@ const Header = ({ currentView = 'checker', onViewChange }: HeaderProps) => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            className="md:hidden p-1.5 sm:p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
           >
             {isMenuOpen ? (
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
             ) : (
-              <Menu className="w-6 h-6" />
+              <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
             )}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-700">
-            <nav className="flex flex-col space-y-3">
+          <div className="md:hidden py-3 sm:py-4 border-t border-gray-200 dark:border-gray-700">
+            <nav className="flex flex-col space-y-2 sm:space-y-3">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`text-left py-2 transition-colors ${
+                  className={`text-left py-2 text-sm sm:text-base transition-colors ${
                     currentView === item.id 
                       ? 'text-blue-600 dark:text-blue-400 font-medium' 
                       : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'

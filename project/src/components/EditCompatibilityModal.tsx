@@ -113,7 +113,8 @@ const EditCompatibilityModal: React.FC<EditCompatibilityModalProps> = ({
   return (
     <Transition show={isOpen} as={React.Fragment}>
       <Dialog as="div" className="fixed inset-0 z-50 overflow-y-auto" onClose={onClose}>
-        <div className="flex items-center justify-center min-h-screen px-4">          <Transition.Child
+        <div className="flex items-center justify-center min-h-screen px-2 sm:px-4 py-4">
+          <Transition.Child
             as={React.Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0"
@@ -134,20 +135,26 @@ const EditCompatibilityModal: React.FC<EditCompatibilityModalProps> = ({
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6">
-              <div className="absolute top-4 right-4">
+            <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-sm sm:max-w-3xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto p-4 sm:p-6 mobile-scroll">
+              <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
                 <button
                   type="button"
-                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 touch-target"
                   onClick={onClose}
                 >
-                  <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                  <XMarkIcon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
                 </button>
               </div>
 
-              <Dialog.Title as="h3" className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                Edit Compatibility: {pms.name} + {xray.name}
+              <Dialog.Title as="h3" className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 pr-8 sm:pr-10">
+                <span className="block sm:hidden">Edit Compatibility</span>
+                <span className="hidden sm:block">Edit Compatibility: {pms.name} + {xray.name}</span>
               </Dialog.Title>
+              
+              {/* Mobile-only software info */}
+              <div className="block sm:hidden mb-4 text-sm text-gray-600 dark:text-gray-400">
+                {pms.name} + {xray.name}
+              </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 {/* PMS Configuration */}
