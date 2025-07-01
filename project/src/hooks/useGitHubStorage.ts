@@ -3,6 +3,7 @@ import { useLocalStorage } from './useLocalStorage';
 import { getLatestData, saveCompatibility, savePmsSoftware, saveXraySoftware, deleteSoftware, saveLogo } from '../services/githubStorage';
 import { PMSAllisoneMatrix, XrayAllisoneMatrix } from '../types/allisone';
 import { CustomSoftware } from '../types/software';
+import { pmsAllisoneMatrix, xrayAllisoneMatrix } from '../data/allisoneCompatibility';
 import { toast } from 'react-toastify';
 
 interface UseGitHubStorageOptions<T> {
@@ -157,13 +158,13 @@ export function useGitHubStorage<T>({ key, initialValue, type }: UseGitHubStorag
 export function useCompatibilityData() {
   const pmsMatrix = useGitHubStorage<PMSAllisoneMatrix>({
     key: 'pms-compatibility-matrix',
-    initialValue: {},
+    initialValue: pmsAllisoneMatrix,
     type: 'pms-matrix'
   });
   
   const xrayMatrix = useGitHubStorage<XrayAllisoneMatrix>({
     key: 'xray-compatibility-matrix',
-    initialValue: {},
+    initialValue: xrayAllisoneMatrix,
     type: 'xray-matrix'
   });
   
