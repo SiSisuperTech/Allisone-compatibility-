@@ -209,7 +209,7 @@ function App() {
 
   // Use GitHub storage for PMS software list
   const pmsSoftwareStorage = useGitHubStorage<CustomSoftware[]>({
-    key: 'all-pms-software',
+    key: 'all-pms-software-v2', // Changed key to force refresh
     initialValue: basePmsSoftware.map(s => ({ ...s, type: 'pms', status: pmsAllisoneMatrix[s.id]?.status || 'Not Started' })),
     type: 'pms-software'
   });  const pmsSoftwareList = pmsSoftwareStorage.value;
@@ -217,7 +217,7 @@ function App() {
 
   // Use GitHub storage for X-ray software list
   const xraySoftwareStorage = useGitHubStorage<CustomSoftware[]>({
-    key: 'all-xray-software',
+    key: 'all-xray-software-v2', // Changed key to force refresh
     initialValue: baseXraySoftware.map(s => ({ ...s, type: 'xray', status: xrayAllisoneMatrix[s.id]?.status || 'Not Started' })),
     type: 'xray-software'
   });

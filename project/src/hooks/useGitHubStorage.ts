@@ -160,13 +160,13 @@ export function useGitHubStorage<T>({ key, initialValue, type }: UseGitHubStorag
 // Custom hook for compatibility data specifically
 export function useCompatibilityData() {
   const pmsMatrix = useGitHubStorage<PMSAllisoneMatrix>({
-    key: 'pms-compatibility-matrix',
+    key: 'pms-compatibility-matrix-v2', // Changed key to force refresh
     initialValue: pmsAllisoneMatrix,
     type: 'pms-matrix'
   });
   
   const xrayMatrix = useGitHubStorage<XrayAllisoneMatrix>({
-    key: 'xray-compatibility-matrix',
+    key: 'xray-compatibility-matrix-v2', // Changed key to force refresh
     initialValue: xrayAllisoneMatrix,
     type: 'xray-matrix'
   });
