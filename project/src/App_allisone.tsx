@@ -403,8 +403,9 @@ function App() {
 
   const pmsCompatibilityResult = useMemo(() => {
     if (!selectedPMS) return null;
-    return analyzeAllisoneCompatibility(selectedPMS, '', pmsMatrix, xrayMatrix);
-  }, [selectedPMS, pmsMatrix, xrayMatrix]);
+    const pmsData = pmsMatrix[selectedPMS];
+    return pmsData || null;
+  }, [selectedPMS, pmsMatrix]);
 
   // Check if selected PMS has gateway capabilities
   const selectedPmsData = useMemo(() => {
@@ -665,20 +666,20 @@ function App() {
                   </div>
                 </div>
               )}
-              {selectedPMS && pmsCompatibilityResult?.compatible && (
+              {selectedPMS && pmsCompatibilityResult?.compatible === true && (
                 <div className="bg-gradient-to-r from-green-50 to-green-100/70 dark:from-green-900/30 dark:to-green-800/10 p-4 rounded-lg shadow-sm border border-green-200 dark:border-green-700 flex items-center space-x-4">
                   <div className="h-10 w-10 rounded-full bg-green-100 dark:bg-green-800/30 flex items-center justify-center shadow-sm flex-shrink-0">
                     <CheckCircleIcon className="h-6 w-6 text-green-600 dark:text-green-400" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-green-800 dark:text-green-300">Ready to Connect</h4>
+                    <h4 className="font-semibold text-green-800 dark:text-green-300">PMS Compatible</h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      This PMS is compatible. All X-ray systems can be connected.
+                      This PMS is compatible with Allisone+. Select an X-ray system to check compatibility.
                     </p>
                   </div>
                 </div>
               )}
-              {selectedPMS && pmsCompatibilityResult && !pmsCompatibilityResult.compatible && (
+              {selectedPMS && pmsCompatibilityResult?.compatible === false && (
                 <div className="bg-gradient-to-r from-red-50 to-red-100/70 dark:from-red-900/30 dark:to-red-800/10 p-4 rounded-lg shadow-sm border border-red-200 dark:border-red-700 flex items-center space-x-4">
                   <div className="h-10 w-10 rounded-full bg-red-100 dark:bg-red-800/30 flex items-center justify-center shadow-sm flex-shrink-0">
                     <XCircleIcon className="h-6 w-6 text-red-600 dark:text-red-400" />
@@ -686,7 +687,7 @@ function App() {
                   <div>
                     <h4 className="font-semibold text-red-800 dark:text-red-300">PMS Not Compatible</h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      This PMS is not compatible with Allisone+.
+                      This PMS is not yet compatible with Allisone+. Development may be planned or in progress.
                     </p>
                   </div>
                 </div>
