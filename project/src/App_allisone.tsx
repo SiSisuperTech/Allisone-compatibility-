@@ -879,6 +879,24 @@ function App() {
                   <p className="text-gray-600 dark:text-gray-300 mt-1">Manage all software entries and their properties.</p>
                 </div>
                 <div className="flex items-center space-x-3">
+                  {/* Small sync status indicator */}
+                  <div className="flex items-center space-x-2">
+                    <div className={`w-2 h-2 rounded-full ${
+                      gitHubSyncStatus?.pms === 'syncing' || gitHubSyncStatus?.xray === 'syncing'
+                        ? 'bg-blue-500 animate-pulse'
+                        : gitHubSyncStatus?.pms === 'error' || gitHubSyncStatus?.xray === 'error'
+                        ? 'bg-red-500'
+                        : 'bg-green-500'
+                    }`}></div>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                      {gitHubSyncStatus?.pms === 'syncing' || gitHubSyncStatus?.xray === 'syncing'
+                        ? 'Syncing...'
+                        : gitHubSyncStatus?.pms === 'error' || gitHubSyncStatus?.xray === 'error'
+                        ? 'Sync error'
+                        : 'Synced'
+                      }
+                    </span>
+                  </div>
                   <button
                     onClick={() => syncMatrices()}
                     className={`px-4 py-2 flex items-center text-sm rounded-md transition-colors ${
@@ -896,15 +914,15 @@ function App() {
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 100 8v4a8 8 0 01-8-8z"></path>
                         </svg>
-                        Syncing with GitHub...
+                        Syncing...
                       </>
                     ) : gitHubSyncStatus?.pms === 'error' || gitHubSyncStatus?.xray === 'error' ? (
                       <>
-                        <CloudArrowUpIcon className="h-4 w-4 mr-2" /> Retry GitHub Sync
+                        <CloudArrowUpIcon className="h-4 w-4 mr-2" /> Retry Sync
                       </>
                     ) : (
                       <>
-                        <CloudArrowUpIcon className="h-4 w-4 mr-2" /> Sync with GitHub
+                        <CloudArrowUpIcon className="h-4 w-4 mr-2" /> Sync
                       </>
                     )}
                   </button>
@@ -915,16 +933,6 @@ function App() {
                     <span>Add Software</span>
                   </button>
                 </div>
-              </div>
-              <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 mt-2">
-                <CloudArrowUpIcon className="h-4 w-4" />
-                <span>
-                  Data is synced with GitHub and shared across all users. 
-                  {gitHubSyncStatus?.pms === 'synced' && gitHubSyncStatus?.xray === 'synced' ? 
-                    " Last synced: " + (new Date().toLocaleTimeString()) : 
-                    " Changes are auto-synced."
-                  }
-                </span>
               </div>
             </div>
 
@@ -1258,15 +1266,17 @@ function App() {
 
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={true}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
         draggable
         pauseOnHover
         theme="colored"
+        className="!text-sm"
+        toastClassName="!text-sm !min-h-[48px] !rounded-lg !shadow-lg !py-2"
       />
     </div>
   );

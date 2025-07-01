@@ -59,25 +59,25 @@
     "id": "cc-dentaire",
     "name": "CC Dentaire",
     "company": "CC Dentaire",
-    "logo": "/Allisone-compatibility-/logos/cc-dentaire.png",
+    "logo": "/logos/cc-dentaire.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "trophy-carestream",
     "name": "Trophy Carestream",
     "company": "Carestream",
-    "logo": "/Allisone-compatibility-/logos/trophy-carestream.png",
+    "logo": "/logos/trophy-carestream.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "galaxie",
     "name": "Galaxie",
     "company": "Idem Santé",
-    "logo": "/Allisone-compatibility-/logos/galaxie.png",
+    "logo": "/logos/galaxie.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "orisdent-orisline",
@@ -85,23 +85,23 @@
     "company": "Henry Schein",
     "logo": "https://orisdent.com/wp-content/themes/orisdent/img/orisline-logo.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "evodent",
     "name": "Evodent",
     "company": "DentalPro",
-    "logo": "/Allisone-compatibility-/logos/evodent.png",
+    "logo": "/logos/evodent.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "xdent-italy",
     "name": "XDent",
     "company": "CompuGroup",
-    "logo": "/Allisone-compatibility-/logos/xdent.png",
+    "logo": "/logos/xdent.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "powerdent-kopfwerk",
@@ -109,7 +109,7 @@
     "company": "Henry Schein",
     "logo": "https://res.cloudinary.com/beleza-na-web/image/upload/f_auto,fl_progressive,q_auto:best/v1/brand/2023_04_11_17_51_41_9/48614d56-6434-40fc-984e-307c8cf1960f-marca-powerdent-carrossel.svg",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "ulyses",
@@ -117,150 +117,150 @@
     "company": "Vitaldent",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Vitaldent.svg/2560px-Vitaldent.svg.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "abaden",
     "name": "Abaden",
     "company": "Abaden",
-    "logo": "/Allisone-compatibility-/logos/abaden.png",
+    "logo": "/logos/abaden.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "mulhacensoft",
     "name": "MulhacenSoft",
     "company": "MulhacenSoft",
-    "logo": "/Allisone-compatibility-/logos/mulhacensoft.png",
+    "logo": "/logos/mulhacensoft.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "klinikare",
     "name": "KliniKare",
     "company": "KliniKare",
-    "logo": "/Allisone-compatibility-/logos/klinikare.png",
+    "logo": "/logos/klinikare.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "cliniccloud",
     "name": "ClinicCloud",
     "company": "Doctoralia",
-    "logo": "/Allisone-compatibility-/logos/cliniccloud.png",
+    "logo": "/logos/cliniccloud.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "gesden",
     "name": "Gesden",
     "company": "Henry Schein",
-    "logo": "/Allisone-compatibility-/logos/gesden.png",
+    "logo": "/logos/gesden.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "vevi-clinics",
     "name": "Vevi Clinics",
     "company": "Vevi Clinics",
-    "logo": "/Allisone-compatibility-/logos/vevi-clinics.png",
+    "logo": "/logos/vevi-clinics.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "cloud4dentist",
     "name": "Cloud4Dentist",
     "company": "LPY Soft",
-    "logo": "/Allisone-compatibility-/logos/cloud4dentist.png",
+    "logo": "/logos/cloud4dentist.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "aerona",
     "name": "Aerona",
     "company": "Soho Capital",
-    "logo": "/Allisone-compatibility-/logos/aerona.png",
+    "logo": "/logos/aerona.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "carestack",
     "name": "CareStack",
     "company": "CareStack",
-    "logo": "/Allisone-compatibility-/logos/carestack.png",
+    "logo": "/logos/carestack.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "r4-carestream",
     "name": "R4 Carestream",
     "company": "Carestream",
-    "logo": "/Allisone-compatibility-/logos/r4-carestream.png",
+    "logo": "/logos/r4-carestream.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "systems-for-dentists",
     "name": "Systems for Dentists",
     "company": "Systems for Dentists",
-    "logo": "/Allisone-compatibility-/logos/systems-for-dentists.png",
+    "logo": "/logos/systems-for-dentists.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "dentally",
     "name": "Dentally",
     "company": "Henry Schein",
-    "logo": "/Allisone-compatibility-/logos/dentally.png",
+    "logo": "/logos/dentally.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "software-of-excellence",
     "name": "Software of Excellence",
     "company": "Henry Schein",
-    "logo": "/Allisone-compatibility-/logos/software-of-excellence.png",
+    "logo": "/logos/software-of-excellence.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "estomed",
     "name": "Estomed",
     "company": "Soho Capital",
-    "logo": "/Allisone-compatibility-/logos/estomed.png",
+    "logo": "/logos/estomed.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "imaginasoft",
     "name": "ImaginaSoft",
     "company": "Soho Capital",
-    "logo": "/Allisone-compatibility-/logos/imaginasoft.png",
+    "logo": "/logos/imaginasoft.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "solutio-gmbh",
     "name": "Solutio GmbH",
     "company": "Solutio GmbH",
-    "logo": "/Allisone-compatibility-/logos/solutio.png",
+    "logo": "/logos/solutio.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "dampsoft",
     "name": "Dampsoft",
     "company": "Dampsoft",
-    "logo": "/Allisone-compatibility-/logos/dampsoft.png",
+    "logo": "/logos/dampsoft.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   },
   {
     "id": "xdent-germany",
     "name": "XDent",
     "company": "CompuGroup",
-    "logo": "/Allisone-compatibility-/logos/xdent-germany.png",
+    "logo": "/logos/xdent-germany.png",
     "type": "pms",
-    "status": "Not Started"
+    "status": "In Prod"
   }
 ]

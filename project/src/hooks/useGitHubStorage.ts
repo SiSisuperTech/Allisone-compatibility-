@@ -52,7 +52,7 @@ export function useGitHubStorage<T>({ key, initialValue, type }: UseGitHubStorag
         // If we have remote data and it's different from local or we're forcing an update
         if (remoteData && (forceUpdate || JSON.stringify(remoteData) !== JSON.stringify(localValue))) {
           setLocalValue(remoteData as T);
-          toast.info(`Updated ${type} data from GitHub`);
+          // Removed large toast notification - sync status is shown in UI
         }
       }
       
@@ -61,7 +61,10 @@ export function useGitHubStorage<T>({ key, initialValue, type }: UseGitHubStorag
     } catch (error) {
       console.error('Failed to sync with GitHub:', error);
       setSyncStatus('error');
-      toast.error(`Failed to sync ${type} data with GitHub`);
+      // Only show error toasts for critical failures, not routine sync updates
+      if (forceUpdate) {
+        toast.error(`Failed to sync ${type} data with GitHub`);
+      }
     }
   };
   

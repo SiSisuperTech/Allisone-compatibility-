@@ -1,7 +1,7 @@
 // Script to extract complete data from allisoneCompatibility.ts and generate updated JSON files
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 // Read the TypeScript file
 const tsFile = fs.readFileSync('src/data/allisoneCompatibility.ts', 'utf8');
