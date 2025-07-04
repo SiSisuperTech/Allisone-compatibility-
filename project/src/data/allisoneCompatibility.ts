@@ -1,6 +1,17 @@
 import { PMSSoftware, XraySoftware } from '../types/software';
 import { PMSAllisoneMatrix, XrayAllisoneMatrix } from '../types/allisone';
 
+// Define the types for integration options
+export interface IntegrationOption {
+  name: string;
+  description: string;
+  pmsMode: string;
+  xrayModes: string[];
+  notes: string[];
+  limitations: string[];
+  status: string;
+}
+
 // Données PMS (inchangées)
 export const pmsSoftware: PMSSoftware[] = [
   // France 🇫🇷
@@ -90,14 +101,14 @@ export const pmsAllisoneMatrix: PMSAllisoneMatrix = {
   },
   'logosw': {
     compatible: true,
-    allisoneMode: ['V1 + Image', 'V1 without Image'],
+    allisoneMode: ['V1 + Image', 'V1 without Image', 'Wild Gateway'],
     status: 'In Prod',
-    notes: 'Logosw v12 : 1/3 utilisateurs l\'ont (au 1er Septembre 24), 2/3 l\'auront d\'ici fin de l\'année 24',
-    limitations: ['Ordre de déploiement aléatoire', 'Priorité aux cabinets <3 praticiens puis les plus gros']
+    notes: "Logosw v12 : 1/3 utilisateurs l'ont (au 1er Septembre 24), 2/3 l'auront d'ici fin de l'année 24. Wild Gateway disponible.",
+    limitations: ["Ordre de déploiement aléatoire", "Priorité aux cabinets <3 praticiens puis les plus gros"]
   },
   'spdentaire': {
     compatible: true,
-    allisoneMode: ['Gateway', 'V1 without Image'],
+    allisoneMode: ['Gateway', 'V1 without Image', 'Wild Gateway'],
     status: 'In Prod',
     notes: 'Treatment plan disponible depuis 15/11/2024',
     limitations: []
@@ -111,34 +122,35 @@ export const pmsAllisoneMatrix: PMSAllisoneMatrix = {
   },
   'desmos': {
     compatible: true,
-    allisoneMode: ['Gateway', 'V1 without Image'],    status: 'In Prod',
+    allisoneMode: ['Gateway', 'V1 without Image', 'Wild Gateway'],
+    status: 'In Prod',
     notes: 'Amélioration pour treatmentPlan avec Gateway + UX TP dans Desmos trop compliquée',
     limitations: ['UX Treatment Plan complexe']
   },
   'julie': {
     compatible: true,
-    allisoneMode: ['Gateway'],
+    allisoneMode: ['Gateway', 'Wild Gateway'],
     status: 'In Prod',
     notes: 'Connecteur (passerelle radio allisone) déployé entre octobre 2024 et janvier 2025',
     limitations: ['Diagnostic payant via forfait premium']
   },
   'weclever': {
     compatible: true,
-    allisoneMode: ['Gateway', 'V1 + Image'],
+    allisoneMode: ['Gateway', 'V1 + Image', 'Wild Gateway'],
     status: 'In Prod',
     notes: 'Gateway compatible avec Vatech, Carestream, Sirona',
     limitations: []
   },
   'orisdent-orisline': {
     compatible: true,
-    allisoneMode: ['V1 without Image'],
+    allisoneMode: ['V1 Full (Watcher)'],
     status: 'In Prod',
     notes: 'Seulement watcher en prod. Ils vont travailler sur Gateway.',
     limitations: ['Watcher uniquement pour le moment']
   },
   'powerdent-kopfwerk': {
     compatible: true,
-    allisoneMode: ['V1 without Image'],
+    allisoneMode: ['V1 Full (Watcher)'],
     status: 'In Prod',
     notes: 'Watcher workflow en prod depuis juillet 2024',
     limitations: []
@@ -454,23 +466,26 @@ export const xrayAllisoneMatrix: XrayAllisoneMatrix = {
 // Define return type for clarity
 interface CompatibilityRequirementsResult {
   compatible: boolean;
-  requirements: string[];
+  options: IntegrationOption[];
   notes: string[];
-  pmsMode?: string[];
-  xrayMode?: string[];
   pmsStatus?: string;
   xrayStatus?: string;
 }
 
 // Helper function to check if two software are compatible and what requirements exist
-export function getCompatibilityRequirements(pmsId: string, xrayId: string): CompatibilityRequirementsResult {
-  const pmsInfo = pmsAllisoneMatrix[pmsId];
-  const xrayInfo = xrayAllisoneMatrix[xrayId];
+export function getCompatibilityRequirements(
+  pmsId: string, 
+  xrayId: string,
+  pmsMatrix: PMSAllisoneMatrix,
+  xrayMatrix: XrayAllisoneMatrix
+): CompatibilityRequirementsResult {
+  const pmsInfo = pmsMatrix[pmsId];
+  const xrayInfo = xrayMatrix[xrayId];
   
   if (!pmsInfo || !xrayInfo) {
     return {
       compatible: false,
-      requirements: [],
+      options: [],
       notes: ["Information not available for one or both software"],
     };
   }
@@ -479,82 +494,66 @@ export function getCompatibilityRequirements(pmsId: string, xrayId: string): Com
   if (!pmsInfo.compatible || !xrayInfo.compatible) {
     return {
       compatible: false,
-      requirements: [],
+      options: [],
       notes: ["One or both software are not compatible with Allisone+"],
     };
   }
   
-  const requirements: string[] = [];
+  const options: IntegrationOption[] = [];
   const notes: string[] = [];
-  
-  // Check for Gateway mode (requires specific X-ray modes)
-  if (pmsInfo.allisoneMode.includes('Gateway')) {
-    // For Gateway mode, check if X-ray supports Bridge Mode
-    if (!xrayInfo.allisoneMode.includes('A+ v2 - Bridge Mode')) {
-      return {
-        compatible: false,
-        requirements: ["A+ v2 - Bridge Mode"],
-        notes: ["Gateway requires A+ v2 Bridge Mode, which is not supported by this X-ray software"],
-      };
+
+  // Iterate over each possible PMS mode and check for compatible X-ray modes
+  pmsInfo.allisoneMode.forEach(pmsMode => {
+    const compatibleXrayModes: string[] = [];
+    let optionNotes: string[] = [];
+    let limitations: string[] = [];
+
+    if (pmsMode === 'Gateway' || pmsMode === 'Wild Gateway') {
+      if (xrayInfo.allisoneMode.includes('A+ v2 - Bridge Mode') && xrayInfo.allisoneMode.includes('A+ v2 - Server Mode')) {
+        compatibleXrayModes.push('A+ v2 - Bridge Mode', 'A+ v2 - Server Mode');
+        optionNotes.push("Full Gateway integration available");
+      }
+    } else if (pmsMode.includes('V1')) {
+      if (xrayInfo.allisoneMode.some(mode => mode.includes('A+ v2') || mode.includes('Watcher'))) {
+        compatibleXrayModes.push(...xrayInfo.allisoneMode.filter(mode => mode.includes('A+ v2') || mode.includes('Watcher')));
+        optionNotes.push("Compatible via V1 integration");
+      }
+    } else if (pmsMode === 'CreateDiagnostic (legacy)') {
+        compatibleXrayModes.push('N/A'); // No specific X-ray mode required for legacy integration
+        optionNotes.push('Legacy integration for direct image upload and JSON report retrieval.');
     }
-    
-    // Also requires Server Mode for retrieving X-rays
-    if (!xrayInfo.allisoneMode.includes('A+ v2 - Server Mode')) {
-      return {
-        compatible: false,
-        requirements: ["A+ v2 - Server Mode", "A+ v2 - Bridge Mode"],
-        notes: ["Gateway requires both A+ v2 Server Mode and Bridge Mode. Server Mode is missing."],
-      };
+
+    if (compatibleXrayModes.length > 0) {
+        options.push({
+            name: pmsMode,
+            description: `Integration via ${pmsMode}`,
+            pmsMode: pmsMode,
+            xrayModes: compatibleXrayModes,
+            notes: optionNotes,
+            limitations: limitations,
+            status: pmsInfo.status
+        });
     }
-    
-    requirements.push("A+ v2 - Server Mode (on server/pano PC)");
-    requirements.push("A+ v2 - Bridge Mode (for Gateway communication)");
-    notes.push("Full Gateway integration available");
-  } 
-  // Check for other modes (V1 + Image, V1 without Image, etc.)
-  else if (pmsInfo.allisoneMode.some(mode => mode.includes('V1'))) {
-    // For V1 modes, check compatibility with X-ray's features
-    if (!xrayInfo.allisoneMode.some(mode => mode.includes('A+ v2') || mode.includes('Watcher'))) {
-      return {
-        compatible: false,
-        requirements: [],
-        notes: ["Compatible integration mode not found between these software"],
-      };
+  });
+
+  // Add global notes and status if no options are available
+  if (options.length === 0) {
+      notes.push("No compatible integration mode found between these software");
+  } else {
+    if (pmsInfo.notes) notes.push(`PMS: ${pmsInfo.notes}`);
+    if (xrayInfo.notes) notes.push(`X-ray: ${xrayInfo.notes}`);
+    if (xrayInfo.supportedVersions) {
+        notes.push(`X-ray version: ${xrayInfo.supportedVersions}`);
     }
-    
-    if (pmsInfo.allisoneMode.includes('V1 + Image')) {
-      requirements.push("Image transfer capability");
+    if (pmsInfo.limitations && pmsInfo.limitations.length > 0) {
+        notes.push(`Limitations: ${pmsInfo.limitations.join(', ')}`);
     }
-    
-    requirements.push("A+ v2 compatible mode");
-    notes.push("Compatible via V1 integration");
-  }
-  
-  // Add status information
-  if (pmsInfo.status !== 'In Prod' || xrayInfo.status !== 'Done') {
-    notes.push(`PMS Status: ${pmsInfo.status}, X-ray Status: ${xrayInfo.status}`);
-  }
-  
-  // Add specific notes from both systems
-  if (pmsInfo.notes) notes.push(`PMS: ${pmsInfo.notes}`);
-  if (xrayInfo.notes) notes.push(`X-ray: ${xrayInfo.notes}`);
-  
-  // Add version requirements if specified
-  if (xrayInfo.supportedVersions) {
-    requirements.push(`X-ray version: ${xrayInfo.supportedVersions}`);
-  }
-  
-  // Add limitations if any
-  if (pmsInfo.limitations && pmsInfo.limitations.length > 0) {
-    notes.push(`Limitations: ${pmsInfo.limitations.join(', ')}`);
   }
   
   return {
-    compatible: true,
-    requirements,
+    compatible: options.length > 0,
+    options,
     notes,
-    pmsMode: pmsInfo.allisoneMode,
-    xrayMode: xrayInfo.allisoneMode,
     pmsStatus: pmsInfo.status,
     xrayStatus: xrayInfo.status
   };

@@ -1,34 +1,32 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { pmsAllisoneMatrix, xrayAllisoneMatrix, pmsSoftware as basePmsSoftware, xraySoftware as baseXraySoftware } from './data/allisoneCompatibility';
+import { 
+  pmsAllisoneMatrix, 
+  xrayAllisoneMatrix, 
+  pmsSoftware as basePmsSoftware, 
+  xraySoftware as baseXraySoftware,
+  getCompatibilityRequirements
+} from './data/allisoneCompatibility';
 import { analyzeAllisoneCompatibility } from './utils/allisoneAnalysis';
-import { useLocalStorage } from './hooks/useLocalStorage';
 import { useCompatibilityData, useGitHubStorage } from './hooks/useGitHubStorage';
 import { CustomSoftware } from './types/software';
-import { PMSCompatibilityStatus, XrayCompatibilityStatus, PMSAllisoneMatrix, XrayAllisoneMatrix } from './types/allisone';
+import { PMSCompatibilityStatus, XrayCompatibilityStatus } from './types/allisone';
+import { getDocumentationUrl, getDocumentationTitle, getDocumentationDescription } from './data/documentationUrls';
 import Header from './components/Header';
 import SoftwareSelector from './components/SoftwareSelector';
 import EditSoftwareModal from './components/EditSoftwareModal';
 import EditCompatibilityModal from './components/EditCompatibilityModal';
-import LogoImage from './components/LogoImage';
+import EnhancedLogo from './components/EnhancedLogo';
+import NotionEmbed from './components/NotionEmbed';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   CheckCircleIcon, XCircleIcon, InformationCircleIcon, CloudIcon, BeakerIcon, XMarkIcon,
-  TrashIcon, PencilIcon, PlusCircleIcon, LightBulbIcon, CheckIcon, CloudArrowUpIcon
+  TrashIcon, PencilIcon, PlusCircleIcon, LightBulbIcon, CheckIcon, CloudArrowUpIcon,
+  ShieldCheckIcon, ArrowTopRightOnSquareIcon
 } from '@heroicons/react/24/outline';
 
 
 type ViewType = 'checker' | 'matrix' | 'admin';
-
-// Simple Tooltip Component
-const Tooltip = ({ children, text }: { children: React.ReactNode, text: string }) => (
-  <div className="relative flex items-center group">
-    {children}
-    <div className="absolute bottom-full mb-2 w-max bg-gray-800 text-white text-xs rounded-md py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-50">
-      {text}
-    </div>
-  </div>
-);
 
 // Status Indicator for Matrix - Optimized for performance
 const StatusIndicator = React.memo(({ compatibility, onCellClick, onEditClick }: { 
@@ -196,6 +194,14 @@ function App() {
     xray: any;
     compatibility: any;
   } | null>(null);
+  
+  // Notion documentation modal state
+  const [notionModalOpen, setNotionModalOpen] = useState(false);
+  const [notionModalData, setNotionModalData] = useState<{
+    url: string;
+    title: string;
+    description: string;
+  } | null>(null);
   // Use GitHub storage for compatibility matrices
   const { 
     pmsMatrix, 
@@ -209,19 +215,46 @@ function App() {
 
   // Use GitHub storage for PMS software list
   const pmsSoftwareStorage = useGitHubStorage<CustomSoftware[]>({
-    key: 'all-pms-software-v2', // Changed key to force refresh
+    key: 'all-pms-software-v3', // Changed key to force refresh and ensure complete data
     initialValue: basePmsSoftware.map(s => ({ ...s, type: 'pms', status: pmsAllisoneMatrix[s.id]?.status || 'Not Started' })),
     type: 'pms-software'
-  });  const pmsSoftwareList = pmsSoftwareStorage.value;
+  });
+  
+  // Ensure we always have at least the complete local data set (33 PMS systems)
+  const pmsSoftwareList = useMemo(() => {
+    const githubData = pmsSoftwareStorage.value;
+    const localData = basePmsSoftware.map(s => ({ ...s, type: 'pms' as const, status: pmsAllisoneMatrix[s.id]?.status || 'Not Started' as const }));
+    
+    // If GitHub data has fewer entries than local data, use local data
+    if (!githubData || githubData.length < localData.length) {
+      console.log(`Using local PMS data (${localData.length} systems) instead of GitHub data (${githubData?.length || 0} systems)`);
+      return localData;
+    }
+    return githubData;
+  }, [pmsSoftwareStorage.value]);
+  
   const setPmsSoftwareList = pmsSoftwareStorage.setValue;
 
   // Use GitHub storage for X-ray software list
   const xraySoftwareStorage = useGitHubStorage<CustomSoftware[]>({
-    key: 'all-xray-software-v2', // Changed key to force refresh
+    key: 'all-xray-software-v3', // Changed key to force refresh and ensure complete data
     initialValue: baseXraySoftware.map(s => ({ ...s, type: 'xray', status: xrayAllisoneMatrix[s.id]?.status || 'Not Started' })),
     type: 'xray-software'
   });
-  const xraySoftwareList = xraySoftwareStorage.value;
+  
+  // Ensure we always have at least the complete local data set (22 X-ray systems)
+  const xraySoftwareList = useMemo(() => {
+    const githubData = xraySoftwareStorage.value;
+    const localData = baseXraySoftware.map(s => ({ ...s, type: 'xray' as const, status: xrayAllisoneMatrix[s.id]?.status || 'Not Started' as const }));
+    
+    // If GitHub data has fewer entries than local data, use local data
+    if (!githubData || githubData.length < localData.length) {
+      console.log(`Using local X-ray data (${localData.length} systems) instead of GitHub data (${githubData?.length || 0} systems)`);
+      return localData;
+    }
+    return githubData;
+  }, [xraySoftwareStorage.value]);
+  
   const setXraySoftwareList = xraySoftwareStorage.setValue;
   
   // Use GitHub storage for logo updates
@@ -263,6 +296,7 @@ function App() {
   const handleSaveSoftware = (softwareToSave: CustomSoftware) => {
     const isNew = !softwareToSave.id;
     const listUpdater = softwareToSave.type === 'pms' ? setPmsSoftwareList : setXraySoftwareList;
+    const list = softwareToSave.type === 'pms' ? pmsSoftwareList : xraySoftwareList;
     
     const id = isNew 
       ? `${softwareToSave.type}-${softwareToSave.name.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}`
@@ -272,43 +306,44 @@ function App() {
 
     // Update the software list
     if (isNew) {
-      listUpdater(prev => [...prev, newSoftware]);
+      listUpdater([...list, newSoftware]);
     } else {
-      listUpdater(prev => prev.map(s => (s.id === id ? newSoftware : s)));
+      listUpdater(list.map(s => (s.id === id ? newSoftware : s)));
     }
 
     // Update logo for edits
     if (!isNew && newSoftware.logo) {
-      setLogoUpdates(prev => ({ ...prev, [id]: newSoftware.logo as string }));
+      setLogoUpdates({ ...logoUpdates, [id]: newSoftware.logo as string });
     }
 
   // Update the compatibility matrix for both new and edited software
     if (newSoftware.type === 'pms') {
-      setPmsMatrix((prevMatrix: PMSAllisoneMatrix) => ({
-        ...prevMatrix,
+      setPmsMatrix({
+        ...pmsMatrix,
         [id]: {
-          ...prevMatrix[id],
+          ...pmsMatrix[id],
           // A PMS is compatible if it has a status that's not "Not Started" or if it has any modes defined
-          compatible: prevMatrix[id]?.compatible || 
+          compatible: pmsMatrix[id]?.compatible || 
                      newSoftware.status !== 'Not Started' || 
-                     (prevMatrix[id]?.allisoneMode && prevMatrix[id]?.allisoneMode.length > 0),
-          allisoneMode: prevMatrix[id]?.allisoneMode || [],
+                     (pmsMatrix[id]?.allisoneMode && pmsMatrix[id]?.allisoneMode.length > 0),
+          allisoneMode: pmsMatrix[id]?.allisoneMode || [],
           status: newSoftware.status as PMSCompatibilityStatus || 'Not Started',
         }
-      }));    } else { // xray
-      setXrayMatrix((prevMatrix: XrayAllisoneMatrix) => ({
-        ...prevMatrix,
+      });
+    } else { // xray
+      setXrayMatrix({
+        ...xrayMatrix,
         [id]: {
-          ...prevMatrix[id],
+          ...xrayMatrix[id],
           // X-ray systems are considered compatible if they have a status other than "Not Started"
           // or if they have integration modes defined
-          compatible: prevMatrix[id]?.compatible || 
+          compatible: xrayMatrix[id]?.compatible || 
                      newSoftware.status !== 'Not Started' || 
-                     (prevMatrix[id]?.allisoneMode && prevMatrix[id]?.allisoneMode.length > 0),
-          allisoneMode: prevMatrix[id]?.allisoneMode || [],
+                     (xrayMatrix[id]?.allisoneMode && xrayMatrix[id]?.allisoneMode.length > 0),
+          allisoneMode: xrayMatrix[id]?.allisoneMode || [],
           status: newSoftware.status as XrayCompatibilityStatus || 'Not Started',
         }
-      }));
+      });
     }
 
     toast.success(`${newSoftware.name} ${isNew ? 'added' : 'updated'} successfully!`);
@@ -319,9 +354,9 @@ function App() {
   const handleDeleteSoftware = (softwareId: string, type: 'pms' | 'xray') => {
     if (window.confirm('Are you sure you want to delete this software?')) {
       if (type === 'pms') {
-        setPmsSoftwareList(prev => prev.filter(s => s.id !== softwareId));
+        setPmsSoftwareList(pmsSoftwareList.filter(s => s.id !== softwareId));
       } else {
-        setXraySoftwareList(prev => prev.filter(s => s.id !== softwareId));
+        setXraySoftwareList(xraySoftwareList.filter(s => s.id !== softwareId));
       }
       const newLogoUpdates = { ...logoUpdates };
       delete newLogoUpdates[softwareId];
@@ -427,22 +462,50 @@ function App() {
     setModalOpen(true);
   };
 
-  const allisoneCompatibility = selectedPMS && selectedXray 
-    ? analyzeAllisoneCompatibility(selectedPMS, selectedXray, pmsMatrix, xrayMatrix)
-    : null;
+  const handleDocumentClick = (softwareId: string, type?: 'pms' | 'xray') => {
+    // Determine type if not provided
+    let softwareType = type;
+    if (!softwareType) {
+      // Check if it's a PMS software
+      if (allPmsSoftware.find(s => s.id === softwareId)) {
+        softwareType = 'pms';
+      } else if (allXraySoftware.find(s => s.id === softwareId)) {
+        softwareType = 'xray';
+      } else {
+        return; // Unknown software type
+      }
+    }
+    
+    const docUrl = getDocumentationUrl(softwareId, softwareType);
+    if (docUrl) {
+      const software = softwareType === 'pms' 
+        ? allPmsSoftware.find(s => s.id === softwareId) 
+        : allXraySoftware.find(s => s.id === softwareId);
+      const title = getDocumentationTitle(software?.name || softwareId, softwareType);
+      const description = getDocumentationDescription(softwareType);
+      setNotionModalData({ url: docUrl, title, description });
+      setNotionModalOpen(true);
+    }
+  };
+
+  const compatibilityResult = useMemo(() => {
+    if (!selectedPMS || !selectedXray) return null;
+    return getCompatibilityRequirements(selectedPMS, selectedXray, pmsMatrix, xrayMatrix);
+  }, [selectedPMS, selectedXray, pmsMatrix, xrayMatrix]);
+
       // Extract useMemo calls from JSX to maintain consistent hook order  
   const tableHeaders = useMemo(() => {
     return allXraySoftware.map((xray) => (
       <th key={xray.id} scope="col" className="p-4 text-center text-sm font-medium text-gray-700 dark:text-gray-300 min-w-[150px]">
         <div className="flex flex-col items-center justify-center space-y-2">
           <div className="h-10 w-10 flex items-center justify-center">
-            <img 
+            <EnhancedLogo 
               src={xray.logo} 
               alt={xray.name} 
               className="h-10 w-10 object-contain" 
-              loading="lazy" 
-              width="40" 
-              height="40" 
+              size="medium"
+              notionDocUrl={getDocumentationUrl(xray.id, 'xray')}
+              onDocumentClick={() => handleDocumentClick(xray.id, 'xray')}
             />
           </div>
           <span className="block text-center font-semibold">{xray.name}</span>
@@ -529,13 +592,13 @@ function App() {
           <td className={`sticky left-0 z-10 ${rowIndex % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-700/20'} group-hover:bg-blue-50/50 dark:group-hover:bg-blue-900/10 p-3 min-w-[250px] border-r border-gray-200 dark:border-gray-700 shadow-sm`}>
             <div className="flex items-center space-x-4">
               <div className="h-10 w-10 flex items-center justify-center bg-gray-50 dark:bg-gray-700 rounded-md overflow-hidden">
-                <img 
+                <EnhancedLogo 
                   src={pms.logo} 
                   alt={pms.name} 
                   className="h-8 w-8 object-contain" 
-                  loading="lazy" 
-                  width="32" 
-                  height="32" 
+                  size="small"
+                  notionDocUrl={getDocumentationUrl(pms.id, 'pms')}
+                  onDocumentClick={() => handleDocumentClick(pms.id, 'pms')}
                 />
               </div>
               <div>
@@ -694,10 +757,10 @@ function App() {
               )}
             </div>
 
-            {allisoneCompatibility && (
-              <div className="mt-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out">                <div className={`p-6 rounded-t-2xl ${allisoneCompatibility.compatible ? 'bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/10' : 'bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/10'} border-b border-gray-200 dark:border-gray-700`}>
+            {compatibilityResult && (
+              <div className="mt-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out">                <div className={`p-6 rounded-t-2xl ${compatibilityResult.compatible ? 'bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/10' : 'bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/10'} border-b border-gray-200 dark:border-gray-700`}>
                   <div className="flex items-center space-x-4">
-                    {allisoneCompatibility.compatible ? 
+                    {compatibilityResult.compatible ? 
                       <div className="h-14 w-14 rounded-full bg-green-100 dark:bg-green-800/30 flex items-center justify-center shadow-sm">
                         <CheckCircleIcon className="h-10 w-10 text-green-600 dark:text-green-400" />
                       </div> 
@@ -709,160 +772,141 @@ function App() {
                     <div>
                       <div className="flex items-baseline space-x-2">
                         <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                          {allisoneCompatibility.compatible ? 'Compatible' : 'Not Compatible'}
+                          {compatibilityResult.compatible ? 'Compatible' : 'Not Compatible'}
                         </h3>
-                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                          allisoneCompatibility.compatible 
-                            ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300' 
-                            : 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300'
-                        }`}>
-                          {allisoneCompatibility.mode || 'No Mode'}
-                        </span>
                       </div>
                       <p className="text-gray-700 dark:text-gray-300 mt-1">
-                        via Allisone+ Integration Framework
+                        {compatibilityResult.compatible
+                          ? `Found ${compatibilityResult.options.length} integration option(s)`
+                          : 'This combination is not currently compatible'}
                       </p>
                     </div>
                   </div>
                 </div>
                 
                 <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {/* PMS Compatibility */}
-                    <div className="bg-white dark:bg-gray-800 rounded-lg p-5 shadow-sm border border-gray-200 dark:border-gray-700">
-                      <div className="flex items-center mb-4">
-                        <div className="w-10 h-10 mr-3 bg-gray-50 dark:bg-gray-700 rounded-lg p-1.5 flex items-center justify-center">
-                          <LogoImage 
-                            src={allPmsSoftware.find(p => p.id === selectedPMS)?.logo} 
-                            alt="" 
-                            className="h-full w-full object-contain"
-                            fallbackText="PMS"
-                          />
-                        </div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white text-lg">
-                          {allPmsSoftware.find(p => p.id === selectedPMS)?.name} → Allisone+
-                        </h4>
-                      </div>
-                      <div className="space-y-4">
-                        <div className="flex flex-wrap gap-y-2 gap-x-4">
-                          <div>
-                            <span className="text-sm text-gray-500 dark:text-gray-400 block mb-1">Integration Status</span>
-                            <span className={`px-3 py-1 rounded-full text-sm font-medium inline-flex items-center ${
-                              allisoneCompatibility.pmsCompatibility.status === 'In Prod' 
-                                ? 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300' 
-                                : allisoneCompatibility.pmsCompatibility.status === 'In Test' || allisoneCompatibility.pmsCompatibility.status === 'Gateway Testing'
-                                ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300'
-                                : allisoneCompatibility.pmsCompatibility.status === 'Planned'
-                                ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300'
-                                : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
-                            }`}>
-                              {allisoneCompatibility.pmsCompatibility.status === 'In Prod' && <CheckCircleIcon className="w-4 h-4 mr-1" />}
-                              {allisoneCompatibility.pmsCompatibility.status === 'In Test' && <BeakerIcon className="w-4 h-4 mr-1" />}
-                              {allisoneCompatibility.pmsCompatibility.status === 'Gateway Testing' && <BeakerIcon className="w-4 h-4 mr-1" />}
-                              {allisoneCompatibility.pmsCompatibility.status === 'Planned' && <CloudIcon className="w-4 h-4 mr-1" />}
-                              {allisoneCompatibility.pmsCompatibility.status}
-                            </span>
+                  {/* Documentation Links Section */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {selectedPMS && getDocumentationUrl(selectedPMS, 'pms') && (
+                      <button
+                        onClick={() => handleDocumentClick(selectedPMS, 'pms')}
+                        className="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group"
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div className="h-10 w-10 bg-blue-100 dark:bg-blue-800/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <img 
+                              src={selectedPmsData?.logo} 
+                              alt={selectedPmsData?.name} 
+                              className="h-6 w-6 object-contain" 
+                            />
                           </div>
-                          
-                          <div>
-                            <span className="text-sm text-gray-500 dark:text-gray-400 block mb-1">Integration Modes</span>
-                            <div className="flex flex-wrap gap-1">
-                              {allisoneCompatibility.pmsCompatibility.allisoneMode.map((mode, index) => (
-                                <span key={index} className="px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium">
-                                  {mode}
-                                </span>
-                              ))}
-                            </div>
+                          <div className="flex-1 text-left">
+                            <h5 className="font-medium text-blue-900 dark:text-blue-100">{selectedPmsData?.name} Documentation</h5>
+                            <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">Guide d'installation et configuration</p>
+                          </div>
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                            <ArrowTopRightOnSquareIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                           </div>
                         </div>
-                        
-                        {allisoneCompatibility.pmsCompatibility.supportedVersions && (
-                          <div>
-                            <span className="text-sm text-gray-500 dark:text-gray-400 block mb-1">Supported Versions</span>
-                            <span className="text-sm text-gray-900 dark:text-gray-100 font-medium">{allisoneCompatibility.pmsCompatibility.supportedVersions}</span>
+                      </button>
+                    )}
+                    {selectedXray && getDocumentationUrl(selectedXray, 'xray') && (
+                      <button
+                        onClick={() => handleDocumentClick(selectedXray, 'xray')}
+                        className="p-4 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-colors group"
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div className="h-10 w-10 bg-purple-100 dark:bg-purple-800/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <img 
+                              src={allXraySoftware.find(x => x.id === selectedXray)?.logo} 
+                              alt={allXraySoftware.find(x => x.id === selectedXray)?.name} 
+                              className="h-6 w-6 object-contain" 
+                            />
                           </div>
-                        )}
-                          {allisoneCompatibility.pmsCompatibility.notes && (
-                          <div>
-                            <span className="text-sm text-gray-500 dark:text-gray-400 block mb-1">Notes</span>
-                            <p className="text-sm text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 p-2 rounded">{allisoneCompatibility.pmsCompatibility.notes}</p>
+                          <div className="flex-1 text-left">
+                            <h5 className="font-medium text-purple-900 dark:text-purple-100">{allXraySoftware.find(x => x.id === selectedXray)?.name} Documentation</h5>
+                            <p className="text-sm text-purple-700 dark:text-purple-300 mt-1">Guide d'installation et configuration</p>
                           </div>
-                        )}
-                      </div>
-                    </div>                    {/* X-ray Compatibility */}
-                    <div className="bg-white dark:bg-gray-800 rounded-lg p-5 shadow-sm border border-gray-200 dark:border-gray-700">
-                      <div className="flex items-center mb-4">
-                        <div className="w-10 h-10 mr-3 bg-gray-50 dark:bg-gray-700 rounded-lg p-1.5 flex items-center justify-center">
-                          <LogoImage 
-                            src={allXraySoftware.find(x => x.id === selectedXray)?.logo} 
-                            alt="" 
-                            className="h-full w-full object-contain"
-                            fallbackText="X-RAY"
-                          />
-                        </div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white text-lg">
-                          {allXraySoftware.find(x => x.id === selectedXray)?.name} → Allisone+
-                        </h4>
-                      </div>
-                      <div className="space-y-4">
-                        <div className="flex flex-wrap gap-y-2 gap-x-4">
-                          <div>
-                            <span className="text-sm text-gray-500 dark:text-gray-400 block mb-1">Integration Status</span>
-                            <span className={`px-3 py-1 rounded-full text-sm font-medium inline-flex items-center ${
-                              allisoneCompatibility.xrayCompatibility.status === 'Done' 
-                                ? 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300' 
-                                : allisoneCompatibility.xrayCompatibility.status === 'Planned'
-                                ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300'
-                                : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
-                            }`}>
-                              {allisoneCompatibility.xrayCompatibility.status === 'Done' && <CheckCircleIcon className="w-4 h-4 mr-1" />}
-                              {allisoneCompatibility.xrayCompatibility.status === 'Planned' && <CloudIcon className="w-4 h-4 mr-1" />}
-                              {allisoneCompatibility.xrayCompatibility.status}
-                            </span>
-                          </div>
-                          
-                          <div>
-                            <span className="text-sm text-gray-500 dark:text-gray-400 block mb-1">Integration Modes</span>
-                            <div className="flex flex-wrap gap-1">
-                              {allisoneCompatibility.xrayCompatibility.allisoneMode.map((mode, index) => (
-                                <span key={index} className="px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium">
-                                  {mode}
-                                </span>
-                              ))}
-                            </div>
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                            <ArrowTopRightOnSquareIcon className="h-5 w-5 text-purple-600 dark:text-purple-400" />
                           </div>
                         </div>
-                        
-                        {allisoneCompatibility.xrayCompatibility.supportedVersions && (
-                          <div>
-                            <span className="text-sm text-gray-500 dark:text-gray-400 block mb-1">Supported Versions</span>
-                            <span className="text-sm text-gray-900 dark:text-gray-100 font-medium">{allisoneCompatibility.xrayCompatibility.supportedVersions}</span>
-                          </div>
-                        )}
-                        
-                        {allisoneCompatibility.xrayCompatibility.notes && (
-                          <div>
-                            <span className="text-sm text-gray-500 dark:text-gray-400 block mb-1">Notes</span>
-                            <p className="text-sm text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 p-2 rounded">{allisoneCompatibility.xrayCompatibility.notes}</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
+                      </button>
+                    )}
                   </div>
-                    {allisoneCompatibility.recommendations && allisoneCompatibility.recommendations.length > 0 && (
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/10 border border-blue-200 dark:border-blue-700 rounded-lg p-5 shadow-sm">
-                      <div className="flex items-center mb-3">
-                        <LightBulbIcon className="h-5 w-5 mr-2 text-blue-600 dark:text-blue-400" />
-                        <h4 className="font-semibold text-blue-900 dark:text-blue-300 text-lg">Recommendations</h4>
+
+                  {compatibilityResult.compatible ? (
+                    <div className="space-y-6">
+                      <div>
+                        <h4 className="font-semibold text-lg text-gray-800 dark:text-gray-200 mb-3">Available Integration Options</h4>
+                        <div className="space-y-4">
+                          {compatibilityResult.options.map((option, index) => (
+                            <div key={index} className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
+                              <div className="flex items-center mb-2">
+                                <ShieldCheckIcon className="h-6 w-6 text-blue-500 dark:text-blue-400 mr-3" />
+                                <h5 className="font-bold text-md text-gray-900 dark:text-white">{option.name}</h5>
+                                <span className={`ml-auto px-2 py-0.5 rounded-full text-xs font-medium ${option.status === 'In Prod' || option.status === 'Done' ? 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300' : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300'}`}>
+                                  {option.status}
+                                </span>
+                              </div>
+                              <p className="text-sm text-gray-600 dark:text-gray-400 ml-9 mb-3">{option.description}</p>
+                              
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ml-9">
+                                <div>
+                                  <h6 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-1">PMS Mode</h6>
+                                  <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{option.pmsMode}</p>
+                                </div>
+                                <div>
+                                  <h6 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-1">X-ray Modes</h6>
+                                  <div className="flex flex-wrap gap-1">
+                                    {option.xrayModes.map((mode, i) => (
+                                      <span key={i} className="px-2 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium">
+                                        {mode}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+
+                              {option.notes.length > 0 && (
+                                <div className="mt-3 ml-9">
+                                  <h6 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-1">Notes</h6>
+                                  <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                    {option.notes.map((note, i) => <li key={i}>{note}</li>)}
+                                  </ul>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                      <ul className="space-y-2">
-                        {allisoneCompatibility.recommendations.map((rec, index) => (
-                          <li key={index} className="flex items-start">
-                            <CheckIcon className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-2 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm text-blue-800 dark:text-blue-300">{rec}</span>
-                          </li>
-                        ))}
-                      </ul>
+
+                      {compatibilityResult.notes.length > 0 && (
+                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/10 border border-blue-200 dark:border-blue-700 rounded-lg p-5 shadow-sm">
+                          <div className="flex items-center mb-3">
+                            <LightBulbIcon className="h-5 w-5 mr-2 text-blue-600 dark:text-blue-400" />
+                            <h4 className="font-semibold text-blue-900 dark:text-blue-300 text-lg">Additional Information</h4>
+                          </div>
+                          <ul className="space-y-2">
+                            {compatibilityResult.notes.map((note, index) => (
+                              <li key={index} className="flex items-start">
+                                <CheckIcon className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-2 mt-0.5 flex-shrink-0" />
+                                <span className="text-sm text-blue-800 dark:text-blue-300">{note}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <div className="mx-auto h-16 w-16 text-red-400">
+                        <XCircleIcon />
+                      </div>
+                      <h3 className="mt-2 text-lg font-medium text-gray-900 dark:text-white">No Compatible Integration Found</h3>
+                      <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        {compatibilityResult.notes[0] || "This combination is not compatible with Allisone+."}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -942,11 +986,14 @@ function App() {
                   {allPmsSoftware.map(s => (
                     <li key={s.id} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                       <div className="flex items-center truncate space-x-3">
-                        <LogoImage 
+                        <EnhancedLogo 
                           src={s.logo} 
-                          alt="" 
+                          alt={s.name} 
                           className="h-8 w-8 object-contain rounded-md flex-shrink-0"
                           fallbackText="PMS"
+                          size="small"
+                          notionDocUrl={getDocumentationUrl(s.id, 'pms')}
+                          onDocumentClick={() => handleDocumentClick(s.id, 'pms')}
                         />
                         <div className="truncate">
                           <p className="font-medium truncate text-gray-800 dark:text-gray-200">{s.name}</p>
@@ -970,11 +1017,14 @@ function App() {
                   {allXraySoftware.map(s => (
                     <li key={s.id} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                       <div className="flex items-center truncate space-x-3">
-                        <LogoImage 
+                        <EnhancedLogo 
                           src={s.logo} 
-                          alt="" 
+                          alt={s.name} 
                           className="h-8 w-8 object-contain rounded-md flex-shrink-0"
                           fallbackText="X-RAY"
+                          size="small"
+                          notionDocUrl={getDocumentationUrl(s.id, 'xray')}
+                          onDocumentClick={() => handleDocumentClick(s.id, 'xray')}
                         />
                         <div className="truncate">
                           <p className="font-medium truncate text-gray-800 dark:text-gray-200">{s.name}</p>
@@ -995,8 +1045,7 @@ function App() {
               </div>
             </div>
           </div>
-        )}      </main>
-      )}      {modalOpen && modalData && (
+        )}      {modalOpen && modalData && (
         <div
           className="fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-4 transition-opacity duration-300"
           onClick={() => setModalOpen(false)}
@@ -1237,46 +1286,64 @@ function App() {
                   )}
                 </>
               )}
-            </div>
+            </div>            </div>
           </div>
-        </div>
-      )}      <EditSoftwareModal
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-        onSave={handleSaveSoftware}
-        software={editingSoftware}
-        pmsStatusOptions={pmsStatusOptions}
-        xrayStatusOptions={xrayStatusOptions}
-      />
-        {/* Modal for editing compatibility directly from the matrix */}
-      <EditCompatibilityModal
-        isOpen={!!editingCompatibility && modalOpen}
-        onClose={() => {
-          setModalOpen(false);
-          setEditingCompatibility(null);
-        }}
-        onSave={handleSaveCompatibility}
-        pms={editingCompatibility?.pms || null}
-        xray={editingCompatibility?.xray || null}
-        compatibility={modalData?.compatibility || null}
-        pmsStatusOptions={pmsStatusOptions}
-        xrayStatusOptions={xrayStatusOptions}
-        syncStatus={gitHubSyncStatus?.pms || 'idle'}
+        )}
+      </main>
+      )}
+
+      {isEditModalOpen && (
+        <EditSoftwareModal
+          isOpen={isEditModalOpen}
+          onClose={() => {
+            setIsEditModalOpen(false);
+            setEditingSoftware(null);
+          }}
+          onSave={handleSaveSoftware}
+          software={editingSoftware}
+          pmsStatusOptions={pmsStatusOptions}
+          xrayStatusOptions={xrayStatusOptions}
+        />
+      )}
+
+      {modalOpen && modalData && (
+        <EditCompatibilityModal
+          isOpen={modalOpen}
+          onClose={() => {
+            setModalOpen(false);
+            setModalData(null);
+            setEditingCompatibility(null);
+          }}
+          pms={modalData.pms}
+          xray={modalData.xray}
+          compatibility={modalData.compatibility}
+          onSave={handleSaveCompatibility}
+          pmsStatusOptions={pmsStatusOptions}
+          xrayStatusOptions={xrayStatusOptions}
+          syncStatus={gitHubSyncStatus?.pms || 'idle'}
+        />
+      )}
+
+      {/* Notion Documentation Modal */}
+      <NotionEmbed
+        notionUrl={notionModalData?.url}
+        title={notionModalData?.title}
+        description={notionModalData?.description}
+        isOpen={notionModalOpen}
+        onClose={() => setNotionModalOpen(false)}
       />
 
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        hideProgressBar={true}
-        newestOnTop={true}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        className="!text-sm"
-        toastClassName="!text-sm !min-h-[48px] !rounded-lg !shadow-lg !py-2"
+      <ToastContainer 
+        position="bottom-right" 
+        autoClose={5000} 
+        hideProgressBar={false} 
+        newestOnTop={false} 
+        closeOnClick 
+        rtl={false} 
+        pauseOnFocusLoss 
+        draggable 
+        pauseOnHover 
+        theme="colored" 
       />
     </div>
   );
