@@ -56,10 +56,50 @@
     "status": "In Prod"
   },
   {
+    "id": "cc-dentaire",
+    "name": "CC Dentaire",
+    "company": "CC Dentaire",
+    "logo": "/logos/cc-dentaire.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "trophy-carestream",
+    "name": "Trophy Carestream",
+    "company": "Carestream",
+    "logo": "/logos/trophy-carestream.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "galaxie",
+    "name": "Galaxie",
+    "company": "Idem Santé",
+    "logo": "/logos/galaxie.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
     "id": "orisdent-orisline",
     "name": "OrisDent - OrisLine",
     "company": "Henry Schein",
     "logo": "https://orisdent.com/wp-content/themes/orisdent/img/orisline-logo.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "evodent",
+    "name": "Evodent",
+    "company": "DentalPro",
+    "logo": "/logos/evodent.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "xdent-italy",
+    "name": "XDent",
+    "company": "CompuGroup",
+    "logo": "/logos/xdent.png",
     "type": "pms",
     "status": "In Prod"
   },
@@ -78,5 +118,150 @@
     "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Vitaldent.svg/2560px-Vitaldent.svg.png",
     "type": "pms",
     "status": "In Prod"
+  },
+  {
+    "id": "abaden",
+    "name": "Abaden",
+    "company": "Abaden",
+    "logo": "/logos/abaden.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "mulhacensoft",
+    "name": "MulhacenSoft",
+    "company": "MulhacenSoft",
+    "logo": "/logos/mulhacensoft.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "klinikare",
+    "name": "KliniKare",
+    "company": "KliniKare",
+    "logo": "/logos/klinikare.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "cliniccloud",
+    "name": "ClinicCloud",
+    "company": "Doctoralia",
+    "logo": "/logos/cliniccloud.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "gesden",
+    "name": "Gesden",
+    "company": "Henry Schein",
+    "logo": "/logos/gesden.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "vevi-clinics",
+    "name": "Vevi Clinics",
+    "company": "Vevi Clinics",
+    "logo": "/logos/vevi-clinics.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "cloud4dentist",
+    "name": "Cloud4Dentist",
+    "company": "LPY Soft",
+    "logo": "/logos/cloud4dentist.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "aerona",
+    "name": "Aerona",
+    "company": "Soho Capital",
+    "logo": "/logos/aerona.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "carestack",
+    "name": "CareStack",
+    "company": "CareStack",
+    "logo": "/logos/carestack.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "r4-carestream",
+    "name": "R4 Carestream",
+    "company": "Carestream",
+    "logo": "/logos/r4-carestream.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "systems-for-dentists",
+    "name": "Systems for Dentists",
+    "company": "Systems for Dentists",
+    "logo": "/logos/systems-for-dentists.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "dentally",
+    "name": "Dentally",
+    "company": "Henry Schein",
+    "logo": "/logos/dentally.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "software-of-excellence",
+    "name": "Software of Excellence",
+    "company": "Henry Schein",
+    "logo": "/logos/software-of-excellence.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "estomed",
+    "name": "Estomed",
+    "company": "Soho Capital",
+    "logo": "/logos/estomed.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "imaginasoft",
+    "name": "ImaginaSoft",
+    "company": "Soho Capital",
+    "logo": "/logos/imaginasoft.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "solutio-gmbh",
+    "name": "Solutio GmbH",
+    "company": "Solutio GmbH",
+    "logo": "/logos/solutio.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "dampsoft",
+    "name": "Dampsoft",
+    "company": "Dampsoft",
+    "logo": "/logos/dampsoft.png",
+    "type": "pms",
+    "status": "In Prod"
+  },
+  {
+    "id": "xdent-germany",
+    "name": "XDent",
+    "company": "CompuGroup",
+    "logo": "/logos/xdent-germany.png",
+    "type": "pms",
+    "status": "In Prod"
   }
 ]
+
