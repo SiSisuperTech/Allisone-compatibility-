@@ -11,12 +11,14 @@ import { useCompatibilityData, useGitHubStorage } from './hooks/useGitHubStorage
 import { CustomSoftware } from './types/software';
 import { PMSCompatibilityStatus, XrayCompatibilityStatus } from './types/allisone';
 import { getDocumentationUrl, getDocumentationTitle, getDocumentationDescription } from './data/documentationUrls';
+import { BUILD_INFO } from './utils/buildInfo';
 import Header from './components/Header';
 import SoftwareSelector from './components/SoftwareSelector';
 import EditSoftwareModal from './components/EditSoftwareModal';
 import EditCompatibilityModal from './components/EditCompatibilityModal';
 import EnhancedLogo from './components/EnhancedLogo';
 import NotionEmbed from './components/NotionEmbed';
+import DeploymentInfo from './components/DeploymentInfo';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
@@ -633,6 +635,58 @@ function App() {
     if (root) {
       root.classList.add('h-full', 'w-full');
     }
+  }, []);
+
+  // Cache busting and deployment info
+  useEffect(() => {
+    // Add build timestamp to document for cache busting
+    const buildTimestamp = BUILD_INFO.timestamp;
+    document.documentElement.setAttribute('data-build', buildTimestamp.toString());
+    
+    // Add cache-busting meta tags
+    const cacheBustMeta = document.createElement('meta');
+    cacheBustMeta.httpEquiv = 'Cache-Control';
+    cacheBustMeta.content = 'no-cache, no-store, must-revalidate';
+    document.head.appendChild(cacheBustMeta);
+    
+    const pragmaMeta = document.createElement('meta');
+    pragmaMeta.httpEquiv = 'Pragma';
+    pragmaMeta.content = 'no-cache';
+    document.head.appendChild(pragmaMeta);
+    
+    const expiresMeta = document.createElement('meta');
+    expiresMeta.httpEquiv = 'Expires';
+    expiresMeta.content = '0';
+    document.head.appendChild(expiresMeta);
+    
+    // Log deployment info for debugging
+    console.log('🚀 Allisone+ Enhanced Deployment Info:', {
+      version: BUILD_INFO.version,
+      buildDate: BUILD_INFO.buildDate,
+      timestamp: BUILD_INFO.timestamp,
+      gitCommit: BUILD_INFO.gitCommit,
+      cacheBustParam: `v=${BUILD_INFO.timestamp}`
+    });
+    
+    // Force refresh of any cached data
+    if ('caches' in window) {
+      caches.keys().then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            return caches.delete(cacheName);
+          })
+        );
+      }).then(() => {
+        console.log('🧹 Browser caches cleared for fresh deployment');
+      });
+    }
+    
+    return () => {
+      // Cleanup meta tags on unmount
+      document.head.removeChild(cacheBustMeta);
+      document.head.removeChild(pragmaMeta);
+      document.head.removeChild(expiresMeta);
+    };
   }, []);  return (
     <div className="min-h-screen w-full bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-200 font-sans transition-colors duration-300">
       <Header currentView={currentView} onViewChange={setCurrentView} />
@@ -979,6 +1033,9 @@ function App() {
                 </div>
               </div>
             </div>
+
+            {/* Deployment Info Section */}
+            <DeploymentInfo />
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6">                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">PMS Software ({allPmsSoftware.length})</h3>

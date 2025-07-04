@@ -1,12 +1,20 @@
 import { PMSAllisoneMatrix, XrayAllisoneMatrix } from '../types/allisone';
 import { CustomSoftware } from '../types/software';
+import { addCacheBust } from '../utils/buildInfo';
 
 const DATA_REPO_URL = 'https://raw.githubusercontent.com/SiSisuperTech/Allisone-compatibility-/main';
 
-// Utility function to fetch data from GitHub
+// Utility function to fetch data from GitHub with cache busting
 async function fetchFromGitHub(path: string) {
   try {
-    const response = await fetch(`${DATA_REPO_URL}/${path}`);
+    const cacheBustedUrl = addCacheBust(`${DATA_REPO_URL}/${path}`);
+    const response = await fetch(cacheBustedUrl, {
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
+    });
     if (!response.ok) {
       throw new Error(`Failed to fetch ${path}: ${response.statusText}`);
     }
