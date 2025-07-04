@@ -69,6 +69,69 @@ All users of your app will share the same data because:
 
 ## Troubleshooting
 
+### Cache Issues - Force Fresh Deployment
+
+If you don't see your latest changes after deployment, it's likely a caching issue. Here are several ways to force a clean cache:
+
+#### 1. Browser Cache Clearing
+```bash
+# For users visiting the site:
+# Press Ctrl+F5 (Windows) or Cmd+Shift+R (Mac) for hard refresh
+# Or open Developer Tools (F12) and right-click refresh button → "Empty Cache and Hard Reload"
+```
+
+#### 2. Add Cache Busting to Your App
+Add this to your `index.html` to force cache invalidation:
+
+```html
+<!-- Add this meta tag to force cache refresh -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+```
+
+#### 3. URL Parameters for Testing
+Access your deployed app with cache-busting parameters:
+```
+https://SiSisuperTech.github.io/Allisone-compatibility-/?v=TIMESTAMP
+https://SiSisuperTech.github.io/Allisone-compatibility-/?nocache=true
+```
+
+#### 4. GitHub Pages Cache Clearing
+GitHub Pages has its own cache. To force refresh:
+
+1. **Wait 10 minutes** - GitHub Pages cache typically expires after 10 minutes
+2. **Check GitHub Actions** - Ensure deployment completed successfully
+3. **Use different browser** - Test in incognito/private mode
+4. **Clear DNS cache** (Windows):
+   ```powershell
+   ipconfig /flushdns
+   ```
+
+#### 5. Vite Build Cache Clearing
+If build seems stale, clear Vite cache:
+
+```powershell
+# Clear Vite cache and rebuild
+npm run build -- --force
+# Or manually delete and rebuild
+rm -rf dist node_modules/.vite
+npm run build
+```
+
+#### 6. Force New Deployment
+To force a completely fresh deployment:
+
+```powershell
+# Make a small change and redeploy
+echo "/* Cache bust $(date) */" >> src/index.css
+git add .
+git commit -m "Force cache refresh - $(date)"
+git push origin main
+```
+
+### Common Deployment Issues
+
 If deployment fails:
 
 1. Check GitHub Actions tab in your repository to see error logs
